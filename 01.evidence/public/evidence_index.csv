@@ -1,0 +1,11 @@
+evidence_id,source_title,source_type,local_note,primary_source_status,supports_claims,publication_treatment
+PUB-01,NDIA SDA Q4 2025-26 data,NDIA dataset,public_evidence/PUB-01_ndia_q4_data.md,PRIMARY_FILE_ALREADY_LOCAL,ADM-004-01;ADM-004-02;ADM-009-02,PUBLIC_PRIMARY
+PUB-02,NDIS SDA Pricing Arrangements 2026-27,NDIA guidance/pricing,public_evidence/PUB-02_sda_pricing_2026_27.md,WEB_PRIMARY,ADM-008-01;ADM-008-03,PUBLIC_PRIMARY
+PUB-03,SDA Rules 2020 current compilation,Legislation,public_evidence/PUB-03_sda_rules_current.md,WEB_PRIMARY,ADM-005-01;ADM-005-02;ADM-006-02;ADM-009-01;ADM-009-02;ADM-010-01;ADM-022-01,PUBLIC_PRIMARY
+PUB-04,Guide to providing SDA,NDIA guidance,public_evidence/PUB-04_provider_guidance.md,WEB_PRIMARY,ADM-006-01;ADM-006-02;ADM-010-01;ADM-015-01;ADM-022-01,PUBLIC_PRIMARY
+PUB-05,ASIC insolvency statistics + INFO 80,ASIC regulator,public_evidence/PUB-05_asic_insolvency.md,WEB_PRIMARY,ADM-004-05,PUBLIC_PRIMARY
+PUB-06,2026 plan reassessment reforms,Legislation + NDIA guidance,public_evidence/PUB-06_plan_reassessment_2026.md,WEB_PRIMARY,ADM-004-04,PUBLIC_PRIMARY
+PUB-08,How to enrol a home as specialist disability accommodation (SDA),PRIMARY_GUIDANCE,public_evidence/PUB-08_provider_reenrolment.md,PRIMARY_TEXT_VERIFIED_WEB,ADM-P21-01,SUPPORTED_PUBLIC
+PUB-11,How to manage specialist disability accommodation (SDA) vacancies,PRIMARY_GUIDANCE,public_evidence/PUB-11_sda_vacancy_payments.md,PRIMARY_TEXT_VERIFIED_WEB,ADM-P21-03,SUPPORTED_PUBLIC
+PUB-12,Pricing Schedule for Specialist Disability Accommodation 2026-27,PRICING_SCHEDULE,public_evidence/PUB-12_sda_pricing_schedule_gst.md,PRIMARY_TEXT_VERIFIED_WEB,ADM-P21-06,SUPPORTED_PUBLIC
+PUB-13,National Disability Insurance Scheme - GST-free supplies,PRIMARY_GUIDANCE,public_evidence/PUB-13_ato_ndis_gst.md,PRIMARY_TEXT_VERIFIED_WEB,ADM-P21-07,SUPPORTED_PUBLIC

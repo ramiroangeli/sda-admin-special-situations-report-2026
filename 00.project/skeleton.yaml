@@ -1,0 +1,331 @@
+# Revised Skeleton — Round 1 (Steve Dawson commercial review)
+#
+# STATUS: PLANNING DRAFT — round-1 revision layer. Supersedes nothing at the pack root:
+# skeleton_v0.5.yaml remains the architecture of record for visual_v0.2/draft_v0.3,
+# unchanged. This file is the architecture for steve_review_round1/draft/ +
+# steve_review_round1/visual/ only, until this round itself reaches editorial lock.
+#
+# See ../STRATEGIC_DIRECTION.md for the commercial interpretation this architecture
+# serves, and ../CHANGELOG_from_visual_v0.2.md for the page-by-page diff against
+# skeleton_v0.5.yaml. change_type on each page: NEW, MERGED, REVISED, REPOSITIONED,
+# REPURPOSED, or UNCHANGED — used to generate that changelog, not duplicated by hand.
+#
+# Net effect: 24 pages in, 24 pages out. One genuinely new page (2); one merge (old
+# 2+3 -> new 3); the freed page becomes the new page 2. Everything else keeps its
+# page's job but a majority are REVISED to serve the round-1 thesis.
+#
+# ROUND 2 NOTICE: this file documents the round-1 architecture only and was not
+# rewritten for round 2 (Steve Dawson's second review), consistent with how round 1.1
+# also left it unrefreshed. Round 2 inserts a new page 4 (glossary) and retires the
+# former page 22 as duplicative of pages 7/19 (now 8/20) — see
+# ../02.content/pages/page_04.md, ../03.production/content/pages.yaml and
+# ../00.project/changelog.md's Round 2 section for the current, authoritative page
+# map and content. Page numbers below are one-off (pre-glossary) and should not be
+# relied on for navigation past round 1.1.
+
+report_title: "Specialist Disability Accommodation Administration & Special Situations Report 2026"
+report_title_previous: "SDA Administration & Special Situations Report 2026"
+subtitle: "A Commercial Guide for Administrators, Receivers, Secured Lenders and Restructuring Advisers"
+companion_report: "SDA Market Report 2026"
+version: "round1-skeleton-0.1"
+status: PLANNING_DRAFT
+supersedes_within_this_round_only: true
+previous_locked_skeleton: ../90.archive/skeletons/skeleton_v0.5.yaml
+previous_locked_visual: ../90.archive/visual/v0.2
+previous_locked_draft: ../90.archive/drafts/v0.3
+
+north_star:
+  primary_readers:
+    - restructuring partners
+    - receivers/controllers
+    - voluntary administrators
+    - secured lenders / credit executives
+    - restructuring and insolvency lawyers
+    - turnaround advisers
+    - special-situations investors
+  reader_must_answer_within_15_20_minutes:
+    - "Why is this not a conventional property realisation?"
+    - "What could materially change the recovery outcome?"
+    - "Where would specialist commercial vendor due diligence add value here?"
+    - "When should I bring in a specialist SDA commercial adviser?"
+  positioning: "Commercial SDA guide. Not legal advice. Not a general SDA market report. Companion to SDA Market Report 2026, not a duplicate of it."
+
+# Previous journey (skeleton_v0.5): SECURE -> RECONCILE -> DIAGNOSE -> PROTECT VALUE ->
+# DECIDE. Retained as the analytical spine inside "commercial vendor due diligence,"
+# but the reader-facing journey now names the actor and the value-protection mechanism
+# before walking through the analysis.
+narrative_arc:
+  - UNDERSTAND          # SDA is not conventional property; two exposures; misleading headline data
+  - ENGAGE SPECIALIST    # specialist SDA commercial adviser, named early
+  - COMMERCIAL VENDOR DUE DILIGENCE   # reconcile, diagnose, value-reference (the old analytical spine)
+  - REMEDY / POSITION    # what's economically remediable; segmentation; chokeholds
+  - REALISE              # decide, go to market, specialist sales agency
+
+frameworks:
+  - id: sda_alignment_chain
+    name: "SDA Alignment Chain"
+    status: SUPPORTED
+    change: UNCHANGED
+  - id: two_exposures
+    name: "Two Exposures — SDA Freehold Property / SDA Provider Business"
+    status: NEW
+    note: "New framing device, page 2. Not a valuation framework — establishes the two exposures are not interchangeable. See STEVE_FEEDBACK_SOURCE.md §5."
+  - id: four_types_of_impairment
+    name: "Four Types of Impairment"
+    status: STEVE_ENDORSED
+    note: "Steve reviewed and likes this framework as-is. Added: forensic-DD caveat that these are a diagnostic starting point, not a substitute for Commercial Vendor Due Diligence. See STEVE_FEEDBACK_SOURCE.md §14."
+  - id: commercial_vendor_dd_journey
+    name: "Commercial Vendor Due Diligence Journey"
+    status: NEW
+    note: "Replaces the old page-2 operating-pathway framework as the report's headline journey. See STRATEGIC_DIRECTION.md §3."
+  - id: value_reference_points
+    name: "Value Reference Points + Remaining Pricing Tenure"
+    status: REVISED
+    note: "Adds remaining SDA pricing tenure as a named value driver alongside the two value references and Current Recovery Position. Concept only — no specific tenure duration asserted as fact. See CLAIMS_AND_EVIDENCE_IMPACT.md ADM-R1-05."
+  - id: segmentation_factor_set
+    name: "Portfolio / Buyer Segmentation Factors"
+    status: REVISED
+    note: "Expanded from 4 factors to 11 (design category, building type, sprinkler configuration, remaining pricing tenure, participant/funding profile, operating state, provider structure, alternative-use value, SA4/geography, buyer/fund mandate, portfolio size/homogeneity). No named buyers, rankings or scoring. See STEVE_FEEDBACK_SOURCE.md §16."
+  - id: decision_tree
+    name: "SDA Appointment / Realisation Decision Tree"
+    status: UNCHANGED
+  - id: current_recoverability_factors
+    name: "Hidden Chokeholds / What Affects Recoverability"
+    status: RENAMED
+    note: "Same underlying factor set as skeleton_v0.5's current_recoverability_factors; renamed and reframed to foreground the 'chokehold' concept and its remediable-vs-fundamental distinction."
+
+pages:
+  - number: 1
+    title: "Cover"
+    change_type: REVISED
+    previous_page_ref: 1
+    note: "Spells out 'Specialist Disability Accommodation' ahead of the acronym. Subtitle unchanged. See STEVE_FEEDBACK_SOURCE.md §4."
+
+  - number: 2
+    title: "Why SDA Is Different"
+    change_type: NEW
+    previous_page_ref: null
+    narrative_stage: UNDERSTAND
+    reader_question: "What am I actually dealing with?"
+    frameworks_used: [two_exposures]
+    claims: [ADM-R1-09]
+    content_file: draft/page_02.md
+    note: "Two exposures (freehold vs provider business); nascent asset class; value can range materially either direction; companion-report reference (SDA Market Report 2026). See STEVE_FEEDBACK_SOURCE.md §3, §5."
+
+  - number: 3
+    title: "When the Appointment Lands / How to Use This Report"
+    change_type: MERGED
+    previous_page_ref: [2, 3]
+    narrative_stage: UNDERSTAND
+    reader_question: "How should I use this report?"
+    content_file: draft/page_03.md
+    note: "Merges old pages 2 and 3 to free a page for the new page 2, without losing either page's job. Reader-question nav table retained."
+
+  - number: 4
+    title: "What the Headline Demand Data Does Not Tell You"
+    change_type: REPOSITIONED
+    previous_page_ref: 4
+    narrative_stage: UNDERSTAND
+    reader_question: "Does eligible SDA funding mean viable demand for this dwelling?"
+    frameworks_used: []
+    claims: [ADM-004-01, ADM-004-02, ADM-R1-02, ADM-R1-03, ADM-R1-04]
+    content_file: draft/page_04.md
+    draft_readiness: AMBER
+    draft_readiness_note: "Core distinction SUPPORTED_PUBLIC. $10k/$80k figure ILLUSTRATIVE_ONLY. 3-year ~9,000 trend NEEDS_INTERNAL_CONFIRMATION for full series — see CLAIMS_AND_EVIDENCE_IMPACT.md."
+    note: "Round 1's strongest new thesis. Was 'Why SDA Special Situations Matter Now.' See STEVE_FEEDBACK_SOURCE.md §8."
+
+  - number: 5
+    title: "What Must Line Up for an SDA Asset to Work"
+    change_type: UNCHANGED
+    previous_page_ref: 5
+    narrative_stage: UNDERSTAND
+    reader_question: "What am I dealing with?"
+    frameworks_used: [sda_alignment_chain]
+    claims: [ADM-005-01, ADM-005-02, ADM-005-03]
+    content_file: draft/page_05.md
+    draft_readiness: GREEN
+
+  - number: 6
+    title: "The First 48 Hours"
+    change_type: REVISED
+    previous_page_ref: 6
+    narrative_stage: ENGAGE SPECIALIST
+    reader_question: "What should I do next?"
+    claims: [ADM-006-01, ADM-006-02, ADM-R1-09]
+    content_file: draft/page_06.md
+    note: "Adds: engage a specialist SDA commercial adviser early if not SDA-experienced; provider-continuity workstream expanded (identify registered provider; independent-provider consideration where the entity in administration is/relates to the provider; engage constructively; protect participant continuity; preserve claiming/occupancy/funding access). See STEVE_FEEDBACK_SOURCE.md §11."
+
+  - number: 7
+    title: "The First 30 Days"
+    change_type: REVISED
+    previous_page_ref: 7
+    narrative_stage: COMMERCIAL VENDOR DUE DILIGENCE
+    reader_question: "What should I do next?"
+    claims: [ADM-007-01]
+    content_file: draft/page_07.md
+    note: "Reframed to lead into commercial due diligence before strategy, not just a sequence of tasks. See STEVE_FEEDBACK_SOURCE.md §9."
+
+  - number: 8
+    title: "From Maximum SDA Price to Actual Cash"
+    change_type: REVISED
+    previous_page_ref: 8
+    narrative_stage: COMMERCIAL VENDOR DUE DILIGENCE
+    reader_question: "Is the revenue real?"
+    claims: [ADM-008-01, ADM-008-03]
+    content_file: draft/page_08.md
+    note: "Terminology pass only — 'Commercial Due Diligence' language where the pathway isn't yet selected."
+
+  - number: 9
+    title: "Occupied Does Not Necessarily Mean Performing"
+    change_type: UNCHANGED
+    previous_page_ref: 9
+    narrative_stage: COMMERCIAL VENDOR DUE DILIGENCE
+    reader_question: "Why can an occupied SDA place still underperform economically?"
+    claims: [claim set unchanged from skeleton_v0.5]
+    content_file: draft/page_09.md
+    draft_readiness: GREEN
+
+  - number: 10
+    title: "The Provider, Contractual and Participant Information Layer"
+    change_type: REVISED
+    previous_page_ref: 10
+    narrative_stage: COMMERCIAL VENDOR DUE DILIGENCE
+    reader_question: "Why is this information hard to see, and does that stop diagnosis?"
+    claims: [ADM-R1-11]
+    content_file: draft/page_10.md
+    note: "Adds the provider/participant information misconception: relevant commercial information can be obtained and analysed de-identified without disclosing private participant data. Not privacy advice. See STEVE_FEEDBACK_SOURCE.md §10."
+
+  - number: 11
+    title: "From Actual Income to Sustainable NOI"
+    change_type: UNCHANGED
+    previous_page_ref: 11
+    narrative_stage: COMMERCIAL VENDOR DUE DILIGENCE
+    reader_question: "What does the asset actually earn on a sustainable basis?"
+    content_file: draft/page_11.md
+    draft_readiness: GREEN
+
+  - number: 12
+    title: "Value References, Remaining Pricing Tenure and Highest and Best Use"
+    change_type: REVISED
+    previous_page_ref: 12
+    narrative_stage: COMMERCIAL VENDOR DUE DILIGENCE
+    reader_question: "Where is the value, and for how long does the current pricing basis last?"
+    frameworks_used: [value_reference_points]
+    claims: [ADM-R1-01, ADM-R1-05]
+    content_file: draft/page_12.md
+    note: "Adds remaining SDA pricing tenure as a named value driver (concept only, no specific duration asserted) and a highest-and-best-use framing that does not privilege SDA in-use by default. See STEVE_FEEDBACK_SOURCE.md §6, §13."
+
+  - number: 13
+    title: "What Exactly Is Impaired?"
+    change_type: REVISED
+    previous_page_ref: 13
+    narrative_stage: COMMERCIAL VENDOR DUE DILIGENCE
+    reader_question: "What can go wrong, and how far does the diagnosis need to go?"
+    frameworks_used: [four_types_of_impairment]
+    claims: [claim set unchanged from skeleton_v0.5]
+    content_file: draft/page_13.md
+    note: "Four impairment sources retained per Steve's endorsement. Adds forensic-DD caveat and hidden-conflicts/dependencies concept. See STEVE_FEEDBACK_SOURCE.md §14."
+
+  - number: 14
+    title: "Hidden Chokeholds — What Affects Recoverability"
+    change_type: RENAMED
+    previous_page_ref: 14
+    narrative_stage: REMEDY / POSITION
+    reader_question: "What can go wrong, and is it fixable?"
+    frameworks_used: [current_recoverability_factors]
+    content_file: draft/page_14.md
+    note: "Same factor set as skeleton_v0.5's 'What Affects Current Recoverability?' Reframed around distinguishing a remediable chokehold from a fundamental impairment — the central diagnostic question this round, not just a factor list."
+
+  - number: 15
+    title: "Information Readiness"
+    change_type: REVISED
+    previous_page_ref: 15
+    narrative_stage: REMEDY / POSITION
+    reader_question: "Do I possess defensible evidence?"
+    content_file: draft/page_15.md
+    note: "Rewritten from a line-item checklist to seven high-level information categories plus a restrained SDAHC contact CTA. Protects SDAHC's detailed vendor-DD information protocol. See STEVE_FEEDBACK_SOURCE.md §15."
+
+  - number: 16
+    title: "One Portfolio or Several Transactions?"
+    change_type: REVISED
+    previous_page_ref: 16
+    narrative_stage: REMEDY / POSITION
+    reader_question: "What should I do next?"
+    frameworks_used: [segmentation_factor_set]
+    claims: [ADM-R1-08]
+    content_file: draft/page_16.md
+    note: "Materially deepened: 11 segmentation factors (was 4) plus general, non-named buyer/fund mandate behaviour examples. This is the round's deliberate 'show enough expertise without exposing IP' page. See STEVE_FEEDBACK_SOURCE.md §16."
+
+  - number: 17
+    title: "Stabilise, Hold or Sell?"
+    change_type: UNCHANGED
+    previous_page_ref: 17
+    narrative_stage: REMEDY / POSITION
+    reader_question: "Is time creating value or destroying it?"
+    content_file: draft/page_17.md
+    note: "Decision-balance visual and copy carried over from visual_v0.2 essentially as-is; terminology pass only."
+
+  - number: 18
+    title: "Occupancy Quality Through Commercial Vendor Due Diligence"
+    change_type: REVISED
+    previous_page_ref: 18
+    narrative_stage: REMEDY / POSITION
+    reader_question: "What sits behind the occupancy rate, and who determines whether it matters?"
+    content_file: draft/page_18.md
+    note: "Reframed: headline occupancy is an operating statistic; Commercial Vendor Due Diligence determines its quality, sustainability and value relevance. See STEVE_FEEDBACK_SOURCE.md §18."
+
+  - number: 19
+    title: "From Vendor Due Diligence to Market"
+    change_type: REVISED
+    previous_page_ref: 19
+    narrative_stage: REALISE
+    reader_question: "Am I actually ready to go to market?"
+    content_file: draft/page_19.md
+    note: "Sequence revised: Specialist SDA Commercial Vendor Due Diligence -> reasonable remedial/value-protection actions -> market-ready -> appoint specialist SDA sales agency -> targeted market process. Reads as a consequence of the analysis, not a pitch. See STEVE_FEEDBACK_SOURCE.md §19."
+
+  - number: 20
+    title: "What Due Diligence May Reveal Before Realisation"
+    change_type: REPLACED
+    current_page_number: 21
+    narrative_stage: REALISE
+    reader_question: "What may not be visible from the headline income position?"
+    content_file: ../02.content/pages/page_21.md
+    note: "Current page 21: enrolment continuity, occupancy/vacancy income, forensic commercial review, tax/GST/structure; advice-to-market sequence. This skeleton otherwise retains its historical numbering as disclosed above."
+
+  - number: 21
+    title: "SDA Appointment Decision Tree"
+    change_type: UNCHANGED
+    previous_page_ref: 21
+    narrative_stage: REALISE
+    reader_question: "What should I do next?"
+    frameworks_used: [decision_tree]
+    content_file: draft/page_21.md
+    note: "Terminology pass only (Commercial/Buyer/Vendor DD distinctions applied where the tree references diligence)."
+
+  - number: 22
+    title: "Before a Realisation Strategy Is Fixed"
+    change_type: REPURPOSED
+    previous_page_ref: 22
+    narrative_stage: REALISE
+    reader_question: "What should I do before I commit to a strategy?"
+    content_file: draft/page_22.md
+    note: "Replaces the detailed line-item appointment checklist with six broad workstreams (Understand / Reconcile / Diagnose / Remediate / Position / Realise) and an adviser-engagement principle. No proprietary checklist published. See STEVE_FEEDBACK_SOURCE.md §21."
+
+  - number: 23
+    title: "Where Specialist SDA Commercial Advice Adds Value"
+    change_type: REVISED
+    previous_page_ref: 23
+    narrative_stage: REALISE
+    reader_question: null
+    content_file: draft/page_23.md
+    note: "Bold, professional statement of the Vendor DD thesis added: conventional sale processes may fail to identify/resolve SDA-specific value drivers; Commercial Vendor Due Diligence distinguishes remediable impairment from impairment that belongs in the realisation strategy. No guarantee of 'optimal value.' See STEVE_FEEDBACK_SOURCE.md §17."
+
+  - number: 24
+    title: "Sources / Disclaimer / Contact"
+    change_type: REVISED
+    previous_page_ref: 24
+    narrative_stage: REALISE
+    reader_question: null
+    claims: [ADM-R1-12]
+    content_file: draft/page_24.md
+    note: "Contact block changed to Steve Dawson (named), direct phone and email, as approved in the flagship report. See STEVE_FEEDBACK_SOURCE.md §22, CLAIMS_AND_EVIDENCE_IMPACT.md."

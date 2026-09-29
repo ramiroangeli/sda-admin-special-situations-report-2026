@@ -1,0 +1,48 @@
+{
+  "version": "0.1",
+  "purpose": "Sanitised internal evidence notes for Claude Code. Raw sources remain in Notion/SharePoint and are not included.",
+  "files": [
+    {
+      "source_family": "INT-01",
+      "path": "internal_evidence/INT-01_market_intelligence_patterns.md"
+    },
+    {
+      "source_family": "INT-02",
+      "path": "internal_evidence/INT-02_vdd_information_request.md"
+    },
+    {
+      "source_family": "INT-03",
+      "path": "internal_evidence/INT-03_contract_patterns.md"
+    },
+    {
+      "source_family": "INT-04",
+      "path": "internal_evidence/INT-04_income_noi_patterns.md"
+    },
+    {
+      "source_family": "INT-05",
+      "path": "internal_evidence/INT-05_valuation_patterns.md"
+    },
+    {
+      "source_family": "INT-06",
+      "path": "internal_evidence/INT-06_provider_transition_patterns.md"
+    },
+    {
+      "source_family": "INT-07",
+      "path": "internal_evidence/INT-07_occupancy_patterns.md"
+    },
+    {
+      "source_family": "INT-08",
+      "path": "internal_evidence/INT-08_transaction_readiness_patterns.md"
+    },
+    {
+      "source_family": "INT-09",
+      "path": "internal_evidence/INT-09_special_situations_framework.md"
+    },
+    {
+      "source_family": "INT-10",
+      "path": "internal_evidence/INT-10_portfolio_packaging_buyer_dd.md"
+    }
+  ],
+  "raw_source_access": "ChatGPT only; do not ask Claude Code to fetch Notion or SharePoint.",
+  "public_copy_rule": "Use only claims allowed by the working pack claims register; do not turn qualitative internal patterns into market-wide statistics."
+}

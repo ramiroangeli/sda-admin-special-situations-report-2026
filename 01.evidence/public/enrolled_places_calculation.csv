@@ -1,0 +1,8 @@
+max_residents_bucket,dwellings_in_bucket,places_counted_this_bucket,note
+1,5705,5705,
+2,4112,8224,
+3,2169,6507,
+4,767,3068,
+5,1331,6655,
+6+,151,906,"Floored at 6 residents per dwelling (published bucket is open-ended '6+'); true total is therefore understated by an unknown amount."
+TOTAL,14235,31065,"Source: NDIA Supplement P Specialist Disability Accommodation, Table P.6 (Number of Enrolled SDA Dwellings by SA4 Region and Maximum Number of Residents), National row, as at 30 June 2026 (Supplement P Specialist Disability Accommodation 2025-26 Q4_0.xlsx). Definition: 'enrolled SDA places' = sum of each dwelling's maximum-resident capacity (i.e. bed/place capacity), not a count of dwellings. Cross-validated against SDAHC's own SDA Market Report 2026 (ndis-python-v2/scripts/build_charts_pipeline.py, TOTAL_ENROLLED constant = 31155, as at 8 June 2026, a similar but not identical as-at date and an undocumented internal formula) — the two independent figures are within 0.3% of each other, supporting the reliability of this calculation method."

@@ -1,0 +1,32 @@
+# secrets
+.env
+.env.local
+.env.*
+!.env.example
+
+# dependencies / framework build
+node_modules/
+.next/
+.vercel/
+
+# python
+__pycache__/
+*.pyc
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# regenerable build workspace (rebuild with 03.production/scripts/build.py --all)
+03.production/out/
+.sha256_check
+
+# regenerable / internal outputs: only the canonical public PDF is versioned
+05.outputs/previews/
+05.outputs/review/
+
+# archive: 35 MB of tarballs and generated visuals, kept locally only
+90.archive/
+04.review/app/public/page-renders/

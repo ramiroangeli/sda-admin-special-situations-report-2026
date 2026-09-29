@@ -1,0 +1,11 @@
+evidence_id,source_family,title,evidence_class,confidentiality,publication_treatment,supports_claims,strength,notes
+INT-E01,INT-01,Market Intelligence patterns,P3/P4,CONFIDENTIAL_INTERNAL,ANONYMISED_PUBLICABLE,ADM-004-03;ADM-004-04;ADM-009-01,Strong qualitative,No actor/deal attribution
+INT-E02,INT-02,VDD information request pattern,P2,CONFIDENTIAL_INTERNAL,ANONYMISED_PUBLICABLE,ADM-006-01;ADM-015-01;ADM-022-01,Strong,First 48h priority needs Steve
+INT-E03,INT-03,Provider/head lease/management agreement patterns,P2,CONFIDENTIAL_INTERNAL,ANONYMISED_PUBLICABLE,ADM-006-02;ADM-010-01;ADM-010-02;ADM-010-03,Strong sample,Not market-wide statistics
+INT-E04,INT-04,Income and NOI patterns,P2,CONFIDENTIAL_INTERNAL,ANONYMISED_PUBLICABLE,ADM-008-03;ADM-009-01;ADM-011-01;ADM-011-02;ADM-018-02,Strong,No universal percentages
+INT-E05,INT-05,Valuation/value lens patterns,P2,CONFIDENTIAL_INTERNAL,ANONYMISED_PUBLICABLE,ADM-012-01;ADM-012-02;ADM-012-03;ADM-014-01,Strong,No client values/addresses
+INT-E06,INT-06,Provider transition/mixed portfolio patterns,P2,CONFIDENTIAL_INTERNAL,ANONYMISED_PUBLICABLE,ADM-006-02;ADM-010-03;ADM-021-01,Strong case evidence,Use archetype only
+INT-E07,INT-07,Occupancy/vacancy patterns,P2,CONFIDENTIAL_INTERNAL,ANONYMISED_PUBLICABLE,ADM-004-02;ADM-018-01;ADM-018-02,Moderate,Sample not broad enough for market statistic
+INT-E08,INT-08,Transaction readiness patterns,P2,CONFIDENTIAL_INTERNAL,ANONYMISED_PUBLICABLE,ADM-015-01;ADM-015-02;ADM-019-01;ADM-019-02,Strong,No identifiable transaction
+INT-E09,INT-09,Special situations framework,P2,CONFIDENTIAL_INTERNAL,ANONYMISED_PUBLICABLE,ADM-007-01;ADM-013-01;ADM-016-01;ADM-017-01;ADM-021-01,Strong framework evidence,Decision triggers need Steve
+INT-E10,INT-10,Portfolio packaging/buyer DD patterns,P2,CONFIDENTIAL_INTERNAL,ANONYMISED_PUBLICABLE,ADM-015-02;ADM-016-01;ADM-016-02;ADM-019-02,Strong qualitative,No buyer-specific underwriting

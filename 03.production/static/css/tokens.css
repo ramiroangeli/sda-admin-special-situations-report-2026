@@ -1,0 +1,79 @@
+/*
+ * tokens.css — SDAHC brand tokens, reused from ndis-python-v2/tokens.css and
+ * sda-market-update/tokens.css (same values). Font paths made relative to this
+ * file (fonts/ copied locally under static/fonts/) instead of the absolute,
+ * machine-specific paths used in the two source files, for portability.
+ * Values are unchanged from the source tokens — no brand redesign.
+ */
+
+@font-face { font-family: "Playfair Display"; font-weight: 400; font-style: normal; src: url("../static/fonts/PlayfairDisplay-Regular.ttf"); }
+@font-face { font-family: "Playfair Display"; font-weight: 400; font-style: italic; src: url("../static/fonts/PlayfairDisplay-Italic.ttf"); }
+@font-face { font-family: "Playfair Display"; font-weight: 500; font-style: normal; src: url("../static/fonts/PlayfairDisplay-Medium.ttf"); }
+@font-face { font-family: "Playfair Display"; font-weight: 600; font-style: normal; src: url("../static/fonts/PlayfairDisplay-SemiBold.ttf"); }
+@font-face { font-family: "Playfair Display"; font-weight: 700; font-style: normal; src: url("../static/fonts/PlayfairDisplay-Bold.ttf"); }
+@font-face { font-family: "Playfair Display"; font-weight: 700; font-style: italic; src: url("../static/fonts/PlayfairDisplay-BoldItalic.ttf"); }
+@font-face { font-family: "Playfair Display"; font-weight: 800; font-style: normal; src: url("../static/fonts/PlayfairDisplay-ExtraBold.ttf"); }
+@font-face { font-family: "Playfair Display"; font-weight: 900; font-style: normal; src: url("../static/fonts/PlayfairDisplay-Black.ttf"); }
+
+@font-face { font-family: "Source Sans 3"; font-weight: 400; font-style: normal; src: url("../static/fonts/SourceSans3-Regular.ttf"); }
+@font-face { font-family: "Source Sans 3"; font-weight: 400; font-style: italic; src: url("../static/fonts/SourceSans3-Italic.ttf"); }
+@font-face { font-family: "Source Sans 3"; font-weight: 500; font-style: normal; src: url("../static/fonts/SourceSans3-Medium.ttf"); }
+@font-face { font-family: "Source Sans 3"; font-weight: 600; font-style: normal; src: url("../static/fonts/SourceSans3-SemiBold.ttf"); }
+@font-face { font-family: "Source Sans 3"; font-weight: 700; font-style: normal; src: url("../static/fonts/SourceSans3-Bold.ttf"); }
+@font-face { font-family: "Source Sans 3"; font-weight: 800; font-style: normal; src: url("../static/fonts/SourceSans3-ExtraBold.ttf"); }
+@font-face { font-family: "Source Sans 3"; font-weight: 900; font-style: normal; src: url("../static/fonts/SourceSans3-Black.ttf"); }
+
+@font-face { font-family: "Barlow Condensed"; font-weight: 600; font-style: normal; src: url("../static/fonts/BarlowCondensed-SemiBold.ttf"); }
+@font-face { font-family: "Barlow Condensed"; font-weight: 700; font-style: normal; src: url("../static/fonts/BarlowCondensed-Bold.ttf"); }
+@font-face { font-family: "Barlow Condensed"; font-weight: 800; font-style: normal; src: url("../static/fonts/BarlowCondensed-ExtraBold.ttf"); }
+
+:root {
+  /* Colors — identical values to ndis-python-v2/tokens.css */
+  --color-brand-primary: #0476D9;
+  --color-brand-primary-hover: #035FB0;
+  --color-brand-dark: #1B57A6;
+  --color-brand-dark-deep: #06336B;
+  --color-brand-dark-deepest: #00162B;
+  --color-surface-bg: #FFFFFF;
+  --color-surface-bg-tint: #F7F9FC;
+  --color-surface-bg-tint-2: #EEF2F7;
+  --color-surface-bg-warm: #F6F1EC;
+  --color-text-fg: #1A2A3A;
+  --color-text-fg-body: #3C5468;
+  --color-text-fg-muted: #6B8197;
+  --color-text-fg-subtle: #9AAAB9;
+  --color-text-on-dark: #FFFFFF;
+  --color-text-on-dark-muted: #B9CBE0;
+  --color-border: #E1E8EF;
+  --color-border-strong: #C8D3DE;
+  --color-border-divider: #EEF2F7;
+  --color-semantic-warning: #C97A0A;
+  --color-semantic-danger: #C8392B;
+  --color-semantic-success: #1F8A5B;
+
+  /* This publication's restrained forensic accent — same palette family,
+     used sparingly for review-mode-only elements so review markers never
+     look like part of the public visual system. */
+  --color-review-amber: #B7791F;
+  --color-review-amber-bg: #FBF3E5;
+
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-sans: "Source Sans 3", "Helvetica Neue", Arial, sans-serif;
+  --font-condensed: "Barlow Condensed", "Source Sans 3", "Arial Narrow", sans-serif;
+
+  --page-width: 210mm;
+  --page-height: 297mm;
+  --margin-outer: 20mm;
+  --margin-data: 18mm 20mm;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+}

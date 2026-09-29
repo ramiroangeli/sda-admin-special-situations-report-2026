@@ -1,0 +1,571 @@
+{# macros.html - one macro per visual_type in content/pages.yaml, plus shared
+   title/body/footer/review-panel macros. Load in page.html. #}
+
+{% macro title_block(page) %}
+<div class="title-block">
+  <div class="title-block__kicker">{{ page.kicker_section }}</div>
+  <h1 class="title-block__title">{{ page.title }}</h1>
+  {% if page.reader_question %}
+  <div class="title-block__question">{{ page.reader_question }}</div>
+  {% endif %}
+</div>
+{% endmacro %}
+
+{# ── page 3: Contents - data built by scripts/build.py's build_toc_data() from
+   the canonical pages list (group ranges, section names and page titles are
+   never retyped here), per the round-2-design-pass instruction to generate
+   the TOC from structured page data rather than a manually duplicated list. #}
+{% macro contents(d) %}
+<div class="contents-grid">
+{% for g in d.groups %}
+  <div class="contents-block">
+    <div class="contents-block__head">
+      <span class="contents-block__number">{{ g.range }}</span>
+      <span class="contents-block__name">{{ g.name }}</span>
+    </div>
+    <div class="contents-block__list">
+      {% for e in g.entries %}
+      <div class="contents-entry"><span class="contents-entry__num">{{ '%02d'|format(e.number) }}</span><span class="contents-entry__title">{{ e.title }}</span></div>
+      {% endfor %}
+    </div>
+  </div>
+{% endfor %}
+</div>
+{% endmacro %}
+
+{% macro body_copy(blocks) %}
+<div class="body-copy">
+  {% for b in blocks %}
+    {% if b.type == 'paragraph' %}
+      <p>{{ b.text | md_inline | safe }}</p>
+    {% elif b.type == 'quote' %}
+      <div class="pull-quote">{{ b.text | md_inline | safe }}</div>
+    {% elif b.type == 'list' %}
+      <ul class="simple-list">
+      {% for item in b['items'] %}
+        <li class="simple-list__item">{{ item | md_inline | safe }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+  {% endfor %}
+</div>
+{% endmacro %}
+
+{% macro source_footer(sources) %}
+{% if sources %}
+<div class="source-footer">
+  <span class="source-footer__label">Sources</span>{{ sources | join(' · ') }}
+</div>
+{% endif %}
+{% endmacro %}
+
+{# v0.2: simplified to just what Steve needs: topic, current working view,
+   decision required. Drafting-history/meta wording ("v0.3 reworded...", prior
+   draft references) is stripped from the displayed text at build time via
+   content/review_overrides.yaml; the underlying decision itself is unchanged. #}
+{% macro review_panel(entries) %}
+{% if entries %}
+<div class="review-panel">
+  <div class="review-panel__label">Steve Review: {{ entries | map(attribute='review_id') | join(' / ') }}</div>
+  {% for e in entries %}
+  <div class="review-panel__item">
+    <div class="review-panel__topic">{{ e.review_id }}: {{ e.topic }}</div>
+    <div class="review-panel__field">
+      <div class="review-panel__field-label">Current working view</div>
+      <div class="review-panel__field-text">{{ e.current_working_view }}</div>
+    </div>
+    <div class="review-panel__field">
+      <div class="review-panel__field-label">Decision required</div>
+      <div class="review-panel__field-text">{{ e.decision_required }}</div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+{% endmacro %}
+
+{# ── Cover ─────────────────────────────────────────────────────────────── #}
+{% macro cover(report, logo_uri, title_variant='primary') %}
+<div class="cover">
+  <div class="cover__inner">
+    <div class="cover__top">
+      <div class="cover__eyebrow">SDAHC Research</div>
+      <div class="cover__title">{{ (title_variant == 'alt') and report.title_alt or report.title }}</div>
+      <div class="cover__subtitle">{{ report.subtitle }}</div>
+    </div>
+    <div class="cover__footer">
+      <span>{{ report.edition }}</span>
+      <span>SDA Home Choices</span>
+    </div>
+  </div>
+</div>
+{% endmacro %}
+
+{# ── page 2 (round 1, NEW): two exposures on appointment ──────────────── #}
+{% macro two_exposures(d, qr_uri) %}
+<div class="card-grid">
+  <div class="diag-card">
+    <div class="diag-card__title">{{ d.a.label }}</div>
+    <ul class="simple-list">
+      {% for f in d.a['items'] %}<li class="simple-list__item">{{ f }}</li>{% endfor %}
+    </ul>
+  </div>
+  <div class="diag-card">
+    <div class="diag-card__title">{{ d.b.label }}</div>
+    <ul class="simple-list">
+      {% for f in d.b['items'] %}<li class="simple-list__item">{{ f }}</li>{% endfor %}
+    </ul>
+  </div>
+</div>
+{% if d.companion_note %}<div class="process-chain__note">{{ d.companion_note }}</div>{% endif %}
+{% if d.qr_callout and qr_uri %}
+<div class="qr-callout">
+  <img src="{{ qr_uri }}" class="qr-callout__code" alt="QR code linking to {{ d.qr_callout.title }}">
+  <div>
+    <div class="qr-callout__eyebrow">{{ d.qr_callout.eyebrow }}</div>
+    <div class="qr-callout__title">{{ d.qr_callout.title }}</div>
+  </div>
+</div>
+{% endif %}
+{% endmacro %}
+
+{# ── page 2: chain preview ────────────────────────────────────────────── #}
+{% macro chain_preview(d) %}
+<div class="process-chain process-chain--horizontal" style="margin-top: 8px;">
+  <div class="process-chain__step process-chain__step--emphasis">{{ d.anchor }}</div>
+  <div class="process-chain__arrow">→</div>
+  {% for s in d.steps %}
+  <div class="process-chain__step">{{ s }}</div>
+  {% if not loop.last %}<div class="process-chain__arrow">→</div>{% endif %}
+  {% endfor %}
+</div>
+<div class="process-chain__note">{{ d.pointer }}</div>
+{% endmacro %}
+
+{# ── page 3: nav toc ───────────────────────────────────────────────────── #}
+{% macro nav_toc(d) %}
+<div class="reader-q-grid">
+  {% for r in d.reader_questions %}
+  <div class="reader-q-card">
+    <div class="reader-q-card__q">“{{ r.q }}”</div>
+    <div class="reader-q-card__pages">{{ r.pages }}</div>
+  </div>
+  {% endfor %}
+</div>
+<table class="nav-table">
+  <thead><tr><th>Pages</th><th>Stage</th><th>Reader question</th></tr></thead>
+  <tbody>
+  {% for row in d.nav_table %}
+    <tr><td>{{ row.pages }}</td><td>{{ row.stage }}</td><td>{{ row.question }}</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endmacro %}
+
+{# ── page 4: stat cards ───────────────────────────────────────────────── #}
+{# Round 1: optional illustrative funding-vs-income comparison and trend note,
+   added beneath the unchanged three-figure panel. Both additive; omitted
+   entirely if d.illustrative / d.trend_note aren't set. #}
+{% macro stat_cards(d) %}
+<div class="stat-row">
+  {% for c in d.cards %}
+  <div class="stat-card">
+    <div class="stat-card__value">{{ c.value }}</div>
+    <div class="stat-card__label">{{ c.label }}</div>
+  </div>
+  {% endfor %}
+</div>
+<div class="stat-row__caption">{{ d.caption }}</div>
+{% if d.highlight_metric %}
+<div class="highlight-metric">
+  <div class="highlight-metric__value">{{ d.highlight_metric.value }}</div>
+  <div class="highlight-metric__label">{{ d.highlight_metric.label }}</div>
+  {% if d.highlight_metric.footnote %}<div class="highlight-metric__footnote">{{ d.highlight_metric.footnote }}</div>{% endif %}
+</div>
+{% endif %}
+{% if d.illustrative %}
+<div class="illustrative-compare">
+  <div class="illustrative-compare__label">{{ d.illustrative.label }}</div>
+  <div class="illustrative-compare__row">
+    <span class="illustrative-compare__row-label">{{ d.illustrative.a_label }}</span>
+    <span class="illustrative-compare__row-bar"><span class="illustrative-compare__row-fill" style="width:{{ d.illustrative.a_pct }}%;"></span></span>
+  </div>
+  <div class="illustrative-compare__row">
+    <span class="illustrative-compare__row-label">{{ d.illustrative.b_label }}</span>
+    <span class="illustrative-compare__row-bar"><span class="illustrative-compare__row-fill illustrative-compare__row-fill--b" style="width:{{ d.illustrative.b_pct }}%;"></span></span>
+  </div>
+  <div class="illustrative-compare__caption">{{ d.illustrative.caption }}</div>
+</div>
+{% endif %}
+{% if d.trend_note %}<div class="process-chain__note">{{ d.trend_note }}</div>{% endif %}
+{% endmacro %}
+
+{# ── vertical process chain (pages 5, 8) ──────────────────────────────── #}
+{% macro process_chain(d) %}
+{% if d.orientation == 'horizontal' %}
+<div class="process-chain process-chain--horizontal">
+  {% for s in d.steps %}
+  <div class="process-chain__step">{{ s }}</div>
+  {% if not loop.last %}<div class="process-chain__arrow">→</div>{% endif %}
+  {% endfor %}
+</div>
+{% if d.parallel_note %}<div class="process-chain__note">{{ d.parallel_note }}</div>{% endif %}
+{% else %}
+<div class="process-chain">
+  {% for s in d.steps %}
+  <div class="process-chain__step{% if d.emphasis_last and loop.last %} process-chain__step--emphasis{% endif %}">{{ s }}</div>
+  {% if not loop.last %}<div class="process-chain__arrow">↓</div>{% endif %}
+  {% endfor %}
+</div>
+{% endif %}
+{% endmacro %}
+
+{# ── page 7: process chain with detail text per step ──────────────────── #}
+{% macro process_chain_detailed(d) %}
+<div class="process-chain">
+  {% for s in d.steps %}
+  <div class="process-chain__step" style="text-align:left;">
+    {{ s.label }}
+    <div class="process-chain__substep" style="text-align:left; font-size:8pt;">{{ s.detail }}</div>
+  </div>
+  {% if not loop.last %}<div class="process-chain__arrow">↓</div>{% endif %}
+  {% endfor %}
+</div>
+{% endmacro %}
+
+{# ── page 6: six box grid ─────────────────────────────────────────────── #}
+{# Round 1: optional lead_callout rendered as a pull-quote above the grid, for
+   the specialist-adviser call-out. Omitted if not set. #}
+{% macro six_box(d) %}
+{% if d.lead_callout %}<div class="pull-quote" style="margin-top:0;">{{ d.lead_callout }}</div>{% endif %}
+<div class="card-grid">
+  {% for b in d.boxes %}
+  <div class="diag-card">
+    <div class="diag-card__title">{{ b.label }}</div>
+    <div class="diag-card__body">{{ b.text }}</div>
+  </div>
+  {% endfor %}
+</div>
+{% endmacro %}
+
+{# ── page 9: 2x2 conceptual matrix ────────────────────────────────────── #}
+{% macro quad_2x2(d) %}
+<div class="quad" style="margin-top: 12px;">
+  <div class="quad__cell quad__cell--corner"></div>
+  <div class="quad__cell quad__cell--axis">Not {{ d.x_label | lower }}</div>
+  <div class="quad__cell quad__cell--axis">{{ d.x_label }}</div>
+
+  <div class="quad__cell quad__cell--axis">{{ d.y_label }}</div>
+  <div class="quad__cell">Income recorded without physical occupancy: verify basis, timing and claim status.</div>
+  <div class="quad__cell">Healthy: occupied, evidenced, collected</div>
+
+  <div class="quad__cell quad__cell--axis">Not {{ d.y_label | lower }}</div>
+  <div class="quad__cell">Vacant and not producing: the base case</div>
+  <div class="quad__cell quad__cell--highlight"><strong>Occupied but not performing</strong>: the gap diligence needs to find</div>
+</div>
+{% endmacro %}
+
+{# ── page 10: split layers + numbered questions ──────────────────────── #}
+{% macro split_and_numbered(d) %}
+<div class="split-two">
+  <div class="split-two__col split-two__col--reg">
+    <div class="split-two__label">{{ d.regulatory.label }}</div>
+    <div class="split-two__text">{{ d.regulatory.text }}</div>
+  </div>
+  <div class="split-two__col split-two__col--comm">
+    <div class="split-two__label">{{ d.commercial.label }}</div>
+    <div class="split-two__text">{{ d.commercial.text }}</div>
+  </div>
+</div>
+<div class="numbered-grid">
+  {% for q in d.questions %}
+  <div class="numbered-grid__item"><span class="numbered-grid__num">{{ loop.index }}.</span><span>{{ q }}</span></div>
+  {% endfor %}
+</div>
+{% endmacro %}
+
+{# ── page 11: operating reconciliation + below-NOI dual block ─────────── #}
+{% macro dual_block(d) %}
+<div class="process-chain__note" style="margin-top:0; margin-bottom: 10px;">{{ d.lead_note }}</div>
+<div class="dual-block">
+  <div class="dual-block__col dual-block__col--noi">
+    <div class="dual-block__label">Operating reconciliation</div>
+    <div class="process-chain">
+      {% for s in d.noi_steps %}
+      <div class="process-chain__step" style="font-size: 9.5pt; padding: 6px 8px;">{{ s }}</div>
+      {% if not loop.last %}<div class="process-chain__arrow" style="font-size: 9pt;">↓</div>{% endif %}
+      {% endfor %}
+    </div>
+  </div>
+  <div class="dual-block__col dual-block__col--below">
+    <div class="dual-block__label">{{ d.below_label }}</div>
+    <ul class="simple-list">
+    {% for item in d.below_items %}
+      <li class="simple-list__item">{{ item }}</li>
+    {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endmacro %}
+
+{# ── page 12: two value references, non-ordinal ──────────────────────── #}
+{# v0.2: redesigned to remove any residual ordinal/derived implication; no
+   connector lines, no vertical stacking logic. Two independent reference points
+   in one section, a separate commercial-assessment section below it, divided
+   by a plain rule rather than any line/arrow that could read as "derived from". #}
+{% macro reference_points(d) %}
+<div class="ref-section-label">Formal value references</div>
+<div class="ref-points">
+  <div class="ref-points__ref"><div class="ref-points__ref-label">{{ d.ref_a }}</div></div>
+  <div class="ref-points__ref"><div class="ref-points__ref-label">{{ d.ref_b }}</div></div>
+</div>
+{% if d.tenure_note %}<div class="process-chain__note" style="margin: var(--space-3) 0;">{{ d.tenure_note }}</div>{% endif %}
+<div class="ref-points__divider"></div>
+<div class="ref-section-label">Commercial assessment</div>
+<div class="ref-points__current">
+  <div class="ref-points__current-label">{{ d.current }}</div>
+  <div class="ref-points__current-note">{{ d.current_note }}</div>
+</div>
+{% endmacro %}
+
+{# ── page 13: diagnostic cards, equal weight ──────────────────────────── #}
+{% macro diagnostic_cards(d) %}
+<div class="card-grid">
+  {% for c in d.cards %}
+  <div class="diag-card">
+    <div class="diag-card__title">{{ c.title }}</div>
+    <div class="diag-card__body">{{ c.text }}</div>
+  </div>
+  {% endfor %}
+</div>
+{% if d.note %}<div class="process-chain__note">{{ d.note }}</div>{% endif %}
+{% endmacro %}
+
+{# ── page 14: center + surrounding factors ────────────────────────────── #}
+{% macro factor_center(d) %}
+<div class="factor-center"><div class="factor-center__box">{{ d.center }}</div></div>
+<div class="factor-grid">
+  {% for f in d.factors %}
+  <div class="factor-grid__item">{{ f }}</div>
+  {% endfor %}
+</div>
+{% if d.two_state_note %}<div class="process-chain__note">{{ d.two_state_note }}</div>{% endif %}
+{% endmacro %}
+
+{# ── page 15: information categories, high level only (round 1 rewrite) ── #}
+{# Replaces checklist_categories; that macro rendered a line-item checkbox
+   list (SDAHC's own information-request detail). This shows category names
+   and a one-line description only, plus a restrained adviser CTA. #}
+{% macro category_list(d) %}
+<div class="card-grid">
+  {% for c in d['categories'] %}
+  <div class="diag-card">
+    <div class="diag-card__title">{{ c.name }}</div>
+    <div class="diag-card__body">{{ c.description }}</div>
+  </div>
+  {% endfor %}
+</div>
+{% if d.cta %}<div class="pull-quote">{{ d.cta }}</div>{% endif %}
+{% endmacro %}
+
+{# ── page 16: expanded segmentation factors (round 1, deepened) ──────── #}
+{# Replaces factor_split_outcome (4 factors -> outcomes only). Adds a labelled
+   examples list for mandate-behaviour dynamics, still no named buyers. #}
+{% macro segmentation_grid(d) %}
+<div class="factor-grid">
+  {% for f in d['factors'] %}
+  <div class="factor-grid__item">{{ f }}</div>
+  {% endfor %}
+</div>
+<div class="section-heading" style="margin-top: var(--space-4);">{{ d.examples_label }}</div>
+<ul class="simple-list">
+  {% for ex in d['examples'] %}
+  <li class="simple-list__item">{{ ex }}</li>
+  {% endfor %}
+</ul>
+<div class="ref-points__divider"></div>
+<div class="ref-points" style="grid-template-columns: 1fr 1fr;">
+  {% for o in d['outcomes'] %}
+  <div class="ref-points__ref"><div class="ref-points__ref-label" style="font-size: 10.5pt;">{{ o }}</div></div>
+  {% endfor %}
+</div>
+{% endmacro %}
+
+{# ── page 17: two-axis grid ────────────────────────────────────────────── #}
+{# v0.2: replaces the v0.1 2x2 quadrant, which fixed Hold/Stabilise/Sell/
+   Expedited-exit into grid positions and read as an automatic, unvalidated
+   recommendation. This is two independent lists plus the pathway options to
+   weigh against them; no scoring, no automatic mapping between the two sides. #}
+{% macro decision_balance(d) %}
+<div class="balance-grid">
+  <div class="balance-col balance-col--value">
+    <div class="balance-col__label">{{ d.left.label }}</div>
+    <ul class="simple-list">
+      {% for item in d.left['items'] %}<li class="simple-list__item">{{ item }}</li>{% endfor %}
+    </ul>
+  </div>
+  <div class="balance-col balance-col--cost">
+    <div class="balance-col__label">{{ d.right.label }}</div>
+    <ul class="simple-list">
+      {% for item in d.right['items'] %}<li class="simple-list__item">{{ item }}</li>{% endfor %}
+    </ul>
+  </div>
+</div>
+<div class="decision-test">
+  <div class="decision-test__label">{{ d.decision_label }}</div>
+  <div class="pathway-row" style="justify-content:center;">
+    {% for opt in d['options'] %}<div class="pathway-chip">{{ opt }}</div>{% endfor %}
+  </div>
+</div>
+<div class="process-chain__note">{{ d.caption }}</div>
+{% endmacro %}
+
+{# ── page 18: five-state triage matrix ────────────────────────────────── #}
+{% macro triage_matrix(d) %}
+<div class="triage-list">
+  {% for r in d.rows %}
+  <div class="triage-row">
+    <div class="triage-row__num">{{ loop.index }}</div>
+    <div class="triage-row__state">{{ r.state }}</div>
+    <div class="triage-row__implication">→ {{ r.implication }}</div>
+  </div>
+  {% endfor %}
+</div>
+{% endmacro %}
+
+
+
+{# ── page 21: decision tree + pathway chips ───────────────────────────── #}
+{% macro decision_tree(d) %}
+<div class="dtree">
+  <div class="dtree__q">{{ d.root }}</div>
+  <div class="dtree__branch">
+    <div class="dtree__branch-label">Yes</div>
+    <div style="font-size: 9pt; margin-bottom: 4px;">{{ d.yes_branch.question }}</div>
+    <div class="dtree__leaf-grid">
+      <div class="dtree__leaf"><div class="dtree__leaf-source">Yes</div><div class="dtree__leaf-test">{{ d.yes_branch.yes_leaf }}</div></div>
+      <div class="dtree__leaf"><div class="dtree__leaf-source">No</div><div class="dtree__leaf-test">{{ d.yes_branch.no_leaf }}</div></div>
+    </div>
+  </div>
+  <div class="dtree__branch">
+    <div class="dtree__branch-label">No</div>
+    <div style="font-size: 9pt; margin-bottom: 4px;">{{ d.no_branch.question }}</div>
+    <div class="dtree__leaf-grid">
+      {% for l in d.no_branch.leaves %}
+      <div class="dtree__leaf"><div class="dtree__leaf-source">{{ l.source }}</div><div class="dtree__leaf-test">{{ l.test }}</div></div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<div class="section-heading">Pathway options</div>
+<div class="pathway-row">
+  {% for p in d.pathway_options %}
+  <span class="pathway-chip">{{ p }}</span>
+  {% endfor %}
+</div>
+{% endmacro %}
+
+{# ── page 22: printable checklist (superseded, see workstream_summary) ── #}
+{# Retained, unused: previous line-item checklist macro. Round 1 replaces
+   page 22's visual with workstream_summary below; this is kept only in case
+   a future round needs the pattern again, not called from page.html. #}
+{% macro checklist_printable(d) %}
+<div class="checklist">
+  {% for g in d.groups %}
+  <div>
+    <div class="checklist__group-title">{{ g.title }}</div>
+    {% for item in g['items'] %}
+    <div class="checklist__item"><div class="checklist__box"></div><div>{{ item }}</div></div>
+    {% endfor %}
+  </div>
+  {% endfor %}
+</div>
+{% endmacro %}
+
+{# ── page 22 (round 1, repurposed): six broad workstreams, no line items ── #}
+{% macro workstream_summary(d) %}
+<div class="card-grid">
+  {% for w in d['workstreams'] %}
+  <div class="diag-card">
+    <div class="diag-card__title">{{ loop.index }}. {{ w.name }}</div>
+    <div class="diag-card__body">{{ w.description }}</div>
+  </div>
+  {% endfor %}
+</div>
+{% endmacro %}
+
+{# ── page 4: common terms & abbreviations glossary (round 2, new) ──────── #}
+{% macro glossary(d) %}
+<div class="glossary-grid">
+  {% for g in d.groups %}
+  <div class="glossary-group">
+    <div class="glossary-group__heading">{{ g.name }}</div>
+    {% for t in g.terms %}
+    <div class="glossary-term">
+      <span class="glossary-term__name">{{ t.term }}</span>
+      <span class="glossary-term__def">{{ t.definition }}</span>
+    </div>
+    {% endfor %}
+  </div>
+  {% endfor %}
+</div>
+{% if d.note %}<div class="process-chain__note">{{ d.note }}</div>{% endif %}
+{% endmacro %}
+
+{# ── page 24: sources list ────────────────────────────────────────────── #}
+{% macro sources_list(d, sources, logo_uri, qr_uri) %}
+<div class="section-heading">{{ d.sources_note }}</div>
+<ul class="simple-list">
+{% for s in sources %}
+  <li class="simple-list__item">{{ s }}</li>
+{% endfor %}
+</ul>
+{% if d.contact_name %}
+<div class="contact-band">
+  {% if logo_uri %}<img src="{{ logo_uri }}" class="contact-band__logo" alt="{{ d.contact_name }}">{% endif %}
+  <div class="contact-band__name">{{ d.contact_name }}</div>
+  {% if d.contact_title %}<div class="contact-band__title">{{ d.contact_title }}</div>{% endif %}
+  <div class="contact-band__details">{% if d.contact_phone %}{{ d.contact_phone }} &nbsp;·&nbsp; {% endif %}{{ d.contact_email }}{% if d.contact_website %} &nbsp;·&nbsp; {{ d.contact_website }}{% endif %}</div>
+  {% if d.qr_callout and qr_uri %}
+  <div class="qr-callout">
+    <img src="{{ qr_uri }}" class="qr-callout__code" alt="QR code linking to {{ d.qr_callout.title }}">
+    <div>
+      <div class="qr-callout__eyebrow">{{ d.qr_callout.eyebrow }}</div>
+      <div class="qr-callout__title">{{ d.qr_callout.title }}</div>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% else %}
+<div class="section-heading">Contact</div>
+<div class="body-copy"><p class="text-muted">{{ d.contact_placeholder }}</p></div>
+{% endif %}
+{% endmacro %}
+
+{# ── page 23: capability grid + closing callout ───────────────────────── #}
+{% macro capability_grid(d) %}
+<div class="cap-grid">
+  {% for item in d['items'] %}
+  <div class="cap-card">
+    <div class="cap-card__num">{{ '%02d' % loop.index }}</div>
+    <div class="cap-card__text">{{ item }}</div>
+  </div>
+  {% endfor %}
+</div>
+{% endmacro %}
+
+{% macro diligence_lenses(d) %}
+<div class="card-grid diligence-lenses">
+{% for card in d.cards %}
+  <div class="diag-card">
+    <h2 class="diag-card__title">{{ card.title }}</h2>
+    {% for p in card.paragraphs %}<p class="diag-card__body">{{ p | md_inline | safe }}</p>{% endfor %}
+    <p class="lens-takeaway">{{ card.takeaway }}</p>
+  </div>
+{% endfor %}
+</div>
+<div class="body-copy diligence-closing"><p>{{ d.closing | md_inline | safe }}</p></div>
+<div class="diligence-sequence">
+{% for step in d.steps %}<div>{{ step }}{% if not loop.last %}<span aria-hidden="true">→</span>{% endif %}</div>{% endfor %}
+</div>
+{% endmacro %}

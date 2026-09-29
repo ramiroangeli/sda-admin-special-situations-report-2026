@@ -1,0 +1,67 @@
+{% import 'components/macros.html' as c %}
+
+{% macro render_page(page, report, mode, logo_uri, review_entries, pub_labels, qr_uri) %}
+
+{% if page.visual_type == 'cover' %}
+<section class="sheet sheet--dark" id="{{ page.page_id }}">
+  {{ c.cover(report, logo_uri) }}
+</section>
+
+{% else %}
+<section class="sheet{% if review_entries %} sheet--has-review-banner{% endif %}" id="{{ page.page_id }}">
+  {% if mode == 'review' and review_entries %}
+  <div class="review-banner">Internal Review: Not for Distribution</div>
+  {% else %}
+  <div class="sheet__accent"></div>
+  {% endif %}
+
+  <div class="sheet__frame">
+    <div class="sheet__kicker-row">
+      <span class="sheet__kicker-section">SDA Administration &amp; Special Situations</span>
+    </div>
+
+    {{ c.title_block(page) }}
+
+    {% if page.body_blocks %}{{ c.body_copy(page.body_blocks) }}{% endif %}
+
+    {# ── visual dispatch ── #}
+    {% if page.visual_type == 'contents' %}{{ c.contents(page.visual_data) }}
+    {% elif page.visual_type == 'glossary' %}{{ c.glossary(page.visual_data) }}
+    {% elif page.visual_type == 'two_exposures' %}{{ c.two_exposures(page.visual_data, qr_uri) }}
+    {% elif page.visual_type == 'chain_preview' %}{{ c.chain_preview(page.visual_data) }}
+    {% elif page.visual_type == 'nav_toc' %}{{ c.nav_toc(page.visual_data) }}
+    {% elif page.visual_type == 'stat_cards' %}{{ c.stat_cards(page.visual_data) }}
+    {% elif page.visual_type == 'process_chain' %}{{ c.process_chain(page.visual_data) }}
+    {% elif page.visual_type == 'process_chain_detailed' %}{{ c.process_chain_detailed(page.visual_data) }}
+    {% elif page.visual_type == 'six_box' %}{{ c.six_box(page.visual_data) }}
+    {% elif page.visual_type == 'quad_2x2' %}{{ c.quad_2x2(page.visual_data) }}
+    {% elif page.visual_type == 'split_and_numbered' %}{{ c.split_and_numbered(page.visual_data) }}
+    {% elif page.visual_type == 'dual_block' %}{{ c.dual_block(page.visual_data) }}
+    {% elif page.visual_type == 'reference_points' %}{{ c.reference_points(page.visual_data) }}
+    {% elif page.visual_type == 'diagnostic_cards' %}{{ c.diagnostic_cards(page.visual_data) }}
+    {% elif page.visual_type == 'factor_center' %}{{ c.factor_center(page.visual_data) }}
+    {% elif page.visual_type == 'category_list' %}{{ c.category_list(page.visual_data) }}
+    {% elif page.visual_type == 'segmentation_grid' %}{{ c.segmentation_grid(page.visual_data) }}
+    {% elif page.visual_type == 'decision_balance' %}{{ c.decision_balance(page.visual_data) }}
+    {% elif page.visual_type == 'triage_matrix' %}{{ c.triage_matrix(page.visual_data) }}
+    {% elif page.visual_type == 'diligence_lenses' %}{{ c.diligence_lenses(page.visual_data) }}
+    {% elif page.visual_type == 'decision_tree' %}{{ c.decision_tree(page.visual_data) }}
+    {% elif page.visual_type == 'workstream_summary' %}{{ c.workstream_summary(page.visual_data) }}
+    {% elif page.visual_type == 'capability_grid' %}{{ c.capability_grid(page.visual_data) }}
+    {% elif page.visual_type == 'sources_list' %}{{ c.sources_list(page.visual_data, pub_labels, logo_uri, qr_uri) }}
+    {% endif %}
+
+    {% if page.body_blocks_after_visual %}{{ c.body_copy(page.body_blocks_after_visual) }}{% endif %}
+
+    {% if mode == 'review' %}{{ c.review_panel(review_entries) }}{% endif %}
+
+    {% if page.visual_type != 'sources_list' %}{{ c.source_footer(pub_labels) }}{% endif %}
+  </div>
+
+  <div class="sheet__footer">
+    <span class="sheet__footer-title">© 2026 SDAHC Research{% if mode == 'review' %} - Internal Review{% endif %}</span>
+    <span class="sheet__page-number"></span>
+  </div>
+</section>
+{% endif %}
+{% endmacro %}

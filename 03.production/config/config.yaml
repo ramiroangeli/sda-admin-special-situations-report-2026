@@ -1,0 +1,76 @@
+# config.yaml — production build configuration reference
+#
+# Human-readable record of this build's configuration. scripts/build.py
+# currently holds the authoritative values as Python constants (paths
+# resolved from its own file location, PUB_SOURCES, output filenames) rather
+# than reading this file at run time — this document mirrors those values so
+# the build's configuration is visible and auditable in one place without
+# reading the script.
+
+report:
+  title: "Specialist Disability Accommodation Administration & Special Situations Report 2026"
+  title_alt: "SDA Administration & Special Situations Report 2026"  # previous canonical short title, retained for record only, unused
+  edition: "2026 Edition"
+  page_count: 24   # Round 2: new page 4 glossary inserted; old page 22 retired as duplicative — net unchanged at 24. See ../../00.project/changelog.md.
+  page_format: A4
+  orientation: portrait
+  report_version: "SDA-ADMIN-2026"   # carried by every review-app record and export — see ../../00.project/changelog.md
+
+source:
+  active_content_dir: "../02.content"                       # pages/page_01.md .. page_24.md — editorial source of truth
+  review_manifest: "../02.content/review_manifest.yaml"      # current open review items only
+  content_file: "content/pages.yaml"                          # structured content, the only editable render-data source
+
+modes:
+  - name: public
+    output_html: "out/public/SDA_Administration_Special_Situations_Report_2026.html"
+    output_pdf: "out/public/SDA_Administration_Special_Situations_Report_2026.pdf"
+    includes_review_content: false
+    purity_checks:
+      - no review-panel markup
+      - no review banner text
+      - no "Decision required" text
+      - no ADM-###-## claim IDs
+      - no bare INT-##/PUB-## evidence IDs
+  - name: review
+    output_html: "out/review/SDA_Administration_Special_Situations_Report_2026_REVIEW.html"
+    output_pdf: "out/review/SDA_Administration_Special_Situations_Report_2026_REVIEW.pdf"
+    includes_review_content: true
+    review_pages: []       # No unresolved Steve review items.
+    meta_checks:                         # drafting-history text stripped from rendered panels
+      - no "reworded in v0.3"
+      - no "v0.3 further reduced identifying detail"
+      - no "is the page carrying the most SDAHC-specific commercial framing in the draft"
+
+outputs:
+  page_renders_dir: "out/page_renders"           # all 24 pages, from the public PDF, 150dpi PNG (build workspace only)
+  cover_tests_dir: "out/cover_tests"              # single canonical cover render (no A/B — that decision is closed)
+  contact_sheet: "out/public/contact_sheet.png"    # 6x4 thumbnail grid, all 24 public pages (build workspace only)
+  review_payload: "../04.review/manifest/review_payload.json"  # regenerated from review_manifest.yaml, never hand-edited, untrimmed
+  publish_targets:                                  # where `--publish` copies the 4 canonical deliverables
+    public_pdf: "../05.outputs/public/SDA_Administration_Special_Situations_Report_2026.pdf"
+    review_pdf: "../05.outputs/review/SDA_Administration_Special_Situations_Report_2026_REVIEW.pdf"
+    cover_png: "../05.outputs/previews/cover.png"
+    contact_sheet_png: "../05.outputs/previews/contact_sheet.png"
+
+brand:
+  tokens_css: "static/css/tokens.css"
+  components_css: "static/css/components.css"
+  fonts_dir: "static/fonts"
+  fonts:
+    serif: "Playfair Display"
+    sans: "Source Sans 3"
+    condensed: "Barlow Condensed"
+  logo: "static/img/sdahc-logo.png"
+  mark: "static/img/mark.svg"
+  contact:  # approved personal contact from ndis-python-v2's flagship report, adopted in round 1
+    name: "Steve Dawson"
+    title: "Managing Director"
+    phone: "0408 550 441"
+    email: "steve@sdahomechoices.com.au"
+    website: "sdahomechoices.com.au"
+
+rendering:
+  engine: weasyprint
+  pdf_to_png: pdftoppm
+  png_dpi: 150

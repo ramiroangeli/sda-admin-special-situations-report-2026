@@ -1,0 +1,383 @@
+# Source Manifest — NDIS Specialist Disability Accommodation Administration Report 2026
+#
+# STATUS: PLANNING DRAFT. Seeds one record per source family named in the brief.
+# This file does not grant publication rights — see claims_register.csv and
+# confidentiality_rules.md. No confidential file has been copied into this pack;
+# internal source families are recorded as placeholders only.
+
+public_sources:
+  - source_family: "NDIA SDA participants dataset"
+    vintage: "30 June 2026"
+    local_path: "ndis-python-v2/data/Supplement P Specialist Disability Accommodation 2025-26 Q4_0.xlsx"
+    local_path_status: VERIFIED_LOCAL_SOURCE
+    verification_method: >
+      Vintage confirmed by inspecting the workbook's own internal XML content
+      (table titles and embedded chart narrative; the file itself was not
+      opened in Excel, modified, or otherwise altered). Table P.1 is titled
+      "Active participants with SDA and SIL funding in current NDIS plan as at
+      30 June 2026"; the Figure P.1 chart narrative text ends "In June 2026
+      there were 16,644 active participants with SDA in use and 9,014 active
+      participants eligible but not yet using SDA." This confirms the workbook
+      is the FY2025-26 Q4 (30 June 2026) release of the NDIA's Quarterly report
+      to disability ministers, Supplement P. Verified 2026-09-23.
+    note: >
+      Adjacent quarters (2025-26 Q2, Q3) and prior financial years (2024-25 Q4,
+      2023-24 Q4, 2022-23 Q4) are also present locally and may be useful for
+      trend framing on page 4.
+    url: "TO_BE_FROZEN_LOCALLY"
+
+  - source_family: "NDIA SDA Enrolled Dwellings and NDIS Demand workbook"
+    vintage: "30 June 2026"
+    local_path: "ndis-python-v2/data/Supplement P Specialist Disability Accommodation 2025-26 Q4_0.xlsx"
+    local_path_status: VERIFIED_LOCAL_SOURCE
+    verification_method: >
+      This source family is not a separate NDIA publication from the participants
+      dataset above — both are published together as one workbook (Supplement P).
+      Tables P.4-P.18 in the SAME Q4_0.xlsx file (e.g. "Number of Enrolled SDA
+      Dwellings by SA4 Region and Design Category as at 30 June 2026", "Number of
+      Participants with identified SDA needs by status and SA4 Region as at 30
+      June 2026") are explicitly dated 30 June 2026, confirmed by inspecting the
+      workbook's internal XML content only (file not altered). Verified 2026-09-23.
+    note: >
+      CORRECTION to the previous pass: a second local file, "SDA Enrolled
+      dwellings and NDIS demand data .xlsx" (also in ndis-python-v2/data/), was
+      previously flagged as the candidate for this source family. Inspection
+      shows it has the identical Supplement P table structure but is dated
+      "as at 31 March 2026" (2025-26 Q3) — the WRONG vintage for a 30 June 2026
+      citation. It is not a distinct "Enrolled Dwellings and Demand" NDIA
+      publication; it is an earlier-quarter copy of the same Supplement P
+      report, saved locally under a non-NDIA filename. Retained below as a
+      prior-quarter comparison source only — do not cite it for 30 June 2026
+      figures.
+    url: "TO_BE_FROZEN_LOCALLY"
+
+  - source_family: "NDIA SDA Enrolled Dwellings and NDIS Demand workbook (prior-quarter comparison only)"
+    vintage: "31 March 2026 (2025-26 Q3) — NOT the 30 June 2026 vintage"
+    local_path: "ndis-python-v2/data/SDA Enrolled dwellings and NDIS demand data .xlsx"
+    local_path_status: VERIFIED_LOCAL_SOURCE_WRONG_VINTAGE
+    verification_method: >
+      Table titles inside this file (e.g. "Table P.1 Active participants with
+      SDA and SIL funding in current NDIS plan as at 31 March 2026") confirm it
+      is the 2025-26 Q3 Supplement P release, not Q4/30 June 2026. Confirmed by
+      inspecting internal XML content only; file not altered. Verified
+      2026-09-23.
+    note: >
+      Do not use to support any claim requiring the 30 June 2026 vintage. May be
+      useful only as an explicit quarter-on-quarter comparison point (e.g. a
+      trend note on page 4), clearly labelled as 31 March 2026 data if used.
+    url: "TO_BE_FROZEN_LOCALLY"
+
+  - source_family: "NDIS SDA Pricing Arrangements 2026–27"
+    vintage: "2026–27"
+    local_path: "TO_BE_FROZEN_LOCALLY"
+    local_path_status: URL_IDENTIFIED_NOT_YET_FROZEN_LOCALLY
+    note: >
+      Official URL identified via public_evidence_notes/public_evidence/
+      PUB-02_sda_pricing_2026_27.md (retrieved 2026-09-23). That note is an
+      interpretation/indexing aid, not a substitute for the primary document —
+      freeze a dated local copy before final publication citation. Establishes
+      NDIA describes the arrangements as setting "appropriate and reasonable
+      maximum prices," not guaranteed income.
+    url: "https://www.ndis.gov.au/providers/home-and-living-providers/specialist-disability-accommodation-sda-tools/specialist-disability-accommodation-sda-pricing-arrangements"
+
+  - source_family: "NDIS SDA Price Calculator 2026–27"
+    vintage: "2026–27"
+    local_path: "TO_BE_FROZEN_LOCALLY"
+    local_path_status: URL_IDENTIFIED_NOT_YET_FROZEN_LOCALLY
+    note: >
+      Interactive NDIS tool rather than a static document, hosted on the same
+      page as the Pricing Arrangements above (no separate URL). If cited,
+      capture a dated export or screenshot rather than relying on a live link.
+    url: "https://www.ndis.gov.au/providers/home-and-living-providers/specialist-disability-accommodation-sda-tools/specialist-disability-accommodation-sda-pricing-arrangements"
+
+  - source_family: "Specialist Disability Accommodation Rules 2020"
+    vintage: "current compilation (F2025C00260 C01, compilation date 4 March 2025, as identified at retrieval)"
+    local_path: "TO_BE_FROZEN_LOCALLY"
+    local_path_status: URL_IDENTIFIED_NOT_YET_FROZEN_LOCALLY
+    note: >
+      Federal Register of Legislation URL and compilation ID identified via
+      public_evidence_notes/public_evidence/PUB-03_sda_rules_current.md
+      (retrieved 2026-09-23). Reconfirm the compilation is still current at
+      time of freeze. Part 3 sets requirements for SDA support to be funded.
+    url: "https://www.legislation.gov.au/F2020L00769/latest"
+
+  - source_family: "SDA provider guidance / Practice Standards"
+    vintage: "current (NDIS Guide to providing SDA, retrieved 2026-09-23)"
+    local_path: "TO_BE_FROZEN_LOCALLY"
+    local_path_status: URL_IDENTIFIED_NOT_YET_FROZEN_LOCALLY
+    note: >
+      Official URL identified via public_evidence_notes/public_evidence/
+      PUB-04_provider_guidance.md.
+    url: "https://www.ndis.gov.au/providers/home-and-living-providers/specialist-disability-accommodation-sda/guide-providing-specialist-disability-accommodation-sda"
+
+  - source_family: "ASIC Series 1 and Series 2 insolvency statistics"
+    vintage: "current published series, retrieved 2026-09-23"
+    local_path: "TO_BE_FROZEN_LOCALLY"
+    local_path_status: URL_IDENTIFIED_NOT_YET_FROZEN_LOCALLY
+    note: >
+      Official URL identified via public_evidence_notes/public_evidence/
+      PUB-05_asic_insolvency.md. Confirm reporting period at freeze. Not
+      SDA-specific — see claim ADM-004-05 and HOLD-02/HOLD-03.
+    url: "https://www.asic.gov.au/about-asic/corporate-publications/statistics/insolvency-statistics"
+
+  - source_family: "ASIC INFO 80"
+    vintage: "current version, retrieved 2026-09-23"
+    local_path: "TO_BE_FROZEN_LOCALLY"
+    local_path_status: URL_IDENTIFIED_NOT_YET_FROZEN_LOCALLY
+    note: "Official URL identified via PUB-05_asic_insolvency.md."
+    url: "https://www.asic.gov.au/about-asic/corporate-publications/statistics/insolvency-statistics/how-to-interpret-asics-corporate-insolvency-statistics"
+
+  - source_family: "NDIS 2026 plan reassessment / legislative changes"
+    vintage: "2026 (NDIS Amendment (Securing the NDIS for Future Generations) Act 2026, as made)"
+    local_path: "TO_BE_FROZEN_LOCALLY"
+    local_path_status: URL_IDENTIFIED_NOT_YET_FROZEN_LOCALLY
+    note: >
+      Exact instrument and URLs identified via public_evidence_notes/
+      public_evidence/PUB-06_plan_reassessment_2026.md (retrieved 2026-09-23).
+      Confirms the reassessment pathway changed; explicitly does NOT establish
+      that the reform stopped SDA approvals — see ADM-004-04 and HOLD-04.
+    url: "https://www.legislation.gov.au/C2026A00066/asmade ; https://www.ndis.gov.au/participants/changing-your-plan/types-plan-changes/what-plan-reassessment ; https://www.ndis.gov.au/participants/changing-your-plan/types-plan-changes/guide-changing-your-plan"
+
+  # Round 2 additions (Steve Dawson's second detailed review) — see
+  # ../00.project/steve_feedback_round2.md and evidence_gap_resolution_round2.md.
+
+  - source_family: "NDIS SDA Design Standard / Price Guide — New Build classification date"
+    vintage: "current, retrieved 2026 (round 2)"
+    local_path: "TO_BE_FROZEN_LOCALLY"
+    local_path_status: URL_IDENTIFIED_NOT_YET_FROZEN_LOCALLY
+    note: >
+      Live NDIS primary-document fetch blocked (HTTP 403), consistent with PUB-02.
+      Verified via web search returning consistent, convergent third-party
+      technical summaries of the NDIS SDA Price Guide / Design Standard
+      definition, cross-checked across two independent searches — see
+      public_evidence/PUB-07_new_build_definition.md. Supports page 2's "New
+      Build classification began on 1 April 2016" — scoped to the classification
+      threshold only, not to when SDA itself began.
+    url: "https://www.ndis.gov.au/providers/housing-and-living-supports-and-services/housing/specialist-disability-accommodation"
+
+  - source_family: "NDIS — How to enrol a home as SDA / change-of-provider guidance"
+    vintage: "current, retrieved 2026 (round 2)"
+    local_path: "TO_BE_FROZEN_LOCALLY"
+    local_path_status: URL_IDENTIFIED_NOT_YET_FROZEN_LOCALLY
+    note: >
+      Live NDIS primary-document fetch blocked (HTTP 403), consistent with
+      PUB-02/PUB-07. Verified via web search against the NDIS "How to enrol a
+      home as SDA" guidance and its provider-portal step-by-step guide — see
+      public_evidence/PUB-08_provider_reenrolment.md. Supports page 11: a
+      provider change cancels the existing enrolment; the incoming provider
+      must lodge a new application, treated as new even where previously
+      enrolled. No cost figure sourced from this document — the "minimal to
+      material" cost range is recorded as SDAHC_EXPERT_OBSERVATION only.
+    url: "https://www.ndis.gov.au/providers/housing-and-living-supports-and-services/housing/specialist-disability-accommodation/how-enrol-home-sda"
+
+  - source_family: "SDAHC Research — SDA Market Report 2026"
+    vintage: "2026"
+    local_path: "ndis-python-v2/templates/report.html"
+    local_path_status: VERIFIED_LOCAL_SOURCE
+    note: >
+      SDAHC's own published flagship report — cited on pages 2, 5 and 24 as the
+      companion publication, and as the source of the enrolled-SDA-places /
+      not-earning-income ratio methodology replicated on page 5 (approx. 52.2%
+      matched as at 31 March 2026 per report.html line 6362; replicated for
+      30 June 2026 as ~53.6% matched / ~46% not matched). Canonical public QR/
+      print URL identified in the flagship's own back-cover QR script
+      (ndis-python-v2/scripts/build_qr_overlay.py) and used for the QR codes on
+      pages 2 and 24 of this report — decode-tested, see
+      ../04.review/qa/QR_QA.md.
+    url: "https://sdahomechoices.com.au/report2026"
+
+  # PUB-10 (used by scripts/build.py's PUB_SOURCES footer labels) is not an
+  # independent source family — it is a combined citation of PUB-01 (NDIA
+  # Supplement P) and PUB-03 (SDA Rules 2020), used on page 10 specifically to
+  # avoid citing the same underlying NDIA dataset three times on one page (see
+  # Steve's round-2 instruction on source padding). Both underlying source
+  # families are already registered above.
+
+public_evidence_notes_pack:
+  # New this pass. Locally portable interpretation/indexing notes prepared from
+  # current primary public sources (NDIA, Federal Register of Legislation,
+  # ASIC). These notes are not substitutes for the underlying primary sources
+  # or for the locally-held NDIA workbook — see the note attached to each
+  # public_sources entry above for how each PUB-0X note relates to its
+  # underlying source family.
+  readme_path: "public_evidence_notes/README.md"
+  index_path: "public_evidence_notes/evidence_index.csv"
+  notes:
+    - id: PUB-01
+      path: "public_evidence_notes/public_evidence/PUB-01_ndia_q4_data.md"
+      relates_to_source_family: ["NDIA SDA participants dataset", "NDIA SDA Enrolled Dwellings and NDIS Demand workbook"]
+    - id: PUB-02
+      path: "public_evidence_notes/public_evidence/PUB-02_sda_pricing_2026_27.md"
+      relates_to_source_family: ["NDIS SDA Pricing Arrangements 2026–27", "NDIS SDA Price Calculator 2026–27"]
+    - id: PUB-03
+      path: "public_evidence_notes/public_evidence/PUB-03_sda_rules_current.md"
+      relates_to_source_family: ["Specialist Disability Accommodation Rules 2020"]
+    - id: PUB-04
+      path: "public_evidence_notes/public_evidence/PUB-04_provider_guidance.md"
+      relates_to_source_family: ["SDA provider guidance / Practice Standards"]
+    - id: PUB-05
+      path: "public_evidence_notes/public_evidence/PUB-05_asic_insolvency.md"
+      relates_to_source_family: ["ASIC Series 1 and Series 2 insolvency statistics", "ASIC INFO 80"]
+    - id: PUB-06
+      path: "public_evidence_notes/public_evidence/PUB-06_plan_reassessment_2026.md"
+      relates_to_source_family: ["NDIS 2026 plan reassessment / legislative changes"]
+    - id: PUB-07
+      path: "public/public_evidence/PUB-07_new_build_definition.md"
+      relates_to_source_family: ["NDIS SDA Design Standard / Price Guide — New Build classification date"]
+    - id: PUB-08
+      path: "public/public_evidence/PUB-08_provider_reenrolment.md"
+      relates_to_source_family: ["NDIS — How to enrol a home as SDA / change-of-provider guidance"]
+    - id: PUB-09
+      path: null
+      relates_to_source_family: ["SDAHC Research — SDA Market Report 2026"]
+      note: "No separate interpretation note — self-citation of SDAHC's own already-published report; see the source_family entry above directly."
+
+internal_sources:
+  # Confidential families. Raw sources (SDAHC's private Notion Market
+  # Intelligence database and SharePoint document stores) remain external and
+  # private — they have not been provided to, accessed by, or inspected by
+  # Claude Code. As of this pass, each family now has a sanitised local
+  # evidence-note abstraction under evidence_notes/internal_evidence/, prepared
+  # and verified by the data owner outside Claude Code (see
+  # evidence_notes/README.md and manifest.json). Claude Code has read the
+  # abstraction only, never the raw source. See confidentiality_rules.md before
+  # any of this is used to support public copy.
+
+  - source_family: "Market Intelligence database"
+    raw_local_path: "TO_BE_CONFIRMED_WITH_DATA_OWNER"
+    raw_source_access: EXTERNAL_PRIVATE_VERIFIED_BY_DATA_OWNER
+    local_abstraction_status: AVAILABLE
+    local_abstraction_path: "evidence_notes/internal_evidence/INT-01_market_intelligence_patterns.md"
+    confidentiality: CONFIDENTIAL_INTERNAL
+    note: "Aggregated/anonymised extracts only may inform ANONYMISED_PUBLICABLE claims. See evidence_register.csv EV-INT-01."
+
+  - source_family: "SDAHC Information Request / VDD checklists"
+    raw_local_path: "TO_BE_CONFIRMED_WITH_DATA_OWNER"
+    raw_source_access: EXTERNAL_PRIVATE_VERIFIED_BY_DATA_OWNER
+    local_abstraction_status: AVAILABLE
+    local_abstraction_path: "evidence_notes/internal_evidence/INT-02_vdd_information_request.md"
+    confidentiality: CONFIDENTIAL_INTERNAL
+    note: "Templates may inform procedural claims once genericised (no client identifiers). See evidence_register.csv EV-INT-02."
+
+  - source_family: "provider agreements / management agreements / head leases"
+    raw_local_path: "TO_BE_CONFIRMED_WITH_DATA_OWNER"
+    raw_source_access: EXTERNAL_PRIVATE_VERIFIED_BY_DATA_OWNER
+    local_abstraction_status: AVAILABLE
+    local_abstraction_path: "evidence_notes/internal_evidence/INT-03_contract_patterns.md"
+    confidentiality: CONFIDENTIAL_INTERNAL
+    note: "General clause categories only; never specific terms, parties or pricing. See evidence_register.csv EV-INT-03."
+
+  - source_family: "P&Ls and rental schedules"
+    raw_local_path: "TO_BE_CONFIRMED_WITH_DATA_OWNER"
+    raw_source_access: EXTERNAL_PRIVATE_VERIFIED_BY_DATA_OWNER
+    local_abstraction_status: AVAILABLE
+    local_abstraction_path: "evidence_notes/internal_evidence/INT-04_income_noi_patterns.md"
+    confidentiality: CONFIDENTIAL_INTERNAL
+    note: "Directional statements only; no client-identifying figures. See evidence_register.csv EV-INT-04."
+
+  - source_family: "professional valuations"
+    raw_local_path: "TO_BE_CONFIRMED_WITH_DATA_OWNER"
+    raw_source_access: EXTERNAL_PRIVATE_VERIFIED_BY_DATA_OWNER
+    local_abstraction_status: AVAILABLE
+    local_abstraction_path: "evidence_notes/internal_evidence/INT-05_valuation_patterns.md"
+    confidentiality: CONFIDENTIAL_INTERNAL
+    note: "No specific valuation figures without Steve sign-off. See evidence_register.csv EV-INT-05."
+
+  - source_family: "provider-transition documentation"
+    raw_local_path: "TO_BE_CONFIRMED_WITH_DATA_OWNER"
+    raw_source_access: EXTERNAL_PRIVATE_VERIFIED_BY_DATA_OWNER
+    local_abstraction_status: AVAILABLE
+    local_abstraction_path: "evidence_notes/internal_evidence/INT-06_provider_transition_patterns.md"
+    confidentiality: CONFIDENTIAL_INTERNAL
+    note: "Drawn from a single live portfolio restructuring; use archetype framing only. See evidence_register.csv EV-INT-06."
+
+  - source_family: "occupancy histories"
+    raw_local_path: "TO_BE_CONFIRMED_WITH_DATA_OWNER"
+    raw_source_access: EXTERNAL_PRIVATE_VERIFIED_BY_DATA_OWNER
+    local_abstraction_status: AVAILABLE
+    local_abstraction_path: "evidence_notes/internal_evidence/INT-07_occupancy_patterns.md"
+    confidentiality: CONFIDENTIAL_INTERNAL
+    note: "Sample not broad enough for a market-wide vacancy statistic. See evidence_register.csv EV-INT-07."
+
+  - source_family: "Vendor DD / IM / transaction material"
+    raw_local_path: "TO_BE_CONFIRMED_WITH_DATA_OWNER"
+    raw_source_access: EXTERNAL_PRIVATE_VERIFIED_BY_DATA_OWNER
+    local_abstraction_status: AVAILABLE
+    local_abstraction_path: "evidence_notes/internal_evidence/INT-08_transaction_readiness_patterns.md"
+    confidentiality: CONFIDENTIAL_INTERNAL
+    note: "No named transactions, prices or negotiations. See evidence_register.csv EV-INT-08."
+
+  - source_family: "special-situations portfolio advisory material"
+    raw_local_path: "TO_BE_CONFIRMED_WITH_DATA_OWNER"
+    raw_source_access: EXTERNAL_PRIVATE_VERIFIED_BY_DATA_OWNER
+    local_abstraction_status: AVAILABLE
+    local_abstraction_path: "evidence_notes/internal_evidence/INT-09_special_situations_framework.md"
+    confidentiality: CONFIDENTIAL_INTERNAL
+    note: "Special-situations evidence family. The former case narrative is retired; previous metadata is archived. See evidence_register.csv EV-INT-09."
+
+  - source_family: "portfolio packaging and buyer-underwriting material"
+    raw_local_path: "TO_BE_CONFIRMED_WITH_DATA_OWNER"
+    raw_source_access: EXTERNAL_PRIVATE_VERIFIED_BY_DATA_OWNER
+    local_abstraction_status: AVAILABLE
+    local_abstraction_path: "evidence_notes/internal_evidence/INT-10_portfolio_packaging_buyer_dd.md"
+    confidentiality: CONFIDENTIAL_INTERNAL
+    note: "No buyer rankings or underwriting methodology may be published — see confidentiality_rules.md. See evidence_register.csv EV-INT-10."
+
+page21_verified_sources:
+- source_id: PUB-08
+  title: How to enrol a home as specialist disability accommodation (SDA)
+  url: https://www.ndis.gov.au/providers/home-and-living-providers/specialist-disability-accommodation-sda/how-enrol-home-specialist-disability-accommodation-sda
+  source_date: '2026-08-19'
+  verified_at: '2026-09-29'
+  verification_status: PRIMARY_TEXT_VERIFIED_WEB
+  local_original_frozen: false
+  local_evidence_note: public/public_evidence/PUB-08_provider_reenrolment.md
+  supports_claims: ADM-P21-01
+  scope_and_limits: 'Steps 4 and 6: outgoing provider cancellation; incoming application
+    assessed as new even after prior enrolment; mandatory documentation and relevant
+    certifications. Ownership alone is not stated as an automatic trigger.'
+- source_id: PUB-11
+  title: How to manage specialist disability accommodation (SDA) vacancies
+  url: https://www.ndis.gov.au/providers/home-and-living-providers/specialist-disability-accommodation-sda/how-manage-specialist-disability-accommodation-sda-vacancies
+  source_date: '2026-08-11'
+  verified_at: '2026-09-29'
+  verification_status: PRIMARY_TEXT_VERIFIED_WEB
+  local_original_frozen: false
+  local_evidence_note: public/public_evidence/PUB-11_sda_vacancy_payments.md
+  supports_claims: ADM-P21-03
+  scope_and_limits: 'Steps 2 and 4: limited eligibility for shared homes enrolled
+    for 2 to 5 residents; specified departure circumstances, availability and notification
+    conditions. Limits are up to 60 days for 2 to 3 residents or 90 days for 4 to
+    5, ending when filled. Claims relate to remaining eligible days after physical
+    departure and require evidence. Never-occupied newly built homes are excluded.
+    Public copy deliberately avoids procedural detail and directs eligibility testing.'
+- source_id: PUB-12
+  title: Pricing Schedule for Specialist Disability Accommodation 2026-27
+  url: https://www.ndis.gov.au/media/8844/download?attachment=
+  source_date: '2026-09-24'
+  verified_at: '2026-09-29'
+  verification_status: PRIMARY_TEXT_VERIFIED_WEB
+  local_original_frozen: false
+  local_evidence_note: public/public_evidence/PUB-12_sda_pricing_schedule_gst.md
+  supports_claims: ADM-P21-06
+  scope_and_limits: 'Effective 24 September 2026; 58 pages. Section 3.1(c)(vi), printed
+    page 4, includes input tax credits among pricing factors. Appendix 1 Table 1,
+    page 5: GST not paid, or paid with credits claimed. Table 5, page 10: GST paid
+    without credits claimed. Corresponding base amounts differ. No calculation or
+    universal income effect is published. This is the current schedule, not merely
+    the older pricing-arrangements document also linked on the landing page.'
+- source_id: PUB-13
+  title: National Disability Insurance Scheme - GST-free supplies
+  url: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/in-detail/your-industry/gst-and-health/national-disability-insurance-scheme
+  source_date: '2024-06-12'
+  verified_at: '2026-09-29'
+  verification_status: PRIMARY_TEXT_VERIFIED_WEB
+  local_original_frozen: false
+  local_evidence_note: public/public_evidence/PUB-13_ato_ndis_gst.md
+  supports_claims: ADM-P21-07
+  scope_and_limits: 'ATO requires all stated conditions for GST-free NDIS supplies:
+    an effective plan, specified reasonable and necessary supports, written agreement,
+    and a supply covered by the applicable determination. This is not authority that
+    all owner/provider management services are GST-free. Test the actual supply and
+    arrangements with specialist tax advisers. No sector statistic or definitive transaction
+    tax conclusion is published.'

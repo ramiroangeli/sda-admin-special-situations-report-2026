@@ -1,0 +1,1087 @@
+/*
+ * components.css - SDA Administration Report 2026, visual_v0.1
+ * Load AFTER tokens.css. New component system purpose-built for this report's
+ * content types (process chains, diagnostic cards, matrices, decision trees,
+ * review panels), not copied from editorial-archetypes.css, which is built
+ * for the chart/KPI-heavy flagship Market Report. Page-frame mechanics
+ * (A4 @page rules, break-before/after: page) follow the same proven pattern
+ * as that file.
+ *
+ * Design intent: forensic / special-situations register, more restrained
+ * than the flagship report. No photography, no decorative icons, no
+ * gradients beyond the cover. The information is the visual.
+ */
+
+/* ── Reset ──────────────────────────────────────────────────────────────── */
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: var(--font-sans);
+  color: var(--color-text-fg-body);
+  font-size: 10.5pt;
+  line-height: 1.6;
+}
+h1, h2, h3, h4, p, ul, ol, blockquote { margin: 0; padding: 0; }
+ul, ol { list-style: none; }
+strong { font-weight: 600; color: var(--color-text-fg); }
+
+/* ── @page rules ────────────────────────────────────────────────────────── */
+
+@page {
+  size: A4 portrait;
+  margin: 0;
+}
+
+/* ── Sheet (one physical page) ─────────────────────────────────────────── */
+
+.sheet {
+  width: var(--page-width);
+  height: var(--page-height);
+  position: relative;
+  overflow: hidden;
+  break-after: page;
+  break-inside: avoid;
+  background: var(--color-surface-bg);
+}
+.sheet:last-child { break-after: auto; }
+
+.sheet--dark {
+  background: var(--color-brand-dark-deepest);
+  color: var(--color-text-on-dark);
+}
+.sheet--dark .sheet__body { color: var(--color-text-on-dark); }
+
+.sheet--warm { background: var(--color-surface-bg-warm); }
+.sheet--tint { background: var(--color-surface-bg-tint); }
+
+/* Standard content frame inside a sheet (margins) */
+.sheet__frame {
+  position: absolute;
+  top: 20mm; left: 20mm; right: 20mm; bottom: 13mm;
+  overflow: hidden;
+}
+/* NOTE: deliberately block flow, not flex: a fixed-height flex column
+   forces WeasyPrint to flex-shrink block children (paragraphs, visuals) when
+   total content exceeds the frame height, which collapses/overlaps them
+   instead of just clipping. Block flow + overflow:hidden clips overlength
+   content cleanly and visibly (a QA-catchable overflow), never overlaps it. */
+
+/* Top accent rule: restrained, not full-bleed blue */
+.sheet__accent {
+  position: absolute;
+  top: 0; left: 20mm; right: 20mm;
+  height: 2px;
+  background: var(--color-brand-primary);
+}
+
+/* ── Chrome: running header / footer ───────────────────────────────────── */
+
+.sheet__kicker-row {
+  display: flex;
+  justify-content: flex-end;
+  align-items: baseline;
+  padding-top: 1.5mm;
+  margin-bottom: var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: var(--space-2);
+}
+.sheet__kicker-section {
+  font-family: var(--font-sans);
+  font-size: 7.5pt;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--color-text-fg-subtle);
+  white-space: nowrap;
+}
+
+.sheet__footer {
+  position: absolute;
+  left: 20mm; right: 20mm; bottom: 6mm;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-sans);
+  font-size: 7.5pt;
+  color: var(--color-text-fg-subtle);
+  border-top: 1px solid var(--color-border-divider);
+  padding-top: var(--space-2);
+}
+.sheet__footer-title { font-weight: 400; color: var(--color-text-fg-subtle); }
+.sheet__page-number { font-size: 9pt; font-weight: 700; color: var(--color-brand-dark-deep); }
+.sheet__page-number::before { content: counter(page); }
+
+/* Review-mode-only banner: visually distinct from the public chrome, never
+   appears in a public build */
+.review-banner {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 6mm;
+  background: var(--color-review-amber);
+  color: #FFFFFF;
+  font-family: var(--font-sans);
+  font-size: 7.5pt;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sheet--has-review-banner .sheet__frame { top: 26mm; }
+.sheet--has-review-banner .sheet__accent { display: none; }
+
+/* ── Typography blocks ──────────────────────────────────────────────────── */
+
+.title-block { margin-bottom: var(--space-5); }
+.title-block__kicker {
+  font-family: var(--font-sans);
+  font-size: 8.5pt;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-brand-primary);
+  margin-bottom: var(--space-2);
+}
+.title-block__title {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 22pt;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--color-text-fg);
+  margin-bottom: var(--space-3);
+}
+.title-block__question {
+  font-family: var(--font-sans);
+  font-style: italic;
+  font-size: 11.5pt;
+  color: var(--color-text-fg-muted);
+  border-left: 2px solid var(--color-brand-primary);
+  padding-left: var(--space-3);
+}
+
+.body-copy { font-size: 10.3pt; line-height: 1.55; color: var(--color-text-fg-body); }
+.body-copy p { margin-bottom: 10px; }
+.body-copy p:last-child { margin-bottom: 0; }
+.body-copy strong { color: var(--color-text-fg); }
+
+.pull-quote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 15pt;
+  line-height: 1.4;
+  color: var(--color-brand-dark);
+  border-left: 3px solid var(--color-brand-primary);
+  padding: var(--space-2) 0 var(--space-2) var(--space-5);
+  margin: var(--space-5) 0;
+}
+
+
+/* ── Contents (page 3) ─────────────────────────────────────────────────── */
+/* Editorial/architectural TOC treatment: large condensed section numbers,
+   thin dividing rules, restrained two-column page lists. Adapted from a
+   stored design reference (00.project/design_refs/toc_reference.png); same
+   grid/typographic logic, not a literal copy; no photography, no icons. */
+
+.contents-grid { display: flex; flex-direction: column; }
+.contents-block {
+  border-top: 1px solid var(--color-border-strong);
+  padding-top: 6px;
+  margin-bottom: 9px;
+}
+.contents-block:first-child { border-top: none; padding-top: 0; }
+.contents-block__head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  margin-bottom: 4px;
+}
+.contents-block__number {
+  font-family: var(--font-condensed);
+  font-weight: 700;
+  font-size: 19pt;
+  line-height: 1;
+  color: var(--color-brand-dark-deep);
+  min-width: 24mm;
+}
+.contents-block__name {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 9.5pt;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-fg);
+}
+.contents-block__list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: var(--space-4);
+  row-gap: 0;
+}
+.contents-entry {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  font-family: var(--font-sans);
+  font-size: 8.2pt;
+  line-height: 1.25;
+  padding: 1px 0;
+}
+.contents-entry__num {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  color: var(--color-brand-primary);
+  min-width: 5.5mm;
+}
+.contents-entry__title { color: var(--color-text-fg-body); }
+
+/* ── Stat cards (page 4) ────────────────────────────────────────────────── */
+
+.stat-row { display: flex; gap: var(--space-4); margin: var(--space-5) 0; }
+.stat-card {
+  flex: 1;
+  background: var(--color-surface-bg-tint);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  text-align: left;
+}
+.stat-card__value {
+  font-family: var(--font-condensed);
+  font-weight: 700;
+  font-size: 26pt;
+  line-height: 1;
+  color: var(--color-brand-dark);
+}
+.stat-card__label {
+  font-family: var(--font-sans);
+  font-size: 9pt;
+  font-weight: 600;
+  color: var(--color-text-fg-body);
+  margin-top: var(--space-2);
+}
+.stat-row__caption {
+  font-family: var(--font-sans);
+  font-size: 8.5pt;
+  font-style: italic;
+  color: var(--color-text-fg-muted);
+  margin-top: calc(-1 * var(--space-3));
+  margin-bottom: var(--space-4);
+}
+
+/* ── Process chain (vertical) ──────────────────────────────────────────── */
+
+.process-chain { display: flex; flex-direction: column; align-items: stretch; }
+.process-chain__step {
+  background: var(--color-surface-bg-tint);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-brand-primary);
+  border-radius: var(--radius-sm);
+  padding: 7px var(--space-4);
+  font-family: var(--font-condensed);
+  font-weight: 700;
+  font-size: 12pt;
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+  color: var(--color-text-fg);
+  text-align: center;
+}
+.process-chain__arrow {
+  text-align: center;
+  color: var(--color-border-strong);
+  font-size: 10pt;
+  line-height: 1;
+  padding: 1px 0;
+}
+.process-chain__step--emphasis {
+  border-left-color: var(--color-semantic-warning);
+  background: var(--color-surface-bg-warm);
+}
+
+/* Process chain (horizontal, for 6/7-step pathways) */
+.process-chain--horizontal { flex-direction: row; align-items: center; }
+.process-chain--horizontal .process-chain__step {
+  flex: 1;
+  font-size: 9.5pt;
+  padding: var(--space-2) var(--space-1);
+}
+.process-chain--horizontal .process-chain__arrow {
+  padding: 0 2px;
+  font-size: 11pt;
+}
+.process-chain__substep {
+  font-family: var(--font-sans);
+  font-size: 7pt;
+  font-weight: 400;
+  color: var(--color-text-fg-muted);
+  text-align: center;
+  margin-top: var(--space-1);
+}
+
+/* Case-timeline sequence grid (page 20): a compact 3-column, numbered
+   alternative to the vertical process chain. Page 20 pairs the heaviest
+   body copy in the report with a 6-stage chain and, in review mode, a
+   long review panel underneath: a stacked 6-row chain plus that panel
+   does not fit one A4 page. Numbering the cards (rather than arrows)
+   keeps the sequence legible at a third of the vertical height. */
+.seq-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.seq-card {
+  background: var(--color-surface-bg-tint);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-brand-primary);
+  border-radius: var(--radius-sm);
+  padding: 6px var(--space-3);
+}
+.seq-card__num {
+  font-family: var(--font-condensed);
+  font-weight: 700;
+  font-size: 8pt;
+  color: var(--color-brand-primary);
+}
+.seq-card__label {
+  font-family: var(--font-condensed);
+  font-weight: 700;
+  font-size: 10.5pt;
+  color: var(--color-text-fg);
+  margin-top: 1px;
+}
+.seq-card__note {
+  font-family: var(--font-sans);
+  font-size: 7.2pt;
+  line-height: 1.25;
+  color: var(--color-text-fg-muted);
+  margin-top: 2px;
+}
+
+.process-chain__note {
+  font-family: var(--font-sans);
+  font-size: 8.5pt;
+  font-style: italic;
+  color: var(--color-brand-dark);
+  background: var(--color-surface-bg-tint);
+  border: 1px dashed var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+  margin-top: var(--space-3);
+}
+
+/* ── Diagnostic cards (equal weight, page 13) ──────────────────────────── */
+
+.card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
+.diag-card {
+  background: var(--color-surface-bg-tint);
+  border: 1px solid var(--color-border);
+  border-top: 3px solid var(--color-brand-dark);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+}
+.diag-card__title {
+  font-family: var(--font-condensed);
+  font-weight: 700;
+  font-size: 13.5pt;
+  color: var(--color-text-fg);
+  margin-bottom: var(--space-2);
+}
+.diag-card__body {
+  font-family: var(--font-sans);
+  font-size: 9pt;
+  line-height: 1.5;
+  color: var(--color-text-fg-body);
+}
+
+/* ── Capability grid (page 23) ──────────────────────────────────────────── */
+
+.cap-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+  margin: var(--space-4) 0;
+}
+.cap-card {
+  background: var(--color-surface-bg-tint);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-brand-primary);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3) var(--space-4);
+}
+.cap-card__num {
+  font-family: var(--font-condensed);
+  font-weight: 700;
+  font-size: 9pt;
+  color: var(--color-brand-primary);
+  margin-bottom: 2px;
+}
+.cap-card__text {
+  font-family: var(--font-sans);
+  font-size: 9pt;
+  line-height: 1.4;
+  color: var(--color-text-fg-body);
+}
+
+/* ── Simple 2x2 conceptual matrix (page 9) ─────────────────────────────── */
+
+.quad {
+  display: grid;
+  grid-template-columns: auto 1fr 1fr;
+  grid-template-rows: auto 1fr 1fr;
+  gap: 2px;
+  background: var(--color-border);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.quad__cell {
+  background: var(--color-surface-bg);
+  padding: var(--space-3);
+  font-size: 8.5pt;
+  color: var(--color-text-fg-body);
+}
+.quad__cell--axis {
+  background: var(--color-surface-bg-tint-2);
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 8pt;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-fg-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.quad__cell--highlight { background: var(--color-surface-bg-warm); border: 1px solid var(--color-semantic-warning); }
+.quad__cell--corner { background: transparent; }
+
+/* ── Two-layer split (page 10) ─────────────────────────────────────────── */
+
+.split-two { display: flex; gap: var(--space-4); margin-bottom: var(--space-4); }
+.split-two__col {
+  flex: 1;
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+}
+.split-two__col--reg { background: var(--color-surface-bg-tint-2); border: 1px solid var(--color-border); }
+.split-two__col--comm { background: var(--color-surface-bg-tint); border: 1px solid var(--color-border); }
+.split-two__label {
+  font-family: var(--font-sans);
+  font-size: 8pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-brand-dark);
+  margin-bottom: var(--space-1);
+}
+.split-two__text { font-size: 8.7pt; color: var(--color-text-fg-body); }
+
+.numbered-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: var(--space-5);
+  row-gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+.numbered-grid__item {
+  font-size: 8.7pt;
+  line-height: 1.4;
+  color: var(--color-text-fg-body);
+  display: flex;
+  gap: var(--space-2);
+}
+.numbered-grid__num {
+  font-family: var(--font-condensed);
+  font-weight: 700;
+  color: var(--color-brand-primary);
+  min-width: 1.4em;
+}
+
+/* ── Below/above dual block (page 11) ──────────────────────────────────── */
+
+.dual-block { display: flex; gap: var(--space-5); align-items: flex-start; margin-top: var(--space-3); }
+.dual-block__col { flex: 1; }
+.dual-block__label {
+  font-family: var(--font-sans);
+  font-size: 8pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-fg-muted);
+  margin-bottom: var(--space-2);
+}
+.dual-block__col--noi .dual-block__label { color: var(--color-brand-primary); }
+.dual-block__col--below { border-left: 1px dashed var(--color-border-strong); padding-left: var(--space-4); }
+.simple-list { display: flex; flex-direction: column; gap: var(--space-2); }
+.simple-list__item {
+  font-size: 8.7pt;
+  color: var(--color-text-fg-body);
+  padding-left: var(--space-3);
+  position: relative;
+}
+.simple-list__item::before { content: "·"; position: absolute; left: 0; color: var(--color-brand-primary); font-weight: 700; }
+
+/* ── Two value references, non-ordinal (page 12) ───────────────────────── */
+/* v0.2: no connector/convergence lines between the two sections: a plain
+   divider rule only, so nothing reads as "derived from" or ranked. */
+
+.ref-section-label {
+  font-family: var(--font-sans);
+  font-size: 8pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-fg-muted);
+  margin: var(--space-4) 0 var(--space-2);
+}
+.ref-points {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  margin: 0 0 var(--space-3);
+}
+.ref-points__ref {
+  background: var(--color-surface-bg-tint);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  text-align: center;
+}
+.ref-points__ref-label {
+  font-family: var(--font-condensed);
+  font-weight: 700;
+  font-size: 11.5pt;
+  color: var(--color-text-fg);
+}
+.ref-points__divider {
+  border-top: 1px solid var(--color-border-divider);
+  margin: var(--space-4) 0 var(--space-1);
+}
+.ref-points__current {
+  margin: 0 auto;
+  max-width: 70%;
+  background: var(--color-surface-bg-warm);
+  border: 1.5px dashed var(--color-semantic-warning);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  text-align: center;
+}
+.ref-points__current-label {
+  font-family: var(--font-condensed);
+  font-weight: 700;
+  font-size: 12.5pt;
+  color: var(--color-text-fg);
+}
+.ref-points__current-note {
+  font-family: var(--font-sans);
+  font-size: 7.5pt;
+  font-style: italic;
+  color: var(--color-text-fg-muted);
+  margin-top: 2px;
+}
+
+/* ── Centre + surrounding factors (page 14) ────────────────────────────── */
+
+.factor-center { text-align: center; margin: var(--space-4) 0 var(--space-5); }
+.factor-center__box {
+  display: inline-block;
+  background: var(--color-brand-dark);
+  color: #FFFFFF;
+  font-family: var(--font-condensed);
+  font-weight: 700;
+  font-size: 13pt;
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-6);
+}
+.factor-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2) var(--space-4);
+}
+.factor-grid__item {
+  font-size: 9pt;
+  color: var(--color-text-fg-body);
+  background: var(--color-surface-bg-tint);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+  text-align: center;
+}
+
+/* ── Checklist (readiness / printable) ─────────────────────────────────── */
+
+.checklist { display: flex; flex-direction: column; gap: var(--space-3); }
+.checklist__group-title {
+  font-family: var(--font-sans);
+  font-size: 8pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--color-brand-dark);
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 3px;
+  margin-bottom: var(--space-1);
+}
+.checklist__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  font-size: 9pt;
+  color: var(--color-text-fg-body);
+  padding: 2px 0;
+}
+.checklist__box {
+  flex: 0 0 auto;
+  width: 10px; height: 10px;
+  border: 1.3px solid var(--color-text-fg-muted);
+  border-radius: 2px;
+  margin-top: 3px;
+}
+.checklist--dense .checklist__item { font-size: 8.3pt; }
+.checklist--two-col { display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--space-6); row-gap: var(--space-3); }
+
+/* ── Decision-balance visual (page 17) ──────────────────────────────────── */
+/* v0.2: replaces the v0.1 2x2 quadrant (Hold/Stabilise/Sell/Expedited-exit
+   fixed into grid positions), which read as an automatic, unvalidated
+   recommendation. Two independent columns, no scoring, no quadrant mapping. */
+
+.balance-grid { display: flex; gap: var(--space-5); margin: var(--space-4) 0; }
+.balance-col {
+  flex: 1;
+  background: var(--color-surface-bg-tint);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+}
+.balance-col__label {
+  font-family: var(--font-sans);
+  font-size: 8pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: var(--space-2);
+}
+.balance-col--value .balance-col__label { color: var(--color-semantic-success); }
+.balance-col--cost .balance-col__label { color: var(--color-semantic-danger); }
+.decision-test {
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border-divider);
+  text-align: center;
+}
+.decision-test__label {
+  font-family: var(--font-sans);
+  font-size: 8pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-fg-muted);
+  margin-bottom: var(--space-1);
+}
+
+/* ── Five-state triage matrix (page 18) ────────────────────────────────── */
+
+.triage-list { display: flex; flex-direction: column; gap: var(--space-2); }
+.triage-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  background: var(--color-surface-bg-tint);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+}
+.triage-row__num {
+  font-family: var(--font-condensed);
+  font-weight: 700;
+  font-size: 13pt;
+  color: var(--color-brand-primary);
+  min-width: 1.6em;
+}
+.triage-row__state { flex: 1; font-size: 9pt; color: var(--color-text-fg); font-weight: 600; }
+.triage-row__implication {
+  flex: 1;
+  font-size: 8.5pt;
+  font-style: italic;
+  color: var(--color-text-fg-muted);
+  text-align: right;
+}
+
+/* ── Decision tree (page 21) ────────────────────────────────────────────── */
+
+.dtree { font-size: 8.7pt; }
+.dtree__q {
+  font-family: var(--font-condensed);
+  font-weight: 700;
+  font-size: 11.5pt;
+  color: var(--color-text-fg);
+  background: var(--color-surface-bg-tint-2);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+  margin-bottom: var(--space-2);
+}
+.dtree__branch { margin-left: var(--space-5); margin-bottom: var(--space-2); }
+.dtree__branch-label {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 8pt;
+  text-transform: uppercase;
+  color: var(--color-brand-primary);
+  margin-bottom: 2px;
+}
+.dtree__leaf-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+  margin-left: var(--space-3);
+}
+.dtree__leaf {
+  background: var(--color-surface-bg-tint);
+  border-left: 2px solid var(--color-brand-primary);
+  border-radius: 4px;
+  padding: var(--space-2) var(--space-3);
+}
+.dtree__leaf-source { font-weight: 700; color: var(--color-text-fg); font-size: 8.3pt; }
+.dtree__leaf-test { color: var(--color-text-fg-body); font-size: 8.3pt; }
+
+.pathway-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+.pathway-chip {
+  font-family: var(--font-sans);
+  font-size: 8pt;
+  font-weight: 600;
+  background: var(--color-surface-bg-tint);
+  border: 1px solid var(--color-border-strong);
+  border-radius: 100px;
+  padding: 5px 12px;
+  color: var(--color-text-fg-body);
+}
+
+/* ── Source footer (public citations, restrained) ──────────────────────── */
+
+.source-footer {
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border-divider);
+  font-family: var(--font-sans);
+  font-size: 7.3pt;
+  color: var(--color-text-fg-subtle);
+  line-height: 1.5;
+}
+.source-footer__label { font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; margin-right: 4px; }
+
+/* ── Contact band (page 24) ─────────────────────────────────────────────── */
+
+.contact-band {
+  margin-top: var(--space-5);
+  background: var(--color-brand-dark-deep);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+  text-align: center;
+}
+.contact-band__logo { height: 12mm; width: auto; margin-bottom: var(--space-2); }
+.contact-band__name {
+  font-family: var(--font-condensed);
+  font-weight: 700;
+  font-size: 14pt;
+  color: var(--color-text-on-dark);
+}
+.contact-band__title {
+  font-family: var(--font-sans);
+  font-size: 9pt;
+  color: var(--color-text-on-dark-muted);
+  margin-top: 1px;
+}
+.contact-band__details {
+  font-family: var(--font-sans);
+  font-size: 9pt;
+  color: var(--color-text-on-dark-muted);
+  margin-top: 2px;
+}
+
+/* ── Common terms & abbreviations glossary (page 4, round 2) ────────────── */
+
+.glossary-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: var(--space-5);
+  row-gap: var(--space-3);
+}
+.glossary-group { break-inside: avoid; }
+.glossary-group__heading {
+  font-family: var(--font-sans);
+  font-size: 8pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-brand-primary);
+  border-bottom: 0.5pt solid var(--color-border);
+  padding-bottom: 3px;
+  margin-bottom: 5px;
+}
+.glossary-term { margin-bottom: 5px; line-height: 1.32; }
+.glossary-term__name {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 8.75pt;
+  color: var(--color-text-fg);
+}
+.glossary-term__def {
+  font-family: var(--font-sans);
+  font-size: 8.75pt;
+  color: var(--color-text-fg-body);
+}
+.glossary-term__name::after { content: ": "; color: var(--color-text-fg-subtle); }
+
+/* -- QR callout (pages 2, 24, round 2) -- */
+
+.qr-callout {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+  padding: var(--space-2) var(--space-3);
+  border: 0.5pt solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-bg-tint);
+  max-width: 82mm;
+}
+.qr-callout__code { height: 16mm; width: 16mm; flex-shrink: 0; }
+.qr-callout__eyebrow {
+  font-family: var(--font-sans);
+  font-size: 7.5pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-fg-muted);
+}
+.qr-callout__title {
+  font-family: var(--font-condensed);
+  font-size: 10pt;
+  font-weight: 700;
+  color: var(--color-text-fg);
+  margin-top: 1px;
+}
+.contact-band .qr-callout {
+  margin-top: var(--space-4);
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.18);
+  text-align: left;
+  margin-left: auto;
+  margin-right: auto;
+}
+.contact-band .qr-callout__eyebrow { color: var(--color-text-on-dark-muted); }
+.contact-band .qr-callout__title { color: var(--color-text-on-dark); }
+
+/* ── Illustrative funding-vs-income comparison (page 4, round 1) ────────── */
+
+/* -- Single highlight metric (page 4/5, round 2, enrolled-places utilisation) -- */
+
+.highlight-metric {
+  margin: var(--space-4) 0;
+  padding: var(--space-3) var(--space-4);
+  border-left: 3pt solid var(--color-brand-primary);
+  background: var(--color-surface-bg-tint);
+  border-radius: var(--radius-sm);
+}
+.highlight-metric__value {
+  font-family: var(--font-condensed);
+  font-weight: 700;
+  font-size: 22pt;
+  color: var(--color-brand-dark-deep);
+  line-height: 1;
+}
+.highlight-metric__label {
+  font-family: var(--font-sans);
+  font-size: 9.5pt;
+  font-weight: 600;
+  color: var(--color-text-fg);
+  margin-top: 3px;
+}
+.highlight-metric__footnote {
+  font-family: var(--font-sans);
+  font-size: 7.5pt;
+  color: var(--color-text-fg-muted);
+  margin-top: 4px;
+  line-height: 1.35;
+}
+
+.illustrative-compare { margin: var(--space-4) 0; }
+.illustrative-compare__label {
+  font-family: var(--font-sans);
+  font-size: 8pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-fg-muted);
+  margin-bottom: var(--space-2);
+}
+.illustrative-compare__row { display: flex; align-items: center; gap: var(--space-3); margin-bottom: 6px; }
+.illustrative-compare__row-label { flex: 0 0 210px; font-size: 9pt; color: var(--color-text-fg-body); }
+.illustrative-compare__row-bar { flex: 1; background: var(--color-border); border-radius: 4px; height: 16px; overflow: hidden; }
+.illustrative-compare__row-fill { display: block; height: 100%; background: var(--color-brand-primary); }
+.illustrative-compare__row-fill--b { background: var(--color-brand-dark); }
+.illustrative-compare__caption {
+  font-size: 7.5pt;
+  font-style: italic;
+  color: var(--color-text-fg-subtle);
+  margin-top: 4px;
+}
+
+/* ── Review panel (review mode only) ───────────────────────────────────── */
+
+.review-panel {
+  margin-top: 4px;
+  background: var(--color-review-amber-bg);
+  border: 1px solid var(--color-review-amber);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-4);
+}
+.review-panel__label {
+  font-family: var(--font-sans);
+  font-size: 8pt;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-review-amber);
+  margin-bottom: var(--space-1);
+}
+.review-panel__item { margin-bottom: var(--space-2); }
+.review-panel__item:last-child { margin-bottom: 0; }
+.review-panel__topic {
+  font-family: var(--font-sans);
+  font-size: 7.6pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-fg-muted);
+  margin-bottom: 3px;
+}
+.review-panel__field { margin-bottom: var(--space-1); }
+.review-panel__field:last-child { margin-bottom: 0; }
+.review-panel__field-label {
+  font-family: var(--font-sans);
+  font-size: 7.3pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #8A5A17;
+}
+.review-panel__field-text { font-size: 8.3pt; line-height: 1.35; color: var(--color-text-fg-body); }
+
+/* ── Cover (page 1) ─────────────────────────────────────────────────────── */
+
+.cover { position: relative; height: 100%; }
+.cover__inner {
+  position: absolute;
+  top: 28mm; left: 22mm; right: 22mm; bottom: 28mm;
+}
+.cover__top { position: absolute; top: 0; left: 0; right: 0; }
+.cover__footer { position: absolute; left: 0; right: 0; bottom: 0; }
+.cover__mark { width: 34px; opacity: 0.92; }
+.cover__eyebrow {
+  font-family: var(--font-sans);
+  font-size: 9pt;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-on-dark-muted);
+  margin-bottom: var(--space-3);
+}
+.cover__title {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 33pt;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  color: #FFFFFF;
+  max-width: 92%;
+}
+.cover__subtitle {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 12.5pt;
+  line-height: 1.5;
+  color: var(--color-text-on-dark-muted);
+  max-width: 78%;
+  margin-top: var(--space-5);
+}
+.cover__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  font-family: var(--font-sans);
+  font-size: 8pt;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-on-dark-muted);
+}
+
+/* ── Nav / TOC (page 3) ─────────────────────────────────────────────────── */
+
+.reader-q-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); margin: var(--space-5) 0; }
+.reader-q-card {
+  background: var(--color-surface-bg-tint);
+  border-left: 3px solid var(--color-brand-primary);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3) var(--space-4);
+}
+.reader-q-card__q {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 11pt;
+  color: var(--color-text-fg);
+  margin-bottom: 4px;
+}
+.reader-q-card__pages { font-size: 8pt; color: var(--color-text-fg-muted); font-weight: 600; }
+
+table.nav-table { width: 100%; border-collapse: collapse; margin-top: var(--space-4); font-size: 8.7pt; }
+table.nav-table th {
+  text-align: left;
+  font-family: var(--font-sans);
+  font-size: 7.5pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-fg-muted);
+  border-bottom: 1px solid var(--color-border-strong);
+  padding: 4px 8px;
+}
+table.nav-table td {
+  padding: 5px 8px;
+  border-bottom: 1px solid var(--color-border-divider);
+  color: var(--color-text-fg-body);
+}
+
+/* ── Utility ────────────────────────────────────────────────────────────── */
+
+.section-heading {
+  font-family: var(--font-sans);
+  font-size: 8pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-brand-dark);
+  margin: var(--space-3) 0 var(--space-1);
+}
+.text-muted { color: var(--color-text-fg-muted); }
+
+/* Page 21: four commercial lenses, using the existing diagnostic cards. */
+#page-21 .title-block__title { font-size: 21pt; }
+#page-21 .sheet__kicker-row { margin-bottom: 8px; }
+#page-21 .title-block { margin-bottom: 8px; }
+#page-21 .body-copy { font-size: 9.4pt; line-height: 1.3; }
+#page-21 .body-copy p { margin-bottom: 7px; }
+#page-21 .diligence-lenses { margin: 8px 0; gap: 10px; }
+#page-21 .diag-card { padding: 10px 12px; }
+#page-21 .diag-card__title { font-size: 10pt; line-height: 1.2; margin-bottom: 7px; }
+#page-21 .diag-card__body { font-size: 9pt; line-height: 1.28; margin-bottom: 5px; }
+#page-21 .lens-takeaway { font-size: 8.8pt; line-height: 1.25; font-weight: 600; color: var(--color-brand-dark); padding-top: 4px; border-top: 1px solid var(--color-border); }
+#page-21 .diligence-sequence { display: flex; background: var(--color-brand-dark); color: white; margin-top: 8px; padding: 9px; gap: 14px; }
+#page-21 .diligence-sequence > div { flex: 1; position: relative; font-size: 8pt; line-height: 1.25; text-transform: uppercase; font-weight: 600; padding-right: 10px; }
+#page-21 .diligence-sequence span { position: absolute; right: -8px; top: 3px; }
+#page-21 .source-footer { font-size: 6.8pt; line-height: 1.3; margin-top: 9px; }
+#page-24 .simple-list { gap: 4px; }
+#page-24 .simple-list__item { font-size: 8.7pt; line-height: 1.3; }

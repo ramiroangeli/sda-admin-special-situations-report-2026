@@ -1,0 +1,9 @@
+node_modules/
+.next/
+.env
+.env.local
+exports/*.json
+exports/*.csv
+exports/*.md
+!exports/.gitkeep
+.DS_Store

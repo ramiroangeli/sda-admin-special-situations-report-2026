@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+{% import 'page.html' as pagetpl %}
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{{ report.title }}{% if mode == 'review' %} - Internal Review{% endif %}</title>
+<style>
+{{ tokens_css }}
+{{ components_css }}
+</style>
+</head>
+<body>
+{% for page in pages %}
+  {{ pagetpl.render_page(page, report, mode, logo_uri, review_by_page.get(page.page_number, []), pub_labels_by_page.get(page.page_number, []), qr_uri) }}
+{% endfor %}
+</body>
+</html>

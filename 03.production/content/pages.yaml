@@ -1,0 +1,771 @@
+# content/pages.yaml - active production render data
+#
+# Structured transcription of ../../02.content/pages/page_01.md-page_24.md (the
+# active editorial source of truth). This is the current, canonical version; the
+# prior locked versions (v0.1 through v0.2's visual layer, and drafts v0.1-v0.3,
+# and round1.1) live under ../../90.archive/, unmodified. See
+# ../../00.project/strategic_direction.md for the commercial interpretation and
+# ../../00.project/skeleton.yaml for the architecture this file implements.
+#
+# ROUND 2 RENUMBERING (Steve Dawson's second detailed review, see
+# ../../00.project/steve_feedback_round2.md and ../../00.project/changelog.md):
+# a new page 4 (Common SDA Terms & Abbreviations glossary) is inserted after the
+# introductory/how-to page, and the former page 22 ("Before a Realisation
+# Strategy Is Fixed") is retired as materially duplicative of pages 7 and 19's
+# own six-stage/five-stage sequences; its one distinct sentence is folded into
+# the new page 20's opening. Net effect: still 24 pages. Old pages 4-21 (18
+# pages) become new pages 5-22; old pages 1-3, 23, 24 are unchanged in number.
+# Every internal "(page N)" cross-reference below has been checked and updated
+# against this mapping, see the changelog for the full old-to-new table.
+#
+# FINAL DESIGN POLISH PASS (2026-09-29): page 3 redesigned from a nav/how-to
+# page into a proper one-page Contents (visual_type: contents); its group/range
+# data is generated at build time by scripts/build.py's build_toc_data(), never
+# retyped here, so titles cannot silently desynchronise. All Unicode em dashes
+# (U+2014) removed from public copy and rewritten contextually with the
+# grammatically appropriate punctuation, per that pass's instruction; en dashes
+# in ranges (e.g. 2025-26) and ordinary hyphens (in-use, pre-sale) are
+# unaffected.
+#
+# has_review: true now flags only pages carrying a genuinely unresolved review
+# item. All Steve review items are currently retired; see the active review
+# manifest. Review panel content is generated from that file at build time,
+# never duplicated here.
+
+report:
+  title: "Specialist Disability Accommodation Administration & Special Situations Report 2026"
+  title_alt: "SDA Administration & Special Situations Report 2026"
+  subtitle: "A Commercial Guide for Administrators, Receivers, Secured Lenders and Restructuring Advisers"
+  companion_report: "SDA Market Report 2026"
+  edition: "2026 Edition"
+  version: "SDA-ADMIN-2026"
+
+pages:
+
+  - page_id: page-01
+    page_number: 1
+    kicker_section: "Cover"
+    visual_type: cover
+    has_review: false
+
+  - page_id: page-02
+    page_number: 2
+    kicker_section: "Understand"
+    title: "Why SDA Is Different"
+    reader_question: "What am I actually dealing with?"
+    body_blocks:
+      - type: paragraph
+        text: "Specialist Disability Accommodation, or SDA, is an emerging asset class. The New Build classification began on 1 April 2016, so data on New Build dwellings has existed for only around a decade; granular data is limited and, in many instances, not publicly available, and public comparable-sale evidence remains limited. A common source of value leakage is treating an SDA appointment as a conventional property realisation, because an SDA appointment is not one asset. It is two."
+      - type: paragraph
+        text: "Because the class is nascent, SDA in-use value and alternative-use value can diverge significantly, in either direction. Sometimes that gap reflects a fundamental impairment. Sometimes it reflects a remediable chokehold. Specialist commercial diagnosis is what tells the difference: this report explains why, not how to perform that diagnosis yourself."
+    body_blocks_after_visual:
+      - type: paragraph
+        text: "This report is a companion to *SDA Market Report 2026*, which provides commercial insight into the SDA asset class's first decade. This report does not repeat that material; it focuses on administration, distress, recovery and realisation for an individual appointment."
+    visual_type: two_exposures
+    visual_data:
+      a:
+        label: "A. The SDA Freehold Property"
+        items:
+          - "SDA in-use economics"
+          - "Underlying alternative-use property value"
+          - "Participant funding"
+          - "Occupancy quality"
+          - "Location"
+          - "Design category"
+          - "Building type"
+          - "Fire sprinkler configuration"
+          - "Remaining SDA pricing tenure"
+          - "Provider arrangements"
+          - "Buyer / investor mandates"
+      b:
+        label: "B. The SDA Provider Business / Provider Rights"
+        items:
+          - "Provider registration"
+          - "Participant relationships"
+          - "Service and management agreements"
+          - "Claiming and administration"
+          - "Tenancy and provider transition"
+          - "Contractual rights and obligations"
+          - "Current sustainable cash flow"
+          - "Work in progress / participant pipeline"
+          - "Brand / reputation value"
+          - "Geographical reach"
+      companion_note: "This report does not attempt a full provider-business valuation: the two exposures are not interchangeable, and an appointee needs to know which one they're actually assessing."
+      qr_callout:
+        eyebrow: "Read alongside"
+        title: "SDA Market Report 2026"
+    public_source_ids: [PUB-07]
+    has_review: false
+
+  - page_id: page-03
+    page_number: 3
+    kicker_section: "Understand"
+    title: "Contents"
+    reader_question: null
+    visual_type: contents
+    visual_data: {}
+    public_source_ids: []
+    has_review: false
+
+  - page_id: page-04
+    page_number: 4
+    kicker_section: "Reference"
+    title: "Common SDA Terms & Abbreviations"
+    reader_question: null
+    body_blocks:
+      - type: paragraph
+        text: "This report assumes property, restructuring and lending expertise, not existing SDA sector knowledge. The terms below recur throughout the report and are defined here for quick reference."
+    visual_type: glossary
+    visual_data:
+      groups:
+        - name: "SDA / NDIS"
+          terms:
+            - term: "SDA"
+              definition: "Specialist Disability Accommodation: housing funded under the NDIS for participants with extreme functional impairment or very high support needs."
+            - term: "NDIS"
+              definition: "National Disability Insurance Scheme: the national scheme that funds supports for eligible people with disability, including SDA."
+            - term: "NDIA"
+              definition: "National Disability Insurance Agency: the Commonwealth agency that administers the NDIS and enrols and pays for SDA."
+            - term: "Enrolled Dwelling"
+              definition: "A dwelling formally enrolled with the NDIA as meeting SDA requirements, making it eligible to attract SDA payments."
+            - term: "SDA Provider"
+              definition: "An organisation registered to deliver, and claim payment for, SDA at an enrolled dwelling."
+        - name: "Design Categories"
+          terms:
+            - term: "HPS"
+              definition: "High Physical Support: SDA design category for participants with significant physical support needs."
+            - term: "FA"
+              definition: "Fully Accessible: SDA design category built to a high physical accessibility standard."
+            - term: "IL"
+              definition: "Improved Liveability: SDA design category supporting participants with sensory, intellectual or cognitive impairment."
+            - term: "Robust"
+              definition: "SDA design category built for durability and safety, typically for participants whose behaviour may damage conventional building fabric."
+            - term: "Basic"
+              definition: "SDA design category for housing without specialised design features but with other SDA characteristics. Basic is available for Existing Stock, not New Build dwellings."
+        - name: "Housing / Support"
+          terms:
+            - term: "SIL"
+              definition: "Supported Independent Living: NDIS-funded support for daily living tasks, funded and delivered separately from SDA."
+            - term: "RRC"
+              definition: "Reasonable Rent Contribution: the tenancy-style rent a resident pays a provider, separate from and in addition to SDA payments."
+        - name: "Property / Economics"
+          terms:
+            - term: "New Build"
+              definition: "SDA classification for dwellings meeting the applicable New Build criteria, including the relevant certificate-of-occupancy requirements from 1 April 2016."
+            - term: "Existing Stock"
+              definition: "SDA classification for a dwelling that does not meet the New Build definition, priced on a different basis."
+            - term: "NOI"
+              definition: "Net Operating Income: income remaining after operating costs, before debt service and capital items."
+            - term: "CAPEX"
+              definition: "Capital Expenditure: spending on capital works, as distinct from routine operating costs."
+            - term: "Vendor Due Diligence (VDD)"
+              definition: "A vendor's own pre-sale investigation of an asset's position. This report's central concept, Specialist SDA Commercial Vendor Due Diligence, is the SDA-specific version of it."
+        - name: "Geography / Market"
+          terms:
+            - term: "SA4"
+              definition: "Statistical Area Level 4: an ABS geography classification commonly used to describe SDA supply and demand by region."
+      note: "Definitions are provided for orientation only and do not restate or modify the meaning of any NDIS instrument."
+    public_source_ids: [PUB-03, PUB-07]
+    has_review: false
+
+  - page_id: page-05
+    page_number: 5
+    kicker_section: "Understand"
+    title: "What the Headline Demand Data Does Not Tell You"
+    reader_question: "Does eligible SDA funding mean viable demand for this dwelling?"
+    body_blocks:
+      - type: paragraph
+        text: "As at 30 June 2026 (the latest official dataset verified for this report), 16,644 active participants had SDA funding in use, and a further 9,014 were assessed as eligible for SDA but not yet using it. Nationally, 14,235 dwellings were enrolled as SDA, representing an estimated 31,065 enrolled SDA places (see below); enrolled dwellings grew from 7,925 in June 2023 to 14,235 in June 2026, and annualised SDA supports over the same period rose from $365m to $684m."
+      - type: paragraph
+        text: "**Eligibility, or the existence of SDA funding, does not by itself establish commercially viable demand for a particular enrolled dwelling.** The quarterly data is not granular enough for an investor to tell, from the headline eligible-not-using count, whether an individual participant's funding level is commercially aligned with a specific dwelling's enrolled pricing capacity. A participant can technically hold SDA funding at a level materially below the enrolled income capacity of the dwelling they wish to occupy."
+      - type: paragraph
+        text: "The consequence: headline eligible-not-using volume may overstate economically addressable demand for some properties, and a physically occupied place can still be materially underfunded relative to its enrolled pricing capacity. Some of these situations can be remediated. Others cannot: identifying which is a diagnosis, not an assumption either way."
+      - type: paragraph
+        text: "NDIA quarterly reporting has separated \"eligible, not yet using\" from \"using\" participants only since the Q4 2024-25 (30 June 2025) release. Across the four quarters this split has been published, the count has moved from 9,880 (June 2025) to 9,577 (December 2025) to 9,370 (March 2026) to 9,014 (June 2026): a 12-month decline, not a static three-year pattern. From 27 August 2026, new plan-reassessment requirements apply; the effect on individual SDA funding outcomes should not be inferred from this change alone."
+    visual_type: stat_cards
+    visual_data:
+      cards:
+        - value: "16,644"
+          label: "SDA in use"
+        - value: "9,014"
+          label: "Eligible, not yet using"
+        - value: "31,065"
+          label: "Enrolled SDA places"
+      caption: "As at 30 June 2026: separate NDIA measures, not a combined vacancy rate. Enrolled SDA places: SDAHC Research calculation from NDIA dwelling-capacity data (Table P.6)."
+      highlight_metric:
+        value: "≈46%"
+        label: "Estimated enrolled SDA place capacity not occupied by participants with SDA funding in use"
+        footnote: "SDAHC Research / market analysis: calculated by comparing active participants with SDA in use against estimated enrolled SDA place capacity. This is a utilisation measure, not an NDIA vacancy statistic."
+    public_source_ids: [PUB-01, PUB-05, PUB-06, PUB-09]
+    has_review: false
+
+  - page_id: page-06
+    page_number: 6
+    kicker_section: "Understand"
+    title: "What Must Line Up for an SDA Asset to Work"
+    reader_question: "What am I dealing with?"
+    body_blocks:
+      - type: paragraph
+        text: "The chain below is what has to hold together for an SDA dwelling to convert into transaction value. Enrolment alone does not create funding. Funding alone does not create occupancy. Occupancy alone does not create claimable, collected cash."
+      - type: paragraph
+        text: "The SDA Rules set these conditions out independently: a registered provider, an enrolled dwelling, an eligible participant actually residing there, and alignment between the dwelling's design category and the participant's plan. All must be satisfied together; none substitutes for another."
+      - type: paragraph
+        text: "A healthy asset shows alignment end to end. A distressed asset shows a break somewhere in the chain, and the rest of this report is a method for finding exactly where."
+    visual_type: process_chain
+    visual_data:
+      orientation: vertical
+      steps: ["Property", "Enrolment / Certification", "Participant-Specific Funding", "Occupancy", "Provider / Contracts", "Claims / Cash", "Operating Costs", "Sustainable NOI", "Transaction Value"]
+    public_source_ids: [PUB-03]
+    has_review: false
+
+  - page_id: page-07
+    page_number: 7
+    kicker_section: "Engage Specialist"
+    title: "The First 48 Hours"
+    reader_question: "What should I do next?"
+    body_blocks:
+      - type: paragraph
+        text: "The first 48 hours are not about completing full due diligence; they are about not losing ground that is hard to recover later. Six things need eyes on immediately."
+    body_blocks_after_visual:
+      - type: paragraph
+        text: "Participant and provider continuity is not the same task as securing a vacant commercial building: treat it as a distinct, earlier priority."
+    visual_type: six_box
+    visual_data:
+      lead_callout: "If the appointee is not experienced with SDA, research and appoint a specialist SDA commercial adviser early."
+      boxes:
+        - label: "Provider / Contracts"
+          text: "Identify the current registered SDA provider and the agreements that govern the relationship. Engage with the provider immediately to understand participant continuity, housing risk, claiming access and whether any provider transition issue exists. Where the entity in administration is the provider, or related to it, assess whether an independent provider transition is required and obtain specialist and legal advice where necessary; engage constructively with the current provider in the meantime."
+        - label: "People"
+          text: "Identify participant continuity and housing/support risks immediately."
+        - label: "Income"
+          text: "Identify what is currently being claimed and where the cash lands; preserve access to claiming, occupancy and funding information."
+        - label: "Enrolment"
+          text: "Confirm current enrolment status and any known change or re-enrolment requirement."
+        - label: "Property"
+          text: "Secure the physical asset: insurance, access, condition."
+        - label: "Evidence"
+          text: "Start preserving records before anything is moved or lost."
+    public_source_ids: [PUB-04]
+    has_review: true
+
+  - page_id: page-08
+    page_number: 8
+    kicker_section: "Commercial Vendor Due Diligence"
+    title: "The First 30 Days"
+    reader_question: "What should I do next?"
+    body_blocks:
+      - type: paragraph
+        text: "Page 7 covers the first 48 hours. This page sets the sequence for the full first month: in substance, this is what Specialist SDA Commercial Vendor Due Diligence looks like once a specialist adviser (page 7) is engaged."
+    body_blocks_after_visual:
+      - type: paragraph
+        text: "Treat this as the default reading order, not a rule to follow lock-step. Commercial diagnosis and divestment preparation can run in parallel once time pressure is material: waiting to \"fix everything\" before considering a sale is not always the economically rational choice. Page 20 returns to this trade-off directly."
+    visual_type: process_chain_detailed
+    visual_data:
+      steps:
+        - label: "Secure"
+          detail: "Protect participants, income, enrolment, property and records."
+        - label: "Reconcile"
+          detail: "Establish what is actually being claimed, collected and spent, against what the file says should be happening."
+        - label: "Diagnose"
+          detail: "Identify which links in the page 6 chain are broken, and why (page 14)."
+        - label: "Stabilise"
+          detail: "Close the gaps worth closing before any transaction."
+        - label: "Value"
+          detail: "Test the current valuation assumptions and establish the relevant value reference points, rather than relying on a pre-appointment valuation (page 13)."
+        - label: "Decide"
+          detail: "Hold, stabilise further, sell as-is, or restructure the provider relationship (page 18)."
+    public_source_ids: []
+    has_review: false
+
+  - page_id: page-09
+    page_number: 9
+    kicker_section: "Due Diligence"
+    title: "From Maximum SDA Price to Actual Cash"
+    reader_question: "Is the revenue real?"
+    body_blocks:
+      - type: paragraph
+        text: "NDIS SDA pricing sets maximum prices for SDA supports: the NDIA describes them as \"appropriate and reasonable maximum prices,\" not guaranteed income, and its price calculator is an expected-income tool, not proof that a specific dwelling will receive that amount."
+      - type: paragraph
+        text: "Getting from that headline price to cash in a property's account means the revenue has to survive five more steps: funding attached to a specific participant, alignment between that funding and this dwelling, actual physical occupancy, a claim correctly lodged, and a claim actually paid and collected."
+      - type: paragraph
+        text: "The SDA pricing framework does not remove the owner's commercial exposure to the difference between theoretical pricing and realised property income: a gap that can arise from funding, occupancy, claiming or provider execution, not only from the pricing framework itself. Testing where that gap actually sits, asset by asset, is core Commercial Due Diligence work before a vendor pathway is chosen."
+      - type: paragraph
+        text: "This page stops at cash received. What that cash is actually worth once operating costs are taken out is page 12's question, not this one."
+    visual_type: process_chain
+    visual_data:
+      orientation: vertical
+      steps: ["Maximum SDA Price", "Participant-Specific Funding", "Funding Aligned With Dwelling", "Physical Occupancy", "Claimable Income", "Cash Actually Received"]
+      emphasis_last: true
+    public_source_ids: [PUB-02]
+    has_review: false
+
+  - page_id: page-10
+    page_number: 10
+    kicker_section: "Due Diligence"
+    title: "Occupied Does Not Necessarily Mean Performing"
+    reader_question: "Why can an occupied SDA place still underperform economically?"
+    body_blocks:
+      - type: paragraph
+        text: "A dwelling can look fully occupied and still underperform economically. Physical presence is not the same as funding, and funding is not the same as a lodged and collected claim."
+      - type: paragraph
+        text: "In practice this shows up as: funding that has not yet come through for a resident who has moved in; funding that does not match this dwelling's design category; a participant paying market rent rather than an aligned SDA arrangement; short-term, non-SDA support propping up occupancy; or a claim sitting unlodged or unpaid."
+      - type: paragraph
+        text: "Each of these produces the same headline number, \"occupied,\" while producing a different income result. The gap between the two is usually where specialist diagnosis finds the surprise."
+      - type: paragraph
+        text: "In some cases the existing participant or tenant mix may itself constrain the dwelling's in-use capital value. In other cases, particularly sole-occupancy dwellings, a short-term residential tenancy strategy may be commercially preferable to carrying prolonged vacancy while the longer-term SDA position is assessed, subject to the relevant tenancy, SDA, funding and contractual position. This is a strategic option to test, not a default recommendation: moving an SDA dwelling temporarily into the general residential market is not necessarily frictionless."
+      - type: paragraph
+        text: "Page 19 turns this into a question of who determines whether that occupancy actually holds value. Here, the point is simpler: verify income, don't infer it from occupancy."
+    visual_type: quad_2x2
+    visual_data:
+      x_label: "Physically occupied"
+      y_label: "Income performing"
+      highlight_cell: "occupied_not_performing"
+    public_source_ids: [PUB-09, PUB-10]
+    has_review: false
+
+  - page_id: page-11
+    page_number: 11
+    kicker_section: "Due Diligence"
+    title: "The Provider, Contractual and Participant Information Layer"
+    reader_question: "Why is this information hard to see, and does that stop diagnosis?"
+    body_blocks:
+      - type: paragraph
+        text: "SDA providers carry regulatory obligations under the SDA Rules: registration, enrolment maintenance, and compliance with the Rules' service requirements. Layered on top is a commercial agreement that allocates the economics between owner and provider. That second layer is not incidental; it can materially affect control, transition execution and saleability."
+      - type: paragraph
+        text: "The relationship between owner, SDA provider, participants, participant funding, SIL/support providers and tenancy documentation can also make relevant commercial information genuinely difficult for an owner, lender or appointee to see clearly. That is not, on its own, a reason to stop diagnosis. Relevant commercial information can often be obtained and analysed in a de-identified manner that respects participant privacy and choice and control; this report does not give privacy or legal advice on how, only notes that the absence of direct participant detail should not automatically be read as an absence of diagnosable information."
+      - type: paragraph
+        text: "A provider change carries its own timing risk. Current NDIS guidance is specific: where a dwelling's existing SDA provider stops managing it, that provider's enrolment is cancelled, and the dwelling cannot support SDA payment claims until re-enrolled. The incoming provider must submit a new application, treated as new even where the dwelling was previously enrolled, not as a continuation or transfer. The cost and work required can range from minimal to material, depending on the dwelling, documentation and certification."
+    body_blocks_after_visual:
+      - type: paragraph
+        text: "Twelve recurring commercial questions, evidenced across a working sample of SDA agreements, cover this ground and can stand on their own as a commercial reference."
+    visual_type: split_and_numbered
+    visual_data:
+      regulatory:
+        label: "Regulatory layer (SDA Rules)"
+        text: "SDA providers carry regulatory obligations under the SDA Rules: registration, enrolment maintenance, and compliance with the Rules' service requirements."
+      commercial:
+        label: "Commercial layer (the agreement)"
+        text: "A commercial agreement allocates the economics: who receives the SDA payment, who receives reasonable rent contribution, what fee the provider charges and on what base, who carries vacancy exposure, who pays routine maintenance versus capital works, and what happens on sale, breach, loss of registration or insolvency. This second layer is not incidental; it can materially affect control, transition execution and saleability."
+      questions:
+        - "Who is the registered provider?"
+        - "Who receives SDA payments?"
+        - "Who receives RRC / other rent?"
+        - "What fee, on what base?"
+        - "Who sources/places participants?"
+        - "Who bears vacancy exposure?"
+        - "Who handles tenancy administration?"
+        - "Who pays routine maintenance?"
+        - "Who pays capital works / certification?"
+        - "What happens on sale or transfer?"
+        - "What happens on breach, loss of registration or insolvency?"
+        - "What does assignment/transition require?"
+    public_source_ids: [PUB-03, PUB-04, PUB-08]
+    has_review: false
+
+  - page_id: page-12
+    page_number: 12
+    kicker_section: "Due Diligence"
+    title: "From Actual Income to Sustainable NOI"
+    reader_question: "What does the asset actually earn on a sustainable basis?"
+    body_blocks:
+      - type: paragraph
+        text: "Accounting profit is not automatically transaction NOI. A sale-purpose reconciliation starts from actual or annualised property income, not the headline price from page 9, and works down through the costs of running the asset day to day: provider and management fees, property outgoings (rates, insurance, water), routine repairs and maintenance, and occupancy normalised across a period rather than read off a single point in time. Non-recurring operating income or expenses are treated as normalisation adjustments where appropriate, depending on their nature. The result is normalised, sustainable NOI, not the accounting P&L, and not the maximum SDA price from page 9."
+    body_blocks_after_visual:
+      - type: paragraph
+        text: "No single percentage applies to any of these steps across every asset; each has to be derived from the specific dwelling's own record, not assumed from a rule of thumb. This reconciliation is precisely what the diligence process tests before a sale, not something a headline P&L can substitute for."
+    visual_type: dual_block
+    visual_data:
+      lead_note: "Sustainable NOI is not the same as post-CAPEX cash flow."
+      noi_steps: ["Actual / Annualised Property Income", "Provider / Management Cost", "Property Operating Costs", "Routine R&M", "Occupancy / Vacancy Normalisation", "Normalised / Sustainable NOI"]
+      below_label: "Considered separately from normalised NOI"
+      below_items: ["Known CAPEX / capital works", "Capital reserves where adopted", "Lease-up / stabilisation capital requirements"]
+    public_source_ids: []
+    has_review: false
+
+  - page_id: page-13
+    page_number: 13
+    kicker_section: "Due Diligence"
+    title: "Value References, Remaining Pricing Tenure and Highest and Best Use"
+    reader_question: "Where is the value, and for how long does the current pricing basis last?"
+    body_blocks:
+      - type: paragraph
+        text: "Two independently assessable value references frame the position for an SDA asset."
+      - type: paragraph
+        text: "**SDA In-Use Value Reference** is a valuation of the asset operating under adopted assumptions: occupancy, funding, provider performance and cost structure."
+      - type: paragraph
+        text: "**Alternative-Use / Underlying Property Value Reference** is a valuation of the underlying property under the relevant alternative-use assumptions."
+      - type: paragraph
+        text: "Professional valuers assess these on different bases, and they can differ materially, in either direction, depending on location, design and local demand. SDAHC has observed cases where the SDA in-use valuation materially exceeds the underlying alternative-use value, and cases where it does not. SDA in-use is not automatically the higher value: some assets can recover substantial SDA value through remediation; others cannot, and in those cases the highest and best use may ultimately be an alternative use. The in-use reference is conditional on assumptions (design category, participant mix, occupancy, provider arrangement, operating costs, lease-up allowance) that may not hold in a distressed matter."
+      - type: paragraph
+        text: "**Current Recovery Position** is a commercial assessment of the current position, reflecting actual occupancy, participant funding, provider arrangements, contractual friction, required CAPEX, lease-up or stabilisation time, execution risk and holding costs. Current Recovery Position is not a third independent valuation methodology."
+      - type: paragraph
+        text: "Verify the assumptions behind both value references, and the remaining New Build pricing tenure, before relying on a valuation produced before the appointment began."
+    visual_type: reference_points
+    visual_data:
+      ref_a: "SDA In-Use Value Reference"
+      ref_b: "Alternative-Use Property Value Reference"
+      tenure_note: "Remaining New Build pricing tenure is distinct from enrolment. Check per dwelling against the applicable pricing framework and rules, which may provide for a different (Existing Stock) pricing treatment once the New Build period ends; not modelled here. A buyer may reasonably underwrite an asset differently with materially more of that period remaining than with materially less."
+      current: "Current Recovery Position"
+      current_note: "commercial estimate, not an independent valuation"
+    public_source_ids: [PUB-02, PUB-03]
+    has_review: false
+
+  - page_id: page-14
+    page_number: 14
+    kicker_section: "Due Diligence"
+    title: "What Exactly Is Impaired?"
+    reader_question: "What can go wrong, and how far does the diagnosis need to go?"
+    body_blocks:
+      - type: paragraph
+        text: "A useful starting diagnosis is to test four potential sources of impairment."
+    body_blocks_after_visual:
+      - type: paragraph
+        text: "Identifying which source, or combination, applies determines the realistic recovery pathway. This is the working diagnosis the decision tree on page 22 tests further."
+    visual_type: diagnostic_cards
+    visual_data:
+      cards:
+        - title: "Operational"
+          text: "The asset is enrolled and funded correctly, but day-to-day execution is failing: claims aren't lodged, records are poor, vacancy isn't being actively managed."
+        - title: "Provider / Contractual"
+          text: "The provider relationship itself is the problem: an unfavourable fee structure, unclear vacancy-risk allocation, a provider under pressure, or a contract that blocks a clean transition."
+        - title: "Capital Structure"
+          text: "Ownership, debt or security arrangements constrain recovery independently of, or in addition to, operating performance."
+        - title: "Fundamental Asset"
+          text: "Location, design category, configuration or realistic participant demand does not support the original SDA proposition."
+      note: "These four sources are a diagnostic starting point, not an exhaustive substitute for Specialist SDA Commercial Vendor Due Diligence. Some engagements require a forensic level of commercial investigation: testing for hidden commercial conflicts or dependencies (related-party arrangements, undisclosed dependencies, participant/provider incentives, cross-entity arrangements) rather than an accusation against any identified party."
+    public_source_ids: []
+    has_review: false
+
+  - page_id: page-15
+    page_number: 15
+    kicker_section: "Remedy / Position"
+    title: "Hidden Chokeholds: What Affects Recoverability"
+    reader_question: "What can go wrong, and is it fixable?"
+    body_blocks:
+      - type: paragraph
+        text: "The Current Recovery Position for an SDA asset (page 13) is not fixed; it moves with a number of factors, some within an appointee's control and some not. It does not necessarily start at, or move toward, the SDA in-use value reference; the two are related but distinct questions."
+      - type: paragraph
+        text: "Not every constraint on recoverability is the same kind of problem. Some are chokeholds: specific, identifiable and economically remediable before a sale. Others are fundamental, and no reasonable remediation changes the underlying position. This commercial review exists to tell the two apart, asset by asset, rather than assuming either one by default."
+    body_blocks_after_visual:
+      - type: paragraph
+        text: "No single percentage applies to any of these: the effect is specific to the asset, not a rule of thumb that transfers between matters."
+      - type: paragraph
+        text: "Each of the four sources of impairment from page 14 tends to affect a different subset of these factors. Mapping the two together, and testing which factors are genuinely remediable, helps identify where value-protection effort may be most effective."
+    visual_type: factor_center
+    visual_data:
+      center: "Current Recovery Position"
+      factors: ["Vacancy / occupancy", "Participant funding", "Provider position", "Operating costs", "CAPEX / compliance", "Holding time / carry", "Contractual friction", "Transaction execution risk"]
+      two_state_note: "Remediable chokehold, or fundamental impairment? A framing question for each factor above, not a scored classification."
+    public_source_ids: []
+    has_review: false
+
+  - page_id: page-16
+    page_number: 16
+    kicker_section: "Remedy / Position"
+    title: "Information Readiness"
+    reader_question: "Do I possess defensible evidence?"
+    body_blocks:
+      - type: paragraph
+        text: "Before broad market launch or Buyer Due Diligence, the reader needs to know whether the evidence underneath the asset is actually defensible, not just complete-looking. That assessment runs across seven principal information categories that need to be reconciled together, not checked off in isolation."
+    body_blocks_after_visual:
+      - type: paragraph
+        text: "Missing or inconsistent information in any of these categories does not just slow a process down; it becomes a value-at-risk issue once a buyer starts pricing the uncertainty. Reconciling them together, rather than category by category, is where Specialist SDA Commercial Vendor Due Diligence typically finds what a simpler review misses."
+      - type: paragraph
+        text: "A detailed appointment-specific information request will vary according to the property, provider structure, participant/funding position and proposed realisation pathway. This report therefore sets out the principal information categories rather than the full diligence protocol. SDAHC maintains a more detailed appointment-specific Vendor Due Diligence protocol. This page is the audit; whether you should actually launch, and in what order, is page 20's question."
+    visual_type: category_list
+    visual_data:
+      categories:
+        - name: "Property"
+          description: "Title, plans, chattels and physical condition."
+        - name: "Enrolment and certification"
+          description: "Current enrolment status and design-category certification."
+        - name: "Participant funding and occupancy"
+          description: "Funding alignment and occupancy quality, de-identified."
+        - name: "Provider and contracts"
+          description: "Management, service and provider agreements."
+        - name: "Actual income and operating costs"
+          description: "Realised income and the cost of running the asset."
+        - name: "Capital and compliance"
+          description: "Outstanding CAPEX, compliance and certification items."
+        - name: "Transaction structure"
+          description: "Security, ownership and transferability considerations."
+    public_source_ids: [PUB-04]
+    has_review: false
+
+  - page_id: page-17
+    page_number: 17
+    kicker_section: "Remedy / Position"
+    title: "One Portfolio or Several Transactions?"
+    reader_question: "What should I do next?"
+    body_blocks:
+      - type: paragraph
+        text: "A portfolio does not have to be sold the way it was financed or owned. Packaging is a recovery decision, not a marketing format: the choice affects achievable value, the buyer universe you reach, and execution risk."
+      - type: paragraph
+        text: "Buyer universe and achievable value can depend on considerably more than geography and provider structure alone. Institutional and fund mandates can differ materially, without any named buyer being identifiable from the pattern: these are examples of market segmentation dynamics, not a named buyer's mandate, a ranking, or SDAHC's own scoring or matching logic."
+    body_blocks_after_visual:
+      - type: paragraph
+        text: "Bundling may improve execution in some circumstances, while in others it can obscure asset-specific risk or narrow the buyer universe. A stronger asset may sometimes support the marketability of a weaker but complementary one; conversely, a strong and weak asset may simply have different buyer universes. The right answer depends on execution certainty and recovery, not on how the portfolio presents on a summary schedule."
+    visual_type: segmentation_grid
+    visual_data:
+      factors: ["SDA design category", "Building type", "Fire sprinkler configuration", "Remaining SDA pricing tenure", "Participant / funding profile", "Operating state", "Provider structure", "Alternative-use value", "Geographic / SA4 location", "Buyer / fund mandate", "Portfolio size and homogeneity"]
+      examples_label: "Examples of market segmentation dynamics"
+      examples:
+        - "Some funds target specific design categories; others will consider multiple or all categories."
+        - "Some require or prefer Class 3 or sprinkler-configured stock."
+        - "Some exclude particular SA4 markets."
+        - "Underwriting and discounted-cash-flow assumptions can vary by geography."
+      outcomes: ["Single sale", "Segmented sale"]
+    public_source_ids: []
+    has_review: false
+
+  - page_id: page-18
+    page_number: 18
+    kicker_section: "Realise"
+    title: "Stabilise, Hold or Sell?"
+    reader_question: "Is time creating value or destroying it?"
+    body_blocks:
+      - type: paragraph
+        text: "There is no universally correct answer to whether time helps or hurts recovery. Stabilisation can create value (closing an occupancy gap, completing a provider transition, finishing outstanding CAPEX) or it can destroy it, through carry cost, continued vacancy and drift."
+      - type: paragraph
+        text: "The decision comes down to balancing recovery potential against the cost of delay: how much recoverable improvement exists relative to the Current Recovery Position (page 13), how long that takes, what it costs to hold, and which source of impairment (page 14) is actually driving the distress. A provider-contractual problem with a credible transition plan is a different holding decision from a fundamental asset problem with no realistic fix."
+      - type: paragraph
+        text: "SDA remains a complex and relatively nascent asset class. Every property or portfolio therefore warrants an asset-specific level of commercial diligence before the realisation strategy is fixed. Taking an asset to market through a conventional process before Vendor Due Diligence may cause remediable SDA-specific value drivers to be priced as uncertainty rather than resolved before sale."
+    body_blocks_after_visual:
+      - type: paragraph
+        text: "A sequential rule, \"fix everything, then decide,\" is not always the right posture. Sometimes the clock is the biggest risk in the file."
+    visual_type: decision_balance
+    visual_data:
+      left:
+        label: "Potential value from waiting"
+        items:
+          - "Occupancy improvement"
+          - "Provider transition"
+          - "Completion of required CAPEX / remediation"
+          - "Other credible stabilisation upside"
+      right:
+        label: "Cost / risk of waiting"
+        items:
+          - "Carry cost"
+          - "Continued vacancy"
+          - "Time"
+          - "Execution drift / deteriorating position"
+      decision_label: "Decision to test"
+      options:
+        - "Stabilise"
+        - "Hold"
+        - "Sell"
+        - "Expedited exit / protect downside"
+      caption: "The decision depends on the balance between credible recovery potential and the cost of delay."
+    public_source_ids: []
+    has_review: false
+
+  - page_id: page-19
+    page_number: 19
+    kicker_section: "Remedy / Position"
+    title: "Occupancy Quality Through Commercial Vendor Due Diligence"
+    reader_question: "What sits behind the occupancy rate, and who determines whether it matters?"
+    body_blocks:
+      - type: paragraph
+        text: "Occupancy percentage by itself can be insufficient for a recovery decision. Two portfolios, or two multi-place assets, can report the same headline occupancy rate and carry very different income risk, depending on what stands behind that number. Headline occupancy is an operating statistic; Specialist SDA Commercial Vendor Due Diligence tests the quality, sustainability and value relevance of the occupancy behind the headline rate."
+      - type: paragraph
+        text: "Five practical states are worth separating: occupied with aligned, evidenced funding; occupied with uncertain funding; occupied with temporary or non-SDA income support; vacant with a credible participant or funding pathway; and vacant with no credible pathway. Each implies a different starting point for the stabilise/hold/sell decision on page 18."
+    body_blocks_after_visual:
+      - type: paragraph
+        text: "Occupancy rate alone can conceal material differences in income quality and stabilisation risk."
+    visual_type: triage_matrix
+    visual_data:
+      rows:
+        - state: "Occupied + aligned/evidenced funding"
+          implication: "Lower immediate remediation requirement"
+        - state: "Occupied + uncertain funding"
+          implication: "Verify before relying on income"
+        - state: "Occupied + temporary/non-SDA income"
+          implication: "Income quality requires review"
+        - state: "Vacant + credible funding pathway"
+          implication: "Potential stabilisation case"
+        - state: "Vacant + no credible pathway"
+          implication: "Re-test the underlying SDA proposition"
+    public_source_ids: []
+    has_review: false
+
+  - page_id: page-20
+    page_number: 20
+    kicker_section: "Remedy / Position"
+    title: "From Vendor Due Diligence to Market"
+    reader_question: "Am I actually ready to go to market?"
+    body_blocks:
+      - type: paragraph
+        text: "Before a realisation strategy is fixed, all relevant information needs to be collated and reconciled. Where the appointee does not have specialist SDA expertise internally, a specialist commercial adviser should be considered for this work. Page 16 established what needs to be reconciled; this page establishes the order and the go/no-go judgement."
+      - type: paragraph
+        text: "Specialist SDA Commercial Vendor Due Diligence verifies the information held is accurate and consistent, and reconciles it against actual claims, funding and occupancy records. Before broad market launch, material issues found this way should be resolved where practical, or clearly identified and documented. Targeted market sounding or transaction preparation may run in parallel where timing pressure makes a sequential process uneconomic, consistent with page 8's observation that advisory and divestment work don't always have to wait on each other."
+      - type: paragraph
+        text: "Reasonable remedial and value-protection actions follow from that diagnosis, not before it. Once the asset or portfolio is market-ready (data room prepared around the resolved, or clearly flagged, position; defensible economics set using the NOI bridge from page 12, not the headline price from page 9; and the initial packaging strategy on page 17 established while retaining the ability to adapt it as credible market evidence emerges), a specialist SDA sales agency should be appointed for a targeted market process. A specialist agency should understand SDA portfolio sales, funding and occupancy economics, provider dynamics, buyer mandates, and in-use versus alternative-use value."
+    body_blocks_after_visual:
+      - type: paragraph
+        text: "Launching before material issues are resolved or documented doesn't remove the uncertainty: unresolved uncertainty can reappear in pricing, conditions, Buyer Due Diligence requests or execution time."
+    visual_type: process_chain
+    visual_data:
+      orientation: horizontal
+      steps: ["Specialist SDA Commercial Vendor Due Diligence", "Reasonable Remedial / Value-Protection Actions", "Asset / Portfolio Market-Ready", "Appoint Specialist SDA Sales Agency", "Targeted Market Process"]
+    public_source_ids: []
+    has_review: false
+
+  - page_id: page-21
+    page_number: 21
+    kicker_section: Realise
+    title: What Due Diligence May Reveal Before Realisation
+    reader_question: What may not be visible from the headline income position?
+    body_blocks:
+    - type: paragraph
+      text: '**Current income does not mean the future income stream is transaction-ready.** An enrolled,
+        occupied SDA dwelling can appear sale-ready while carrying risks that interrupt income after sale.
+        Other issues may represent recoverable value if identified before market.'
+    - type: paragraph
+      text: Specialist SDA Commercial Vendor Due Diligence distinguishes durable income, remediable uncertainty
+        and risks that should shape pricing, transaction conditions or the realisation pathway. A complete
+        headline rent roll is a starting point, not sufficient evidence to launch. The four lenses below
+        show what the process on page 20 may reveal.
+    - type: paragraph
+      text: Historic enrolment records past status; it does not replace confirmation of the current documentary
+        and compliance position. Original design, certification gaps, missing historical documents or compliance
+        issues may require investigation before market. Understanding that position early helps avoid remediable
+        uncertainty being priced into the asset.
+    visual_type: diligence_lenses
+    visual_data:
+      cards:
+      - title: Enrolment continuity
+        paragraphs:
+        - When a provider stops managing a dwelling, it must cancel enrolment. The incoming provider must
+          apply afresh, even for a previously enrolled home, with the mandatory documents and relevant certifications.
+        - A sale may prompt buyers, lenders or advisers to seek continuity evidence. In SDAHC's market experience,
+          some buyers may make satisfactory enrolment evidence a transaction condition.
+        takeaway: Confirm documentation and resolve remediable gaps before market.
+      - title: Occupancy / vacancy income
+        paragraphs:
+        - Participants may leave for individual reasons. Eligible vacancy payments can temporarily support
+          income after a participant moves out of a qualifying shared home; eligibility, duration and evidence
+          must be tested.
+        - They do not cover newly built SDA homes that have never housed a participant.
+        takeaway: Test the income effect, any eligible claim and realistic replacement-occupancy timing.
+      - title: Forensic commercial review
+        paragraphs:
+        - A de-identified, forensic-style review may be needed to reconcile participant funding, occupancy,
+          provider records, claims, agreements and cash receipts without unnecessarily exposing participant
+          identities.
+        - Identify which income is durable, which discrepancies can be remedied and which risks belong in
+          the realisation strategy.
+        takeaway: Protect the opportunity for the strongest supportable realisation outcome.
+      - title: Tax / GST / transaction structure
+        paragraphs:
+        - '**Freehold:** the current SDA pricing schedule distinguishes certain base amounts by historical
+          GST and input-tax-credit treatment. Confirm the applicable treatment for each dwelling.'
+        - '**Provider-business / management rights:** similar arrangements may have different GST treatment.
+          Verify the supply, agreements and entity structure against applicable GST law with tax advisers.
+          GST-free NDIS supplies require specific conditions; market practice is insufficient.'
+        takeaway: Obtain specialist taxation advice.
+      closing: For SDA freehold interests or provider-business rights, first establish the commercial position,
+        then test it with appropriate legal and taxation advisers before the agency appointment and market
+        process are finalised. Tax treatment can materially affect transaction economics and structure.
+        **Obtain specialist taxation advice before fixing the realisation strategy.** Page 22 translates
+        the findings into pathway decisions.
+      steps:
+      - Commercial diagnosis
+      - Legal / tax review where required
+      - Realisation strategy
+      - Specialist market process
+    public_source_ids:
+    - PUB-08
+    - PUB-11
+    - PUB-12
+    - PUB-13
+    has_review: false
+
+  - page_id: page-22
+    page_number: 22
+    kicker_section: "Realise"
+    title: "SDA Appointment / Realisation Decision Tree"
+    reader_question: "What should I do next?"
+    body_blocks:
+      - type: paragraph
+        text: "Start with one question: is verified sustainable income currently being produced?"
+      - type: paragraph
+        text: "If yes, test whether funding, occupancy, provider position and enrolment are all evidenced. If they are, test hold against a performing-SDA sale. If any of them isn't, treat the position as unresolved and return to reconciling and diagnosing."
+      - type: paragraph
+        text: "If not, the question becomes which source of impairment (page 14) is driving it, and each source points to what to test next, not to a fixed outcome. Operational prompts a test of whether remediation is economic; provider/contractual prompts a test of transition or contractual restructuring; capital structure prompts a test of security position, release conditions and transaction structure; fundamental asset prompts a re-test of the SDA proposition against the alternative-use position (page 13)."
+    body_blocks_after_visual:
+      - type: paragraph
+        text: "The eventual pathway follows from what that testing finds, not automatically from the diagnosis alone."
+    visual_type: decision_tree
+    visual_data:
+      root: "Is verified sustainable income currently being produced?"
+      yes_branch:
+        question: "Are funding, occupancy, provider position and enrolment evidenced?"
+        yes_leaf: "Test: Hold vs. Performing-SDA Sale"
+        no_leaf: "Reconcile / Diagnose"
+      no_branch:
+        question: "What is driving the impairment? (page 14)"
+        leaves:
+          - source: "Operational"
+            test: "Test: is remediation/stabilisation economic?"
+          - source: "Provider / Contractual"
+            test: "Test: provider transition / contractual restructure"
+          - source: "Capital Structure"
+            test: "Test: security, release conditions, structure"
+          - source: "Fundamental Asset"
+            test: "Re-test: SDA proposition vs. alternative use (p.13)"
+      pathway_options: ["Hold", "Stabilise", "Provider restructure/transition", "Sell as performing SDA", "Sell as a special situation", "Segment portfolio (p.17)", "Alternative use / repurpose"]
+    public_source_ids: []
+    has_review: false
+
+  - page_id: page-23
+    page_number: 23
+    kicker_section: "Realise"
+    title: "Where Specialist SDA Commercial Advice Adds Value"
+    reader_question: null
+    body_blocks:
+      - type: paragraph
+        text: "Specialist commercial vendor due diligence before sale is a core value-protection step for SDA assets. A conventional property sale process may fail to identify or resolve SDA-specific value drivers before the market prices the asset. Specialist SDA Commercial Vendor Due Diligence can distinguish between impairment that is remediable before sale and impairment that should instead be reflected in the realisation strategy: it is not a guarantee of optimal value, and this report does not claim to be one."
+      - type: paragraph
+        text: "Some of the diagnostic and transaction work described in this report benefits from specialist SDA input, not because it is legally required, but because SDA-specific commercial judgement is not always available inside a standard property or restructuring process."
+      - type: paragraph
+        text: "SDAHC provides specialist SDA transaction advisory, commercial vendor due diligence and market intelligence, including:"
+    body_blocks_after_visual:
+      - type: quote
+        text: "Specialist input is generally most valuable before income assumptions, valuation expectations or sale strategy become fixed."
+    visual_type: capability_grid
+    visual_data:
+      items:
+        - "Triaging an SDA-exposed appointment in its first days."
+        - "Reconciling actual income to sustainable NOI."
+        - "Reviewing the property and provider position together, rather than separately."
+        - "Setting portfolio strategy where assets are heterogeneous."
+        - "Preparing a data room and sale-readiness position."
+        - "Running a special-situations divestment process."
+    public_source_ids: []
+    has_review: false
+
+  - page_id: page-24
+    page_number: 24
+    kicker_section: "Reference"
+    title: "Sources / Disclaimer / Contact"
+    reader_question: null
+    body_blocks:
+      - type: paragraph
+        text: "This report combines four kinds of evidence: official public sources (NDIA, the Federal Register of Legislation, ASIC and ATO); professional valuation and transaction evidence reviewed by SDAHC; anonymised SDAHC commercial experience, described only as patterns, never as individual matters; and aggregated market intelligence, used only where multiple independent signals converge and explicitly described as such."
+      - type: paragraph
+        text: "Public sources are cited to the primary document. Internal evidence has been sanitised before use: no client, property, lender, provider or buyer is identified anywhere in this report, and no figure is presented as a national statistic unless it is published by a public regulator in that form."
+      - type: paragraph
+        text: "This report is a commercial guide. It is not legal, tax, insolvency or investment advice, and does not replace advice from a qualified adviser on any specific matter."
+    visual_type: sources_list
+    visual_data:
+      sources_note: "Key primary sources cited in this report:"
+      contact_name: "Steve Dawson"
+      contact_title: "Managing Director"
+      contact_phone: "0408 550 441"
+      contact_email: "steve@sdahomechoices.com.au"
+      contact_website: "sdahomechoices.com.au"
+      qr_callout:
+        eyebrow: "Continue reading"
+        title: "SDA Market Report 2026"
+    public_source_ids: [PUB-01, PUB-02, PUB-03, PUB-04, PUB-05, PUB-06, PUB-07, PUB-08, PUB-09, PUB-11, PUB-12, PUB-13]
+    has_review: false
