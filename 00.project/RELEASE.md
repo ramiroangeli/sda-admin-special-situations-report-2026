@@ -1,14 +1,14 @@
 # SDA Administration & Special Situations Report 2026
 
-Version: v1.0
+Version: v1.1
 Status: FINAL
-Release date: 29 September 2026
+Release date: 1 October 2026
 
 Canonical PDF:
 `05.outputs/public/SDA_Administration_Special_Situations_Report_2026.pdf`
 
 SHA-256:
-`deaed70a39c18f47de38babd401f3f43a26e23e885a0c46554a454d0164bfc84`
+`2b90788a835b79c3ae34d057185554add3ddd9d18eb96c896cc2d158ae48a4bd`
 
 Final status:
 - Steve Dawson review complete
@@ -22,7 +22,10 @@ Final status:
 - final Ramiro visual approval complete
 
 Release tag:
-`sda-admin-special-situations-report-2026-v1.0`
+`sda-admin-special-situations-report-2026-v1.1`
 
 Future changes:
-Any substantive change after this release must be versioned as v1.1 or later.
+Supersedes v1.0 (tag sda-admin-special-situations-report-2026-v1.0, unchanged). v1.1 adopts the final design reference: cover as image asset, page 24 closing block, inset navy bands on pages 20-21, circa 46%, italic report title on page 2.
+Output PDFs are not stored in the repository; the SHA-256 above identifies the released file.
+
+Any substantive change after this release must be versioned as v1.2 or later.
