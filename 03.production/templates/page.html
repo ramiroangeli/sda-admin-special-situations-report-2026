@@ -1,25 +1,27 @@
 {% import 'components/macros.html' as c %}
 
-{% macro render_page(page, report, mode, logo_uri, review_entries, pub_labels, qr_uri) %}
+{# Visual types that place the page's body_blocks_after_visual or sources
+   inside their own composition (final design pass) instead of after it. #}
+{% set after_in_visual = ['two_exposures'] %}
+{% set sources_in_visual = ['stat_cards', 'sources_list'] %}
+{% set no_sources = ['contents', 'decision_tree', 'capability_grid'] %}
+
+{% macro render_page(page, report, mode, logo_uri, review_entries, pub_labels, qr_uri, assets) %}
 
 {% if page.visual_type == 'cover' %}
-<section class="sheet sheet--dark" id="{{ page.page_id }}">
-  {{ c.cover(report, logo_uri) }}
+<section class="sheet sheet--cover" id="{{ page.page_id }}">
+  {{ c.cover(report, assets) }}
 </section>
 
 {% else %}
-<section class="sheet{% if review_entries %} sheet--has-review-banner{% endif %}" id="{{ page.page_id }}">
+<section class="sheet sheet--{{ page.theme or 'white' }}{% if review_entries %} sheet--has-review-banner{% endif %}" id="{{ page.page_id }}">
   {% if mode == 'review' and review_entries %}
   <div class="review-banner">Internal Review: Not for Distribution</div>
-  {% else %}
-  <div class="sheet__accent"></div>
   {% endif %}
 
-  <div class="sheet__frame">
-    <div class="sheet__kicker-row">
-      <span class="sheet__kicker-section">SDA Administration &amp; Special Situations</span>
-    </div>
+  <div class="sheet__runhead"><span>SDA Administration &amp; Special Situations</span></div>
 
+  <div class="sheet__frame">
     {{ c.title_block(page) }}
 
     {% if page.body_blocks %}{{ c.body_copy(page.body_blocks) }}{% endif %}
@@ -27,10 +29,8 @@
     {# ── visual dispatch ── #}
     {% if page.visual_type == 'contents' %}{{ c.contents(page.visual_data) }}
     {% elif page.visual_type == 'glossary' %}{{ c.glossary(page.visual_data) }}
-    {% elif page.visual_type == 'two_exposures' %}{{ c.two_exposures(page.visual_data, qr_uri) }}
-    {% elif page.visual_type == 'chain_preview' %}{{ c.chain_preview(page.visual_data) }}
-    {% elif page.visual_type == 'nav_toc' %}{{ c.nav_toc(page.visual_data) }}
-    {% elif page.visual_type == 'stat_cards' %}{{ c.stat_cards(page.visual_data) }}
+    {% elif page.visual_type == 'two_exposures' %}{{ c.two_exposures(page.visual_data, qr_uri, page.body_blocks_after_visual) }}
+    {% elif page.visual_type == 'stat_cards' %}{{ c.stat_cards(page.visual_data, pub_labels) }}
     {% elif page.visual_type == 'process_chain' %}{{ c.process_chain(page.visual_data) }}
     {% elif page.visual_type == 'process_chain_detailed' %}{{ c.process_chain_detailed(page.visual_data) }}
     {% elif page.visual_type == 'six_box' %}{{ c.six_box(page.visual_data) }}
@@ -46,20 +46,19 @@
     {% elif page.visual_type == 'triage_matrix' %}{{ c.triage_matrix(page.visual_data) }}
     {% elif page.visual_type == 'diligence_lenses' %}{{ c.diligence_lenses(page.visual_data) }}
     {% elif page.visual_type == 'decision_tree' %}{{ c.decision_tree(page.visual_data) }}
-    {% elif page.visual_type == 'workstream_summary' %}{{ c.workstream_summary(page.visual_data) }}
-    {% elif page.visual_type == 'capability_grid' %}{{ c.capability_grid(page.visual_data) }}
-    {% elif page.visual_type == 'sources_list' %}{{ c.sources_list(page.visual_data, pub_labels, logo_uri, qr_uri) }}
+    {% elif page.visual_type == 'capability_grid' %}{{ c.capability_grid(page.visual_data, page.body_blocks_after_visual) }}
+    {% elif page.visual_type == 'sources_list' %}{{ c.sources_list(page.visual_data, pub_labels, assets, qr_uri) }}
     {% endif %}
 
-    {% if page.body_blocks_after_visual %}{{ c.body_copy(page.body_blocks_after_visual) }}{% endif %}
+    {% if page.body_blocks_after_visual and page.visual_type not in after_in_visual and page.visual_type != 'capability_grid' %}{{ c.body_copy(page.body_blocks_after_visual) }}{% endif %}
 
     {% if mode == 'review' %}{{ c.review_panel(review_entries) }}{% endif %}
-
-    {% if page.visual_type != 'sources_list' %}{{ c.source_footer(pub_labels) }}{% endif %}
   </div>
 
+  {% if page.visual_type not in sources_in_visual and page.visual_type not in no_sources %}{{ c.source_footer(pub_labels) }}{% endif %}
+
   <div class="sheet__footer">
-    <span class="sheet__footer-title">© 2026 SDAHC Research{% if mode == 'review' %} - Internal Review{% endif %}</span>
+    <span class="sheet__footer-title">&copy; 2026 SDAHC Research{% if mode == 'review' %} - Internal Review{% endif %}</span>
     <span class="sheet__page-number"></span>
   </div>
 </section>
