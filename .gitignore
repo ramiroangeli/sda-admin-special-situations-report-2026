@@ -30,3 +30,7 @@ __pycache__/
 # archive: 35 MB of tarballs and generated visuals, kept locally only
 90.archive/
 04.review/app/public/page-renders/
+
+# output PDFs are not versioned (v1.1 onwards); fingerprint lives in RELEASE.md
+05.outputs/public/*.pdf
+00.project/design_refs/*.pdf
