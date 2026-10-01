@@ -51,6 +51,22 @@
   --color-semantic-danger: #C8392B;
   --color-semantic-success: #1F8A5B;
 
+  /* Final design pass (FINAL_DESIGN_REFERENCE.pdf): paper/tint panels and
+     status tints used by the page-level components. */
+  --color-amber: #C97A0A;
+  --color-green: #1F8A5B;
+  --color-red: #C8392B;
+  --color-navy: #06336B;
+  --color-deep: #00162C;
+  --color-sky: #2EA3F2;
+  --color-tint: #E8F0F8;
+  --color-paper: #F5F1EC;
+  --color-amber-tint: #FBF1E1;
+  --color-green-tint: #F2F8F5;
+  --color-red-tint: #FCF6F5;
+  --color-rule: #D5DDE6;
+  --color-rule-soft: #E4EAF0;
+
   /* This publication's restrained forensic accent — same palette family,
      used sparingly for review-mode-only elements so review markers never
      look like part of the public visual system. */
