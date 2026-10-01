@@ -435,3 +435,7 @@ Final release. Ramiro's visual approval received; project frozen in Git as
 `sda-admin-special-situations-report-2026-v1.0`. Canonical PDF SHA-256 recorded in
 `RELEASE.md`. `90.archive/` and regenerable build output (`03.production/out/`,
 previews, review PDF) are not versioned.
+
+## v1.1 FINAL (1 October 2026)
+
+Final design reference adopted. Cover embedded as image asset; page 24 closing block per reference (contact: research@sdahomechoices.com.au, QR, Steve Dawson name and phone); pages 20-21 navy bands inset to 14 mm margins; circa 46% on page 5; italic title on page 2. Copy otherwise unchanged. v1.0 untouched.
