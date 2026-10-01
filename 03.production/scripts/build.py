@@ -160,12 +160,14 @@ def md_inline(text):
     markdown parser."""
     if text is None:
         return ""
-    parts = re.split(r"(\*\*[^*]+\*\*)", text)
+    parts = re.split(r"(\*\*[^*]+\*\*|\*[^*]+\*)", text)
     out = []
     for part in parts:
         if part.startswith("**") and part.endswith("**"):
             inner = _escape(part[2:-2])
             out.append(f"<strong>{inner}</strong>")
+        elif len(part) > 2 and part.startswith("*") and part.endswith("*"):
+            out.append(f"<em>{_escape(part[1:-1])}</em>")
         else:
             out.append(_escape(part))
     return "".join(out)
@@ -209,6 +211,11 @@ def render_html(mode: str) -> Path:
             p["visual_data"] = build_toc_data(pages)
     logo_uri = _b64_uri(STATIC / "img" / "sdahc-logo.png", "image/png")
     qr_uri = _b64_uri(STATIC / "img" / "qr_sda_market_report_2026.png", "image/png")
+    assets = {
+        "logo": logo_uri,
+        "logo_blue": _b64_uri(STATIC / "img" / "sdahc-logo-blue.png", "image/png"),
+        "cover": _b64_uri(STATIC / "img" / "cover.png", "image/png"),
+    }
 
     env = make_env()
     template = env.get_template("report.html")
@@ -218,6 +225,7 @@ def render_html(mode: str) -> Path:
         mode=mode,
         logo_uri=logo_uri,
         qr_uri=qr_uri,
+        assets=assets,
         review_by_page=review_by_page,
         pub_labels_by_page=pub_labels_by_page,
         tokens_css=(STATIC / "css" / "tokens.css").read_text(),
