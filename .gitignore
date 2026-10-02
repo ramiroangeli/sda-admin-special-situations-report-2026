@@ -34,3 +34,7 @@ __pycache__/
 # output PDFs are not versioned (v1.1 onwards); fingerprint lives in RELEASE.md
 05.outputs/public/*.pdf
 00.project/design_refs/*.pdf
+
+# generated PDFs (all outputs, incl. review app copy)
+05.outputs/**/*.pdf
+04.review/app/public/report/
