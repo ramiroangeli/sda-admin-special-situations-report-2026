@@ -1,0 +1,295 @@
+/* =========================================================================
+   SDA Home Choices — Design Tokens
+   Typography + Color foundations. Import this file in any artifact.
+   ========================================================================= */
+
+/* SDA Home Choices typography v2 — three families, loaded via Google Fonts. */
+/*   Playfair Display  → editorial serif: H1/H2/H3, display, asset names     */
+/*   Source Sans 3     → UI & body: forms, nav, tables, badges, buttons      */
+/*   Barlow Condensed  → covers, section openers, stats hero, large numbers  */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,400;1,600&family=Barlow+Condensed:wght@500;600;700;800&display=swap');
+
+:root {
+  /* ---------- TYPE FAMILIES ----------------------------------------------- */
+  --font-serif:         'Playfair Display', 'Georgia', serif;   /* editorial serif: headings, display, asset names */
+  --font-serif-display: 'Playfair Display', 'Georgia', serif;   /* alias — large display moments */
+  --font-sans:          'Source Sans 3', 'Helvetica Neue', 'Arial', system-ui, sans-serif; /* body + all UI */
+  --font-condensed:     'Barlow Condensed', 'Source Sans 3', 'Arial', sans-serif; /* covers, section openers, stats hero, big numbers */
+
+  /* ---------- COLOR — Brand ---------------------------------------------- */
+  --brand-primary:        #0476D9;   /* CTAs, badges, primary accent */
+  --brand-primary-hover:  #035FB0;   /* hover state (10% darker)     */
+  --brand-primary-press:  #024A8C;   /* active/press                 */
+  --brand-link:           #2EA3F2;   /* secondary links              */
+  --brand-link-hover:     #1786D6;
+
+  /* Dark section backgrounds */
+  --brand-dark:           #1B57A6;
+  --brand-dark-deep:      #06336B;   /* gradient start */
+  --brand-dark-deepest:   #00162B;   /* gradient end   */
+  --gradient-footer: linear-gradient(180deg, #06336B 0%, #00162B 100%);
+  --gradient-hero:   linear-gradient(135deg, #1B57A6 0%, #06336B 100%);
+
+  /* ---------- COLOR — Neutrals & Surfaces -------------------------------- */
+  --bg:           #FFFFFF;           /* main background — absolute white */
+  --bg-tint:      #F7F9FC;           /* ultra-light slate tint           */
+  --bg-tint-2:    #EEF2F7;           /* card / divider band              */
+  --surface:      #FFFFFF;
+  --surface-alt:  #FAFBFD;
+
+  /* ---------- COLOR — Foreground / Text ---------------------------------- */
+  --fg:           #1A2A3A;           /* near-black for headings on light */
+  --fg-body:      #3C5468;           /* SLATE BLUE — body text (spec)    */
+  --fg-muted:     #6B8197;           /* secondary copy, captions         */
+  --fg-subtle:    #9AAAB9;           /* tertiary / metadata              */
+  --fg-on-dark:   #FFFFFF;
+  --fg-on-dark-muted: #B9CBE0;
+
+  --border:       #E1E8EF;
+  --border-strong:#C8D3DE;
+  --divider:      #EEF2F7;
+
+  /* ---------- COLOR — Semantic ------------------------------------------- */
+  --success: #1F8A5B;
+  --warning: #C97A0A;
+  --danger:  #C8392B;
+
+  /* ---------- SPACING (4px base) ----------------------------------------- */
+  --s-1:  4px;
+  --s-2:  8px;
+  --s-3:  12px;
+  --s-4:  16px;
+  --s-5:  24px;
+  --s-6:  32px;
+  --s-7:  48px;
+  --s-8:  64px;
+  --s-9:  96px;
+  --s-10: 128px;
+
+  /* ---------- RADII ------------------------------------------------------- */
+  --r-xs: 4px;
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+  --r-pill: 100px;     /* CTAs — spec mandated */
+
+  /* ---------- SHADOWS (soft, premium) ------------------------------------ */
+  --shadow-xs: 0 1px 2px rgba(6, 51, 107, 0.06);
+  --shadow-sm: 0 2px 6px rgba(6, 51, 107, 0.06), 0 1px 2px rgba(6, 51, 107, 0.04);
+  --shadow-md: 0 8px 24px rgba(6, 51, 107, 0.08), 0 2px 6px rgba(6, 51, 107, 0.04);
+  --shadow-lg: 0 20px 48px rgba(6, 51, 107, 0.12), 0 4px 12px rgba(6, 51, 107, 0.06);
+  --shadow-xl: 0 32px 80px rgba(6, 51, 107, 0.18);
+  --shadow-focus: 0 0 0 4px rgba(4, 118, 217, 0.18);
+
+  /* ---------- MOTION ------------------------------------------------------ */
+  --ease-out:   cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast:   140ms;
+  --dur-base:   220ms;
+  --dur-slow:   420ms;
+
+  /* ---------- LAYOUT ------------------------------------------------------ */
+  --container-narrow: 880px;
+  --container:        1180px;
+  --container-wide:   1320px;
+  --gutter:           clamp(20px, 4vw, 64px);
+
+  /* ---------- TYPE SCALE (semantic) -------------------------------------- */
+  --fs-display: clamp(48px, 6vw, 88px);
+  --fs-h1:      clamp(40px, 4.5vw, 64px);
+  --fs-h2:      clamp(30px, 3vw, 44px);
+  --fs-h3:      clamp(22px, 2vw, 28px);
+  --fs-h4:      20px;
+  --fs-lead:    20px;
+  --fs-body:    16px;
+  --fs-small:   14px;
+  --fs-micro:   12px;
+
+  --lh-tight:  1.08;
+  --lh-snug:   1.25;
+  --lh-base:   1.6;
+  --lh-loose:  1.75;
+
+  --tracking-tight: -0.01em;
+  --tracking-base:  0;
+  --tracking-wide:  0.04em;        /* uppercase eyebrows / micro labels   */
+  --tracking-cta:   0.01em;        /* buttons — restrained, Inter is wide  */
+}
+
+/* =========================================================================
+   Base element styles — anything importing this file gets sensible defaults.
+   ========================================================================= */
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-base);
+  color: var(--fg-body);
+  background: var(--bg);
+}
+
+h1, h2, h3 {
+  font-family: var(--font-serif);   /* Playfair Display — editorial */
+  font-weight: 700;                 /* high-contrast editorial presence */
+  color: var(--fg);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--lh-tight);
+  margin: 0 0 0.6em;
+  text-wrap: balance;
+}
+
+h1 { font-size: var(--fs-h1); font-weight: 800; }
+h2 { font-size: var(--fs-h2); line-height: var(--lh-snug); font-weight: 700; }
+h3 { font-size: var(--fs-h3); line-height: var(--lh-snug); font-weight: 600; }
+h4 { font-size: var(--fs-h4); line-height: var(--lh-snug); font-family: var(--font-sans); font-weight: 600; letter-spacing: 0; color: var(--fg); margin: 0 0 0.5em; }
+
+.display { font-family: var(--font-serif); font-weight: 800; font-size: var(--fs-display); line-height: var(--lh-tight); letter-spacing: var(--tracking-tight); color: var(--fg); }
+
+/* Condensed — Barlow Condensed for covers, section openers, stats hero and  */
+/* large numbers. Uppercase, tight tracking, heavy weight.                   */
+.condensed {
+  font-family: var(--font-condensed);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.02;
+  color: var(--fg);
+}
+.cover-title { font-family: var(--font-condensed); font-weight: 800; text-transform: uppercase; letter-spacing: 0.02em; line-height: 0.98; color: var(--fg); }
+.stat-hero { font-family: var(--font-condensed); font-weight: 800; font-size: clamp(56px, 7vw, 96px); line-height: 0.95; letter-spacing: 0; color: var(--fg); }
+
+/* Functional heading — Source Sans 3 SemiBold, for dashboards, tables, UI  */
+.heading-ui {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  line-height: var(--lh-snug);
+  color: var(--fg);
+}
+
+/* Property / asset name — the editorial moment on a listing card.          */
+/* Playfair Display SemiBold, restrained: modest size, gentle negative       */
+/* tracking, tight leading. Always balanced against the Source Sans data.    */
+.asset-title {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  color: var(--fg);
+  margin: 0;
+  text-wrap: balance;
+}
+.asset-title--lg { font-size: 26px; }   /* hero / detail header only */
+
+/* Sub-heading inside a data-heavy card — keep these Source Sans 3, reserve   */
+/* Playfair for the single main asset name.                                  */
+.asset-subhead {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+  color: var(--fg-muted);
+  margin: 0;
+}
+
+p { margin: 0 0 1em; text-wrap: pretty; }
+.lead { font-size: var(--fs-lead); line-height: var(--lh-loose); color: var(--fg-body); }
+
+small, .small { font-size: var(--fs-small); }
+.micro { font-size: var(--fs-micro); letter-spacing: var(--tracking-wide); text-transform: uppercase; color: var(--fg-muted); }
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--brand-primary);
+}
+
+a {
+  color: var(--brand-link);
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+a:hover { color: var(--brand-link-hover); text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---------- Button — primary CTA pill (spec mandated) -------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: var(--tracking-cta);
+  padding: 14px 32px;
+  border-radius: var(--r-pill);          /* 100px */
+  background: var(--brand-primary);
+  color: var(--fg-on-dark);
+  border: 1px solid var(--brand-primary);
+  cursor: pointer;
+  transition: background var(--dur-base) var(--ease-out),
+              transform var(--dur-fast) var(--ease-out),
+              box-shadow var(--dur-base) var(--ease-out);
+  text-decoration: none;
+}
+.btn:hover  { background: var(--brand-primary-hover); border-color: var(--brand-primary-hover); color: #fff; text-decoration: none; box-shadow: var(--shadow-md); }
+.btn:active { background: var(--brand-primary-press); transform: translateY(1px); }
+.btn:focus-visible { outline: none; box-shadow: var(--shadow-focus); }
+
+.btn--ghost {
+  background: transparent;
+  color: var(--brand-primary);
+  border-color: var(--border-strong);
+}
+.btn--ghost:hover { background: var(--bg-tint); color: var(--brand-primary-hover); border-color: var(--brand-primary); }
+
+.btn--on-dark {
+  background: #fff;
+  color: var(--brand-dark-deep);
+  border-color: #fff;
+}
+.btn--on-dark:hover { background: var(--bg-tint); color: var(--brand-dark-deep); }
+
+.btn--lg { padding: 18px 40px; font-size: 16px; }
+.btn--sm { padding: 10px 22px; font-size: 13px; }
+
+/* ---------- Badge (pill, brand) ------------------------------------------ */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  border-radius: var(--r-pill);
+  background: rgba(4, 118, 217, 0.10);
+  color: var(--brand-primary);
+}
+.badge--solid { background: var(--brand-primary); color: #fff; }
+.badge--dark  { background: rgba(255,255,255,0.12); color: #fff; }
+
+/* ---------- Card --------------------------------------------------------- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--s-6);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out);
+}
+.card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
