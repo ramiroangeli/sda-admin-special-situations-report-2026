@@ -11,8 +11,10 @@ Pipeline
   2. Contents data is exported from the same pages.yaml (build_toc_data)  ->  build/contents.json
   3. Node (print/scripts/run-build.mjs) builds cover, Contents spread, air pages, back cover,
      converts the interior to CMYK and assembles the outputs:
-        05.outputs/digital/SDA-AdminSS-Report-2026_Complete.pdf            28 pp, A4 (digital / proof)
-        05.outputs/print/SDA-AdminSS-2026_*.pdf                            print artwork (PROVISIONAL)
+        05.outputs/digital/SDA_Admin_SS_Report_2026.pdf          28 pp, A4 (digital / proof)
+        05.outputs/print/cover/{Front_Cover,Back_Cover,Cover_Spread,Spine}.pdf
+        05.outputs/print/interior/Interior.pdf                   26 pp (print artwork, PROVISIONAL)
+        05.outputs/print/PREFLIGHT_PENDING.txt
   4. validate_release.py checks page count/order, folios, text, QR codes, dimensions.
 
 Generated files are never committed (see .gitignore). Print files are PROVISIONAL until the
@@ -35,6 +37,15 @@ DIGITAL = ROOT / "05.outputs" / "digital"
 PRINTOUT = ROOT / "05.outputs" / "print"
 
 sys.path.insert(0, str(HERE))
+
+# build-print.js file name -> deliverable path under 05.outputs/print/
+OUTPUT_MAP = {
+    "SDA-AdminSS-2026_Front-Cover_A4_3mm-bleed.pdf": "cover/Front_Cover.pdf",
+    "SDA-AdminSS-2026_Back-Cover_A4_3mm-bleed.pdf": "cover/Back_Cover.pdf",
+    "SDA-AdminSS-2026_Cover-Spread_420x297_3mm-bleed.pdf": "cover/Cover_Spread.pdf",
+    "SDA-AdminSS-2026_Spine_3mm_3mm-bleed.pdf": "cover/Spine.pdf",
+    "SDA-AdminSS-2026_Interior_Air-pages-Content.pdf": "interior/Interior.pdf",
+}
 
 
 def run(cmd, **kw):
@@ -73,11 +84,15 @@ def main():
     env = dict(os.environ, INTERIOR_PDF=str(interior), CONTENTS_JSON=str(contents), OUT_DIR=str(stage))
     run(["node", "scripts/run-build.mjs"], cwd=PRINT, env=env)
 
+    # Deliverables: rebuilt from scratch each run so no obsolete file names can linger.
+    for d in (DIGITAL, PRINTOUT):
+        shutil.rmtree(d, ignore_errors=True)
+    (PRINTOUT / "cover").mkdir(parents=True)
+    (PRINTOUT / "interior").mkdir(parents=True)
     DIGITAL.mkdir(parents=True, exist_ok=True)
-    PRINTOUT.mkdir(parents=True, exist_ok=True)
-    shutil.copyfile(stage / "SDA-AdminSS-Report-2026_Complete.pdf", DIGITAL / "SDA-AdminSS-Report-2026_Complete.pdf")
-    for f in (stage / "print").glob("*.pdf"):
-        shutil.copyfile(f, PRINTOUT / f.name)
+    shutil.copyfile(stage / "SDA-AdminSS-Report-2026_Complete.pdf", DIGITAL / "SDA_Admin_SS_Report_2026.pdf")
+    for src, dst in OUTPUT_MAP.items():
+        shutil.copyfile(stage / "print" / src, PRINTOUT / dst)
     (PRINTOUT / "PREFLIGHT_PENDING.txt").write_text(
         "PROVISIONAL PRINT ARTWORK - requires printer preflight approval.\n"
         "Pending confirmation: ICC/CMYK output profile (e.g. FOGRA39 / GRACoL), binding type and spine width.\n"
