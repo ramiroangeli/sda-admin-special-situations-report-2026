@@ -1,0 +1,179 @@
+#!/usr/bin/env python3
+"""
+validate_release.py - checks the generated v1.2 set (run automatically by build_release.py).
+
+Hard checks (exit code 1 on failure): page count and order, printed folios, interior text equals the
+WeasyPrint interior, dimensions / TrimBox / BleedBox, no RGB colour left, no em dash, QR codes decode to
+/report2026, provisional-print metadata present.
+
+Comparison checks (against the approved reference PDFs, when present under incoming/): rasterised
+per-page difference. Reported, with a tolerance; they do not fail the build when references are absent.
+"""
+import re
+import subprocess
+import sys
+import tempfile
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+PROD = HERE.parent
+ROOT = PROD.parent
+DIG = ROOT / "05.outputs" / "digital" / "SDA-AdminSS-Report-2026_Complete.pdf"
+PRN = ROOT / "05.outputs" / "print"
+INTERIOR = PROD / "out" / "release" / "interior.pdf"
+REF_DIR = ROOT / "incoming" / "claude-design-final-2026"
+REF_COMPLETE = REF_DIR / "SDA Administration & Special Situations Report - 2026.pdf"
+REF_PRINT = REF_DIR / "print"
+
+fails, notes = [], []
+
+
+def check(ok, msg):
+    print(("PASS  " if ok else "FAIL  ") + msg)
+    if not ok:
+        fails.append(msg)
+
+
+def sh(*a):
+    return subprocess.run(a, capture_output=True, text=True).stdout
+
+
+def pages(p):
+    m = re.search(r"Pages:\s+(\d+)", sh("pdfinfo", str(p)))
+    return int(m.group(1)) if m else 0
+
+
+def size(p, n=1):
+    m = re.search(r"Page\s+%d size:\s+([\d.]+) x ([\d.]+)" % n, sh("pdfinfo", "-f", str(n), "-l", str(n), str(p)))
+    return float(m.group(1)), float(m.group(2))
+
+
+def text(p, n):
+    return sh("pdftotext", "-f", str(n), "-l", str(n), "-layout", str(p), "-")
+
+
+def norm(t):
+    return re.sub(r"\s+", " ", t).strip()
+
+
+def raster(p, dpi, first=None, last=None):
+    d = Path(tempfile.mkdtemp())
+    cmd = ["pdftoppm", "-r", str(dpi), "-png"]
+    if first:
+        cmd += ["-f", str(first), "-l", str(last or first)]
+    subprocess.run(cmd + [str(p), str(d / "p")], check=True)
+    return sorted(d.glob("p-*.png"))
+
+
+def diff_ratio(a, b):
+    from PIL import Image, ImageChops
+    ia, ib = Image.open(a).convert("RGB"), Image.open(b).convert("RGB")
+    if ia.size != ib.size:
+        return 1.0
+    d = ImageChops.difference(ia, ib).convert("L").point(lambda v: 255 if v > 24 else 0)
+    return d.histogram()[255] / (ia.size[0] * ia.size[1])
+
+
+# ---------------------------------------------------------------- digital Complete
+print("== Digital edition")
+check(DIG.exists(), f"exists: {DIG.relative_to(ROOT)}")
+if not DIG.exists():
+    sys.exit(1)
+n = pages(DIG)
+check(n == 28, f"28 pages (found {n})")
+w, h = size(DIG)
+check(abs(w - 595.276) < 0.01 and abs(h - 841.89) < 0.01, f"A4 page size ({w} x {h})")
+
+# order: 1 front, 2 air1, 3 folio 2, 4-5 Contents, 6..26 folios 4..24, 27 air2, 28 back
+interior_n = pages(INTERIOR)
+check(interior_n == 24, f"interior engine output has 24 pages (found {interior_n})")
+expected = {3: 2}
+expected.update({p: p - 2 for p in range(6, 27)})   # physical 6 -> folio 4 ... 26 -> folio 24
+for phys, folio in expected.items():
+    t = norm(text(DIG, phys))
+    m = re.findall(r"(\d+)\s*$", t)
+    ok = bool(m) and int(m[-1]) == folio
+    if not ok:
+        check(False, f"page {phys}: printed folio {folio} (found {m[-1:] })")
+check(not [f for f in fails if f.startswith("page ")], "printed folios: p3=2, p4-5=Contents, p6..p26=4..24")
+mism = []
+for phys, folio in expected.items():
+    if norm(text(DIG, phys)) != norm(text(INTERIOR, folio)):
+        mism.append(phys)
+check(not mism, f"interior text identical to WeasyPrint output on pages 3, 6-26 (mismatches: {mism})")
+for phys in (1, 2, 4, 5, 27, 28):
+    if norm(text(DIG, phys)) not in ("",) and phys not in (1, 2, 27, 28):
+        pass
+art_text = {p: norm(text(DIG, p)) for p in (1, 2, 4, 5, 27, 28)}
+check(all(v == "" for v in art_text.values()), "cover, air, Contents and back pages are outlined artwork (no live text)")
+alltext = "".join(text(DIG, p) for p in range(1, 29))
+check("—" not in alltext, "no em dash (U+2014) in digital text")
+check("research@sdahomechoices.com.au" in alltext, "page 24 contact present")
+
+raw = DIG.read_bytes()
+check(b"DeviceRGB" not in raw, "no DeviceRGB left in digital PDF (CMYK conversion complete)")
+fonts = sh("pdffonts", str(DIG))
+print("      fonts:", ", ".join(sorted({l.split()[0].split("+")[-1] for l in fonts.splitlines()[2:] if l.strip()})))
+info = sh("pdfinfo", str(DIG))
+check("Title:" in info and "Specialist Disability Accommodation Administration" in info, "full approved title in metadata")
+
+# QR codes (physical pages 3 and 26)
+try:
+    import cv2
+    det = cv2.QRCodeDetector()
+    for phys in (3, 26):
+        img = raster(DIG, 200, phys)[0]
+        v, _, _ = det.detectAndDecode(cv2.imread(str(img)))
+        check(v == "https://sdahomechoices.com.au/report2026", f"QR on physical page {phys} decodes to {v or 'nothing'}")
+except ImportError:
+    notes.append("opencv not installed: QR decode skipped")
+
+# ---------------------------------------------------------------- print files
+print("== Print artwork (PROVISIONAL)")
+spec = {
+    "SDA-AdminSS-2026_Front-Cover_A4_3mm-bleed.pdf": (1, 668.977, 915.591),
+    "SDA-AdminSS-2026_Back-Cover_A4_3mm-bleed.pdf": (1, 668.977, 915.591),
+    "SDA-AdminSS-2026_Cover-Spread_420x297_3mm-bleed.pdf": (1, 1264.25, 915.591),
+    "SDA-AdminSS-2026_Spine_3mm_3mm-bleed.pdf": (1, 82.2047, 915.591),
+    "SDA-AdminSS-2026_Interior_Air-pages-Content.pdf": (26, 595.276, 841.89),
+}
+for name, (np_, pw, ph) in spec.items():
+    f = PRN / name
+    if not f.exists():
+        check(False, f"missing {name}")
+        continue
+    w, h = size(f)
+    ok = pages(f) == np_ and abs(w - pw) < 0.02 and abs(h - ph) < 0.02
+    check(ok, f"{name}: {pages(f)} pp, {w} x {h}")
+    if np_ == 1:
+        boxes = sh("pdfinfo", "-box", str(f))
+        check("TrimBox" in boxes and "BleedBox" in boxes, f"{name}: TrimBox/BleedBox set")
+    check(b"DeviceRGB" not in f.read_bytes(), f"{name}: no DeviceRGB")
+    check("PROVISIONAL" in sh("pdfinfo", str(f)) or "Digital" in sh("pdfinfo", str(f)), f"{name}: provisional/preflight note in metadata")
+check((PRN / "PREFLIGHT_PENDING.txt").exists(), "PREFLIGHT_PENDING.txt present")
+
+# ---------------------------------------------------------------- comparison with approved references
+print("== Comparison with approved reference PDFs")
+if REF_COMPLETE.exists():
+    a, b = raster(DIG, 70), raster(REF_COMPLETE, 70)
+    worst = 0.0
+    for i, (x, y) in enumerate(zip(a, b), 1):
+        r = diff_ratio(x, y)
+        worst = max(worst, r)
+        if r > 0.0005:
+            print(f"      page {i}: {r*100:.3f}% of pixels differ")
+    check(len(a) == len(b) == 28 and worst <= 0.0005, f"digital edition vs approved Complete PDF: worst page {worst*100:.4f}% pixels differ (tolerance 0.05%)")
+    for name in spec:
+        ref = REF_PRINT / name
+        gen = PRN / name
+        if ref.exists() and gen.exists():
+            ra, rb = raster(gen, 50), raster(ref, 50)
+            w = max(diff_ratio(x, y) for x, y in zip(ra, rb)) if ra and rb and len(ra) == len(rb) else 1.0
+            check(w <= 0.0005, f"{name} vs reference: worst page {w*100:.4f}% pixels differ")
+else:
+    notes.append("reference PDFs not found under incoming/: visual comparison skipped")
+
+for n_ in notes:
+    print("NOTE  " + n_)
+print("\nRESULT:", "FAILED" if fails else "ALL CHECKS PASSED")
+sys.exit(1 if fails else 0)
