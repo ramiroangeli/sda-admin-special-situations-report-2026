@@ -444,3 +444,5 @@ Final design reference adopted. Cover embedded as image asset; page 24 closing b
 ## v1.2 (in progress, branch integration/v1.2-print-pipeline)
 
 Integrated the Claude Design package: new cover, 2-page Contents, air pages, back cover and print artwork (Node, `03.production/print/`) around the unchanged WeasyPrint interior. Contents generated from `pages.yaml`; one build command (`scripts/build_release.py`) with validation; print outputs provisional pending printer preflight. No editorial or interior design changes.
+
+v1.2 deliverable layout: `05.outputs/digital/SDA_Admin_SS_Report_2026.pdf`, `05.outputs/print/cover/{Front_Cover,Back_Cover,Cover_Spread,Spine}.pdf`, `05.outputs/print/interior/Interior.pdf`; content of every file identical to the previously validated build.
