@@ -18,7 +18,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 PROD = HERE.parent
 ROOT = PROD.parent
-DIG = ROOT / "05.outputs" / "digital" / "SDA-AdminSS-Report-2026_Complete.pdf"
+DIG = ROOT / "05.outputs" / "digital" / "SDA_Admin_SS_Report_2026.pdf"
 PRN = ROOT / "05.outputs" / "print"
 INTERIOR = PROD / "out" / "release" / "interior.pdf"
 REF_DIR = ROOT / "incoming" / "claude-design-final-2026"
@@ -130,14 +130,15 @@ except ImportError:
 
 # ---------------------------------------------------------------- print files
 print("== Print artwork (PROVISIONAL)")
+# deliverable (relative to 05.outputs/print) -> (pages, width pt, height pt, reference file name)
 spec = {
-    "SDA-AdminSS-2026_Front-Cover_A4_3mm-bleed.pdf": (1, 668.977, 915.591),
-    "SDA-AdminSS-2026_Back-Cover_A4_3mm-bleed.pdf": (1, 668.977, 915.591),
-    "SDA-AdminSS-2026_Cover-Spread_420x297_3mm-bleed.pdf": (1, 1264.25, 915.591),
-    "SDA-AdminSS-2026_Spine_3mm_3mm-bleed.pdf": (1, 82.2047, 915.591),
-    "SDA-AdminSS-2026_Interior_Air-pages-Content.pdf": (26, 595.276, 841.89),
+    "cover/Front_Cover.pdf": (1, 668.977, 915.591, "SDA-AdminSS-2026_Front-Cover_A4_3mm-bleed.pdf"),
+    "cover/Back_Cover.pdf": (1, 668.977, 915.591, "SDA-AdminSS-2026_Back-Cover_A4_3mm-bleed.pdf"),
+    "cover/Cover_Spread.pdf": (1, 1264.25, 915.591, "SDA-AdminSS-2026_Cover-Spread_420x297_3mm-bleed.pdf"),
+    "cover/Spine.pdf": (1, 82.2047, 915.591, "SDA-AdminSS-2026_Spine_3mm_3mm-bleed.pdf"),
+    "interior/Interior.pdf": (26, 595.276, 841.89, "SDA-AdminSS-2026_Interior_Air-pages-Content.pdf"),
 }
-for name, (np_, pw, ph) in spec.items():
+for name, (np_, pw, ph, _ref) in spec.items():
     f = PRN / name
     if not f.exists():
         check(False, f"missing {name}")
@@ -149,7 +150,11 @@ for name, (np_, pw, ph) in spec.items():
         boxes = sh("pdfinfo", "-box", str(f))
         check("TrimBox" in boxes and "BleedBox" in boxes, f"{name}: TrimBox/BleedBox set")
     check(b"DeviceRGB" not in f.read_bytes(), f"{name}: no DeviceRGB")
-    check("PROVISIONAL" in sh("pdfinfo", str(f)) or "Digital" in sh("pdfinfo", str(f)), f"{name}: provisional/preflight note in metadata")
+    check("PROVISIONAL" in sh("pdfinfo", str(f)), f"{name}: provisional/preflight note in metadata")
+# deliverable layout: exactly the agreed files, no obsolete duplicates
+expected_files = {"digital/SDA_Admin_SS_Report_2026.pdf", "print/PREFLIGHT_PENDING.txt"} | {"print/" + k for k in spec}
+found = {str(p.relative_to(ROOT / "05.outputs")) for sub in ("digital", "print") for p in (ROOT / "05.outputs" / sub).rglob("*") if p.is_file()}
+check(found == expected_files, f"deliverables in 05.outputs/digital and print are exactly the agreed set (extra: {sorted(found - expected_files)}, missing: {sorted(expected_files - found)})")
 check((PRN / "PREFLIGHT_PENDING.txt").exists(), "PREFLIGHT_PENDING.txt present")
 
 # ---------------------------------------------------------------- comparison with approved references
@@ -163,8 +168,8 @@ if REF_COMPLETE.exists():
         if r > 0.0005:
             print(f"      page {i}: {r*100:.3f}% of pixels differ")
     check(len(a) == len(b) == 28 and worst <= 0.0005, f"digital edition vs approved Complete PDF: worst page {worst*100:.4f}% pixels differ (tolerance 0.05%)")
-    for name in spec:
-        ref = REF_PRINT / name
+    for name, (_n, _w, _h, refname) in spec.items():
+        ref = REF_PRINT / refname
         gen = PRN / name
         if ref.exists() and gen.exists():
             ra, rb = raster(gen, 50), raster(ref, 50)
