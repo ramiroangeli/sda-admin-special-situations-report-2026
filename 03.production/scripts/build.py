@@ -143,13 +143,23 @@ TOC_GROUPS = [
 ]
 
 
+# Typographic line breaks for the long section labels on the 2-page print Contents
+# (rendered by print/scripts/build-print.js). Display data only; the section names
+# themselves come from TOC_GROUPS. Labels not listed stay on one line.
+LABEL_BREAKS = {
+    "ENGAGE SPECIALIST": ["ENGAGE", "SPECIALIST"],
+    "COMMERCIAL VENDOR DUE DILIGENCE": ["COMMERCIAL VENDOR", "DUE DILIGENCE"],
+    "REMEDY / POSITION": ["REMEDY /", "POSITION"],
+}
+
+
 def build_toc_data(pages):
     pages_by_number = {p["page_number"]: p for p in pages}
     groups = []
     for name, numbers in TOC_GROUPS:
         rng = f"{numbers[0]:02d}" if len(numbers) == 1 else f"{numbers[0]:02d}–{numbers[-1]:02d}"
         entries = [{"number": n, "title": pages_by_number[n]["title"]} for n in numbers]
-        groups.append({"range": rng, "name": name, "entries": entries})
+        groups.append({"range": rng, "name": name, "label_lines": LABEL_BREAKS.get(name, [name]), "entries": entries})
     return {"groups": groups}
 
 
