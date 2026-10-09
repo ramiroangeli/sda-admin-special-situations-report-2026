@@ -440,3 +440,7 @@ previews, review PDF) are not versioned.
 
 Final design reference adopted. Cover embedded as image asset; page 24 closing block per reference (contact: research@sdahomechoices.com.au, QR, Steve Dawson name and phone); pages 20-21 navy bands inset to 14 mm margins; circa 46% on page 5; italic title on page 2. Copy otherwise unchanged. v1.0 untouched.
 - v1.1 housekeeping: generated PDFs remain in Git history up to v1.1 (tags v1.0, v1.1) and are no longer versioned after that commit.
+
+## v1.2 (in progress, branch integration/v1.2-print-pipeline)
+
+Integrated the Claude Design package: new cover, 2-page Contents, air pages, back cover and print artwork (Node, `03.production/print/`) around the unchanged WeasyPrint interior. Contents generated from `pages.yaml`; one build command (`scripts/build_release.py`) with validation; print outputs provisional pending printer preflight. No editorial or interior design changes.

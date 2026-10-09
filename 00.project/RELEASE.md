@@ -29,3 +29,17 @@ Supersedes v1.0 (tag sda-admin-special-situations-report-2026-v1.0, unchanged). 
 Output PDFs are not stored in the repository; the SHA-256 above identifies the released file.
 
 Any substantive change after this release must be versioned as v1.2 or later.
+
+
+---
+
+## v1.2 (integration of the Claude Design cover, Contents and print artwork)
+
+Status: RELEASE CANDIDATE. Not tagged. Awaiting Ramiro's review of the validated build.
+Branch: `integration/v1.2-print-pipeline`
+
+- 28-page digital edition and provisional print artwork built by one command: `python3 03.production/scripts/build_release.py`
+- Interior still generated from `pages.yaml` + templates (WeasyPrint); Contents data derived from the same source
+- v1.0 and v1.1 (tags, history, PDFs) unchanged
+- Print files are PROVISIONAL: ICC/CMYK profile and binding/spine pending printer preflight (see `03.production/print/README.md`)
+- SHA-256 of the v1.2 outputs to be recorded here when the release is finalised
