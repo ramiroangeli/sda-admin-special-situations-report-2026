@@ -13,14 +13,15 @@ Requirements: Python deps of `scripts/build.py` (WeasyPrint 68.1, PyYAML, Jinja2
 `pdftoppm`), Pillow; `opencv-python` for the QR check. `npm ci` runs automatically on first use (`print/package-lock.json`).
 No network access is needed at build time (fonts are local, in `print/fonts/`).
 
-Outputs (git-ignored, regenerable):
+Outputs (git-ignored, regenerable; rebuilt from scratch on every run, so no obsolete names linger):
 
 | Path | Content |
 |---|---|
-| `05.outputs/digital/SDA-AdminSS-Report-2026_Complete.pdf` | 28 pages, A4, digital / proof edition |
-| `05.outputs/print/SDA-AdminSS-2026_*.pdf` | front cover, back cover, 420x297 spread, 3 mm spine, 26-page interior; 3 mm bleed, crop marks, Trim/BleedBox |
+| `05.outputs/digital/SDA_Admin_SS_Report_2026.pdf` | complete 28-page report, A4, digital / proof edition |
+| `05.outputs/print/cover/Front_Cover.pdf`, `Back_Cover.pdf`, `Cover_Spread.pdf`, `Spine.pdf` | cover artwork: 3 mm bleed, crop marks, Trim/BleedBox |
+| `05.outputs/print/interior/Interior.pdf` | 26-page interior (complete report without front/back cover) |
 | `05.outputs/print/PREFLIGHT_PENDING.txt` | print status note |
-| `03.production/out/release/` | intermediates: `interior.pdf`, `contents.json`, `node-out/` |
+| `03.production/out/release/` | intermediates: `interior.pdf`, `contents.json`, `node-out/` (original approved file names) |
 
 The existing `05.outputs/public/` 24-page canonical PDF (v1.1) is untouched by this build.
 
