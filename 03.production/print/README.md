@@ -59,7 +59,8 @@ byte-reproducible; metadata Title of the Complete PDF is the full approved repor
 Open questions, to be answered by the printer before final print:
 1. ICC / CMYK output profile (e.g. FOGRA39, GRACoL). Current CMYK is hand-set values plus a 75% GCR formula; no ICC, no OutputIntent, not PDF/X.
 2. Binding type and spine width. The 3 mm solid-navy spine is a placeholder (saddle-stitched 28 pp has no printed spine).
-3. Whether the printer wants the 26-page interior or the 28-page Complete file, and their slug/crop-mark requirements.
+3. **Back-cover QR**: to be updated to the SDAHC Research hub `https://sdahomechoices.com.au/research/` once it is published (`data/back-cover.json`), then rebuild.
+4. Whether the printer wants the 26-page interior or the 28-page Complete file, and their slug/crop-mark requirements.
 
 ## Validation
 
