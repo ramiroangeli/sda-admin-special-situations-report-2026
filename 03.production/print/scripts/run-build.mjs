@@ -15,6 +15,7 @@ import { fileURLToPath } from 'node:url';
 import * as otNs from 'opentype.js';
 import * as plNs from 'pdf-lib';
 import * as pakoNs from 'pako';
+import qrcodeNs from 'qrcode-generator';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const need = (k) => { if (!process.env[k]) throw new Error(`${k} is not set (run via 03.production/scripts/build_release.py)`); return path.resolve(process.env[k]); };
@@ -42,5 +43,5 @@ const pako = pakoNs.inflate ? pakoNs : pakoNs.default;
 
 const src = await fsRead(path.join(root, 'scripts/build-print.js'), 'utf8');
 const AsyncFunction = Object.getPrototypeOf(async function () {}).constructor;
-await new AsyncFunction('readFile', 'readFileBinary', 'saveFile', 'log', 'ot', 'PL', 'pako', src)(readFile, readFileBinary, saveFile, log, ot, PL, pako);
+await new AsyncFunction('readFile', 'readFileBinary', 'saveFile', 'log', 'ot', 'PL', 'pako', 'qrcode', src)(readFile, readFileBinary, saveFile, log, ot, PL, pako, qrcodeNs);
 console.log(`Done. Output in ${outDir}`);

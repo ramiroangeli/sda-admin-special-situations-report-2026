@@ -1,4 +1,4 @@
-// Imports (opentype.js as `ot`, pdf-lib as `PL`, pako) are supplied by run-build.mjs.
+// Imports (qrcode as `qrcode`, opentype.js as `ot`, pdf-lib as `PL`, pako) are supplied by run-build.mjs.
 const {PDFDocument,rgb,cmyk,PDFRawStream,PDFName,PDFDict,LineCapStyle,LineJoinStyle,setLineJoin,pushGraphicsState,popGraphicsState,rectangle,clip,endPath}=PL;
 // Fonts: local TTFs (print/fonts/), read through readFileBinary. No network access.
 const urls={xb:'fonts/BarlowSemiCondensed-ExtraBold.ttf',sb:'fonts/BarlowSemiCondensed-SemiBold.ttf',md:'fonts/BarlowSemiCondensed-Medium.ttf',bd:'fonts/BarlowSemiCondensed-Bold.ttf',p6:'fonts/playfair-display_latin-600-normal.ttf',p6i:'fonts/playfair-display_latin-600-italic.ttf',p4i:'fonts/playfair-display_latin-400-italic.ttf',bs7:'fonts/big-shoulders-display_latin-700-normal.ttf',bs8:'fonts/big-shoulders-display_latin-800-normal.ttf'};
@@ -22,6 +22,22 @@ function logo(ox,oy,s,house,acc){return[
 function copyright(left,top,c){const cx=left+10.5,cy=top+10.5;const cw=W('bd','C',12.5,0);return[
  {t:'stroke',d:circ(cx,cy,9.65),c,w:1.7},T('bd','C',12.5,cx-cw/2,cy-6.25,1,0,c),T('bd','SDAHC RESEARCH',20,left+29,top+0.5,1,0.22,c)]}
 const chev=(a,b,c)=>[{t:'stroke',d:a,c,w:54},{t:'stroke',d:b,c,w:54}];
+// Back-cover contact area: QR (K-only vector modules on a white tile with a 4-module quiet zone),
+// website and phone. Content comes from data/back-cover.json.
+const BC=JSON.parse(await readFile('data/back-cover.json'));
+function qrOps(text,rightEdge,y,mod,quiet){const q=qrcode(0,'Q');q.addData(text);q.make();const n=q.getModuleCount(),size=(n+2*quiet)*mod,x=rightEdge-size;
+ const ops=[{t:'rect',x,y,w:size,h:size,c:'#FFFFFF'}];
+ for(let r=0;r<n;r++){let c=0;while(c<n){if(!q.isDark(r,c)){c++;continue}let e=c;while(e<n&&q.isDark(r,e))e++;ops.push({t:'rect',x:x+(quiet+c)*mod,y:y+(quiet+r)*mod,w:(e-c)*mod,h:mod,c:'#000000'});c=e}}
+ return{ops,size,modules:n}}
+// Layout: text block on the left margin (clear of the diagonal graphic), QR tile on the right margin.
+const QRB=qrOps(BC.qr_url,955,1160,4,4);
+const midY=1160+QRB.size/2;
+const contactBack=[
+ {t:'rect',x:95,y:1128,w:860,h:1,c:'#1B57A6'},
+ ...QRB.ops,
+ T('sb',BC.eyebrow,14,95,midY-52,1,0.22,'#8FB7D8'),
+ T('p6',BC.website,36,95,midY-30,1.1,-0.01,'#FFFFFF'),
+ T('md',BC.phone,22,95,midY+26,1,0.04,'#FFFFFF')];
 const back=[{t:'rect',x:-15,y:-15,w:1080,h:1515,c:'#06336B'},
  ...chev('M-130 1880 L1050 995 L2230 1880','M470 1790 L1050 1355 L1630 1790','#1B57A6'),
  ...['SDA','HOME','CHOICES'].map((s,i)=>T('xb',s,GHOST.size,GHOST.left,GHOST.top+i*GHOST.size*GHOST.lh,GHOST.lh,-0.01,GHOST.color)),
@@ -29,6 +45,7 @@ const back=[{t:'rect',x:-15,y:-15,w:1080,h:1515,c:'#06336B'},
  T('p6','An SDA appointment',76,95,315,1.1,-0.01,'#FFFFFF'),
  T('p6','is not one asset.',76,95,315+83.6,1.1,-0.01,'#FFFFFF'),
  T('p6i','It is two.',76,95,315+167.2,1.1,-0.01,'#8FB7D8'),
+ ...contactBack,
  ...copyright(95,1379,'#FFFFFF')];
 const badgeTw=W('md','SPECIALIST DISABILITY ACCOMMODATION',22,0.14);
 const crTw=W('bd','SDAHC RESEARCH',20,0.22);
