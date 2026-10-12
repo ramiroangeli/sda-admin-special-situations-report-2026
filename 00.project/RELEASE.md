@@ -46,12 +46,13 @@ Branch: `integration/v1.2-print-pipeline`
 
 | File | SHA-256 |
 |---|---|
-| `digital/SDA_Admin_SS_Report_2026.pdf` | `bb643b8c4dc7461afe300c577218b44b8d07ddc74040a5b9b818504051b932eb` |
-| `print/cover/Back_Cover.pdf` | `0ddaeb183d680a3ac1cbd2a88cbc2da89a050a8a7f24b652903cce89b604e1ab` |
-| `print/cover/Cover_Spread.pdf` | `a7b547533223c608e0849e7db18a3202320cd89ff255ab94d418a49f64d9f275` |
+| `digital/SDA_Admin_SS_Report_2026.pdf` | `a78e6056984922064abf10d168487ea517bcbff8f9f136f1f45176bd986300ed` |
+| `print/cover/Back_Cover.pdf` | `d49d82a3896e1f281ea6c3eb756b3284265806c66a5638333fac5b97e50bdc53` |
+| `print/cover/Cover_Spread.pdf` | `aca89728d5d22ad5ec3943bc3e68a07b9bc864b29b441ef6716ada51249b7df4` |
 | `print/cover/Front_Cover.pdf` | `16680144fdf2f5e49383f60671139cf95c0ede27f31664f69f8735f7ce616510` |
 | `print/cover/Spine.pdf` | `f33d57358d565f096e07b40b81c4956fed6bf4fc139a3f884e86e5560ecb8fcc` |
 | `print/interior/Interior.pdf` | `bbc11e090dde675d06bc2b1fde41131d07f0e3b56d37c97c14f647cf6627795f` |
 
 - Validated: 28 pages in the approved order, printed folios unchanged, QR codes decode to /report2026, 0.0000% pixel difference against the approved reference PDFs (checksums in `00.project/reference_artifacts.sha256`)
+- Back cover (final amendment): contact area added (tagged QR, sdahomechoices.com.au, 0408 550 441). Only the back cover and the files containing it (digital PDF, Back_Cover.pdf, Cover_Spread.pdf) changed; Front_Cover, Spine and Interior hashes are unchanged
 - Print status: PROVISIONAL, printer preflight pending (ICC/CMYK profile and binding/spine unconfirmed)
