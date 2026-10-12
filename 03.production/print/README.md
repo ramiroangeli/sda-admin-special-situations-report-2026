@@ -30,6 +30,13 @@ The existing `05.outputs/public/` 24-page canonical PDF (v1.1) is untouched by t
 1 front cover | 2 air page 1 | 3 folio 2 "Why SDA Is Different" | 4-5 Contents (spread) | 6-26 folios 4-24 | 27 air page 2 | 28 back cover.
 Printed folios are unchanged from v1.1 (they do not match physical pages; folio 3 does not exist).
 
+## Back-cover contact area
+
+Content (QR URL, eyebrow, website, phone) is in `print/data/back-cover.json`; layout in `build-print.js` (`contactBack`). The QR is generated at build
+time (`qrcode-generator` 1.4.4, error correction Q) and drawn as 100% K vector modules on a white tile with a 4-module quiet zone, so it prints from a
+single ink. The QR uses a tagged direct URL because `/report2026` redirects with a fixed campaign and drops extra parameters. If a short redirect for
+the Administration Report is created on the website later, change `qr_url` and rebuild.
+
 ## Single source of truth
 
 | Item | Source |
