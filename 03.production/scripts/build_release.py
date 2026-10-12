@@ -97,7 +97,9 @@ def main():
         "PROVISIONAL PRINT ARTWORK - requires printer preflight approval.\n"
         "Pending confirmation: ICC/CMYK output profile (e.g. FOGRA39 / GRACoL), binding type and spine width.\n"
         "CMYK values are hand-set/approximated (no ICC, no OutputIntent, not PDF/X).\n"
-        "The 3 mm spine is a provisional placeholder.\n", encoding="utf-8")
+        "The 3 mm spine is a provisional placeholder.\n"
+        "OUTSTANDING: the back-cover QR must be repointed to the SDAHC Research hub (https://sdahomechoices.com.au/research/)\n"
+        "once that page is published (print/data/back-cover.json), then rebuild and re-validate before sending to print.\n", encoding="utf-8")
     print(f"\nDigital: {DIGITAL}\nPrint:   {PRINTOUT}")
 
     if not args.no_validate:
