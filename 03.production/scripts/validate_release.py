@@ -9,6 +9,7 @@ WeasyPrint interior, dimensions / TrimBox / BleedBox, no RGB colour left, no em 
 Comparison checks (against the approved reference PDFs, when present under incoming/): rasterised
 per-page difference. Reported, with a tolerance; they do not fail the build when references are absent.
 """
+import json
 import re
 import subprocess
 import sys
@@ -24,6 +25,13 @@ INTERIOR = PROD / "out" / "release" / "interior.pdf"
 REF_DIR = ROOT / "incoming" / "claude-design-final-2026"
 REF_COMPLETE = REF_DIR / "SDA Administration & Special Situations Report - 2026.pdf"
 REF_PRINT = REF_DIR / "print"
+
+BACK_QR = json.loads((PROD / "print" / "data" / "back-cover.json").read_text())["qr_url"]
+# Back-cover contact band (design px 1120-1410 of 1485 on the trim): the only area allowed to differ
+# from the originally approved back cover.
+BAND = (1120 / 1485, 1410 / 1485)
+A4H = 841.89
+BLEED_OFF = 13 * 72 / 25.4  # slug + bleed offset (pt) on print files
 
 fails, notes = [], []
 
@@ -65,12 +73,18 @@ def raster(p, dpi, first=None, last=None):
     return sorted(d.glob("p-*.png"))
 
 
-def diff_ratio(a, b):
+def diff_ratio(a, b, band_off=None):
+    """Fraction of differing pixels. band_off: (page height pt, offset pt) -> ignore the back-cover contact band rows."""
     from PIL import Image, ImageChops
     ia, ib = Image.open(a).convert("RGB"), Image.open(b).convert("RGB")
     if ia.size != ib.size:
         return 1.0
     d = ImageChops.difference(ia, ib).convert("L").point(lambda v: 255 if v > 24 else 0)
+    if band_off:
+        H, off = band_off
+        y0 = int((off + BAND[0] * A4H) / H * ia.size[1])
+        y1 = int((off + BAND[1] * A4H) / H * ia.size[1])
+        d.paste(0, (0, y0, ia.size[0], y1))
     return d.histogram()[255] / (ia.size[0] * ia.size[1])
 
 
@@ -125,6 +139,11 @@ try:
         img = raster(DIG, 200, phys)[0]
         v, _, _ = det.detectAndDecode(cv2.imread(str(img)))
         check(v == "https://sdahomechoices.com.au/report2026", f"QR on physical page {phys} decodes to {v or 'nothing'}")
+    for label, f, pg in (("digital page 28", DIG, 28), ("Back_Cover.pdf", PRN / "cover" / "Back_Cover.pdf", 1), ("Cover_Spread.pdf", PRN / "cover" / "Cover_Spread.pdf", 1)):
+        if f.exists():
+            img = raster(f, 200, pg)[0]
+            v, _, _ = det.detectAndDecode(cv2.imread(str(img)))
+            check(v == BACK_QR, f"back-cover QR ({label}) decodes to the tagged URL ({v or 'nothing'})")
 except ImportError:
     notes.append("opencv not installed: QR decode skipped")
 
@@ -163,17 +182,18 @@ if REF_COMPLETE.exists():
     a, b = raster(DIG, 70), raster(REF_COMPLETE, 70)
     worst = 0.0
     for i, (x, y) in enumerate(zip(a, b), 1):
-        r = diff_ratio(x, y)
+        r = diff_ratio(x, y, (A4H, 0) if i == 28 else None)
         worst = max(worst, r)
         if r > 0.0005:
             print(f"      page {i}: {r*100:.3f}% of pixels differ")
-    check(len(a) == len(b) == 28 and worst <= 0.0005, f"digital edition vs approved Complete PDF: worst page {worst*100:.4f}% pixels differ (tolerance 0.05%)")
+    check(len(a) == len(b) == 28 and worst <= 0.0005, f"digital edition vs approved Complete PDF: worst page {worst*100:.4f}% pixels differ outside the back-cover contact band (tolerance 0.05%)")
     for name, (_n, _w, _h, refname) in spec.items():
         ref = REF_PRINT / refname
         gen = PRN / name
         if ref.exists() and gen.exists():
             ra, rb = raster(gen, 50), raster(ref, 50)
-            w = max(diff_ratio(x, y) for x, y in zip(ra, rb)) if ra and rb and len(ra) == len(rb) else 1.0
+            band = (915.591, BLEED_OFF) if name in ("cover/Back_Cover.pdf", "cover/Cover_Spread.pdf") else None
+            w = max(diff_ratio(x, y, band) for x, y in zip(ra, rb)) if ra and rb and len(ra) == len(rb) else 1.0
             check(w <= 0.0005, f"{name} vs reference: worst page {w*100:.4f}% pixels differ")
 else:
     notes.append("reference PDFs not found under incoming/: visual comparison skipped")
