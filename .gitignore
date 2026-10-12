@@ -38,3 +38,9 @@ __pycache__/
 # generated PDFs (all outputs, incl. review app copy)
 05.outputs/**/*.pdf
 04.review/app/public/report/
+
+# v1.2 integration
+03.production/video/
+05.outputs/
+incoming/
+03.production/print/node_modules/

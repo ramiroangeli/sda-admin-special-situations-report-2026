@@ -440,3 +440,16 @@ previews, review PDF) are not versioned.
 
 Final design reference adopted. Cover embedded as image asset; page 24 closing block per reference (contact: research@sdahomechoices.com.au, QR, Steve Dawson name and phone); pages 20-21 navy bands inset to 14 mm margins; circa 46% on page 5; italic title on page 2. Copy otherwise unchanged. v1.0 untouched.
 - v1.1 housekeeping: generated PDFs remain in Git history up to v1.1 (tags v1.0, v1.1) and are no longer versioned after that commit.
+
+## v1.2 (in progress, branch integration/v1.2-print-pipeline)
+
+Integrated the Claude Design package: new cover, 2-page Contents, air pages, back cover and print artwork (Node, `03.production/print/`) around the unchanged WeasyPrint interior. Contents generated from `pages.yaml`; one build command (`scripts/build_release.py`) with validation; print outputs provisional pending printer preflight. No editorial or interior design changes.
+
+v1.2 deliverable layout: `05.outputs/digital/SDA_Admin_SS_Report_2026.pdf`, `05.outputs/print/cover/{Front_Cover,Back_Cover,Cover_Spread,Spine}.pdf`, `05.outputs/print/interior/Interior.pdf`; content of every file identical to the previously validated build.
+
+v1.2 back-cover amendment: added a contact area (QR, sdahomechoices.com.au, 0408 550 441, "SCAN OR VISIT") to the back cover; the message, navy background and diagonals are unchanged. The QR points to `https://sdahomechoices.com.au/research/sda-market-report-2026/?utm_source=print&utm_medium=qr&utm_campaign=admin_report_back_cover` (the `/report2026` redirect discards extra parameters, so a direct tagged URL is used to tell back-cover scans apart from the page 2/24 QR codes). Data lives in `03.production/print/data/back-cover.json`; QR drawn as K-only vector modules with a 4-module quiet zone. Differences against the previous v1.2 build are confined to page 28 / Back_Cover / Cover_Spread.
+
+## v1.2 FINAL (12 October 2026)
+
+Merged to main and tagged `sda-admin-special-situations-report-2026-v1.2`. 05.outputs/ cleaned to the approved deliverables only (`digital/`, `print/cover/`, `print/interior/`, `PREFLIGHT_PENDING.txt`); the v1.1 public PDF, the review PDF and the previews were removed after confirming they rebuild byte-identically from source. `05.outputs/video/` (Remotion explainer renders) was kept because reproducibility was not confirmed.
+Outstanding: (1) update the back-cover QR to the SDAHC Research hub `https://sdahomechoices.com.au/research/` once it is published, then rebuild and re-register hashes; (2) ICC/CMYK profile; (3) binding/spine; (4) printer preflight approval. Print artwork is not printer-approved.

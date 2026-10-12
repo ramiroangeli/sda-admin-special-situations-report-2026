@@ -1,0 +1,7 @@
+{
+  "_note": "Back-cover contact area. qr_url is tagged (utm_campaign=admin_report_back_cover) so scans can be told apart from the page 2 / page 24 QR codes, which use the generic /report2026 redirect.",
+  "qr_url": "https://sdahomechoices.com.au/research/sda-market-report-2026/?utm_source=print&utm_medium=qr&utm_campaign=admin_report_back_cover",
+  "eyebrow": "SCAN OR VISIT",
+  "website": "sdahomechoices.com.au",
+  "phone": "0408 550 441"
+}

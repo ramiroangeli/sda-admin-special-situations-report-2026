@@ -138,3 +138,12 @@ builds (including the original cover A/B test and the fixed WeasyPrint
 `qa/` folder) and `../00.project/changelog.md` for the round-1 content and
 architecture changes layered on top of `v0.2` to produce the content this
 engine currently renders.
+
+## Full release build (v1.2): 28-page digital edition + print artwork
+
+```bash
+python3 03.production/scripts/build_release.py
+```
+
+Renders the interior with this engine, exports Contents data from `pages.yaml`, then runs the Node print step in `print/`
+(cover, Contents, air pages, back cover, CMYK, assembly) and validates the result. See `print/README.md`.
